@@ -68,6 +68,18 @@ const translations = {
     process_step_4: "Participation Agreement",
     process_step_5: "Production Contribution",
     process_step_6: "Scheduling & Recording",
+    process_detail_title_1: "Submit Application",
+    process_detail_desc_1: "Complete the online application form with your biography, professional milestones, and proposed conversation topics.",
+    process_detail_title_2: "Editorial Review",
+    process_detail_desc_2: "Our editorial team evaluates your profile, story uniqueness, and audience alignment.",
+    process_detail_title_3: "Approval Notification",
+    process_detail_desc_3: "Receive notification of selection and prepare for pre-interview coordination.",
+    process_detail_title_4: "Participation Agreement",
+    process_detail_desc_4: "Sign the guest agreement and release forms to finalize participation.",
+    process_detail_title_5: "Production Contribution",
+    process_detail_desc_5: "Complete the production contribution to support studio and editing operations.",
+    process_detail_title_6: "Scheduling & Recording",
+    process_detail_desc_6: "Schedule your recording slot and join us in the studio for your conversation.",
     
     standards_subtitle: "Quality Assurance",
     standards_title: "High Production Standards",
@@ -305,6 +317,18 @@ const translations = {
     process_step_4: "توقيع إقرار المشاركة",
     process_step_5: "استكمال المساهمة الإنتاجية",
     process_step_6: "تحديد موعد التصوير",
+    process_detail_title_1: "تعبئة استمارة الطلب",
+    process_detail_desc_1: "أدخلي بياناتك وسيرتك المهنية واقترحي محاور ومواضيع الحلقة الحوارية.",
+    process_detail_title_2: "المراجعة التحريرية",
+    process_detail_desc_2: "يقوم فريقنا بمراجعة طلبك بدقة وتقييم القيمة المضافة لجمهور البودكاست.",
+    process_detail_title_3: "إشعار القبول المبدئي",
+    process_detail_desc_3: "استلام إشعار بالقبول والتأكيد من لجنة الإعداد لبدء التنسيق للمقابلة.",
+    process_detail_title_4: "توقيع إقرار المشاركة",
+    process_detail_desc_4: "توقيع إقرارات المشاركة والتنازل الإعلامي وتصاريح النشر والتوزيع.",
+    process_detail_title_5: "استكمال المساهمة الإنتاجية",
+    process_detail_desc_5: "استكمال إجراءات المساهمة الإنتاجية لدعم تشغيل الاستوديو وعمليات المونتاج الفني.",
+    process_detail_title_6: "تحديد موعد التصوير",
+    process_detail_desc_6: "تنسيق موعد تسجيل الحلقة في الاستوديو وبدء التصوير والحوار.",
     
     standards_subtitle: "جودة الإنتاج",
     standards_title: "معايير الإنتاج الاحترافية لدينا",
@@ -882,64 +906,253 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Premium Testimonials Switcher Logic ---
+  // --- Premium Testimonials Switcher Logic (Updated with Auto-Cycle) ---
   const selectorBtns = document.querySelectorAll('.selector-btn');
   const activeQuote = document.getElementById('active-quote-text');
   const activeAuthor = document.getElementById('active-quote-author');
   const testimonialNumber = document.getElementById('testimonial-number');
   const testimonialProgressFill = document.getElementById('testimonial-progress-fill');
 
+  let activeTestimonialIndex = 0;
+  let testimonialTimer = null;
+
+  const switchTestimonial = (index) => {
+    if (selectorBtns.length === 0 || !activeQuote || !activeAuthor) return;
+
+    // Remove active class from all buttons
+    selectorBtns.forEach(b => b.classList.remove('active'));
+    
+    const btn = selectorBtns[index];
+    if (btn) btn.classList.add('active');
+
+    // Apply visual fade transition
+    activeQuote.style.opacity = '0';
+    activeQuote.style.transform = 'scale(0.98) translateY(10px)';
+    activeAuthor.style.opacity = '0';
+    if (testimonialNumber) {
+      testimonialNumber.style.opacity = '0';
+      testimonialNumber.style.transform = 'translateY(-10px) scale(0.95)';
+    }
+
+    setTimeout(() => {
+      const lang = currentLang || 'en';
+      
+      // Dynamically set translation i18n keys for generic translator sync
+      const textKey = `quote_${index + 1}_text`;
+      const authorKey = `quote_${index + 1}_author`;
+      
+      activeQuote.setAttribute('data-i18n', textKey);
+      activeAuthor.setAttribute('data-i18n', authorKey);
+
+      // Inject content
+      activeQuote.innerHTML = translations[lang][textKey] || '';
+      activeAuthor.innerHTML = translations[lang][authorKey] || '';
+      
+      // Update background number and progress fill track
+      if (testimonialNumber) {
+        testimonialNumber.textContent = String(index + 1).padStart(2, '0');
+      }
+      if (testimonialProgressFill) {
+        testimonialProgressFill.style.height = `${((index + 1) / selectorBtns.length) * 100}%`;
+      }
+
+      // Fade back in
+      activeQuote.style.opacity = '1';
+      activeQuote.style.transform = 'scale(1) translateY(0)';
+      activeAuthor.style.opacity = '1';
+      if (testimonialNumber) {
+        testimonialNumber.style.opacity = '0.03';
+        testimonialNumber.style.transform = 'translateY(0) scale(1)';
+      }
+    }, 220);
+  };
+
+  const startTestimonialTimer = () => {
+    if (selectorBtns.length > 0) {
+      testimonialTimer = setInterval(() => {
+        activeTestimonialIndex = (activeTestimonialIndex + 1) % selectorBtns.length;
+        switchTestimonial(activeTestimonialIndex);
+      }, 5000);
+    }
+  };
+
+  const resetTestimonialTimer = () => {
+    if (testimonialTimer) clearInterval(testimonialTimer);
+    startTestimonialTimer();
+  };
+
   if (selectorBtns.length > 0 && activeQuote && activeAuthor) {
     selectorBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const index = parseInt(btn.getAttribute('data-index'));
-        
-        // Remove active class from all buttons
-        selectorBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        // Apply visual fade transition
-        activeQuote.style.opacity = '0';
-        activeQuote.style.transform = 'scale(0.98) translateY(10px)';
-        activeAuthor.style.opacity = '0';
-        if (testimonialNumber) {
-          testimonialNumber.style.opacity = '0';
-          testimonialNumber.style.transform = 'translateY(-10px) scale(0.95)';
-        }
-
-        setTimeout(() => {
-          const lang = currentLang || 'en';
-          
-          // Dynamically set translation i18n keys for generic translator sync
-          const textKey = `quote_${index + 1}_text`;
-          const authorKey = `quote_${index + 1}_author`;
-          
-          activeQuote.setAttribute('data-i18n', textKey);
-          activeAuthor.setAttribute('data-i18n', authorKey);
-
-          // Inject content
-          activeQuote.innerHTML = translations[lang][textKey];
-          activeAuthor.innerHTML = translations[lang][authorKey];
-          
-          // Update background number and progress fill track
-          if (testimonialNumber) {
-            testimonialNumber.textContent = String(index + 1).padStart(2, '0');
-          }
-          if (testimonialProgressFill) {
-            testimonialProgressFill.style.height = `${((index + 1) / selectorBtns.length) * 100}%`;
-          }
-
-          // Fade back in
-          activeQuote.style.opacity = '1';
-          activeQuote.style.transform = 'scale(1) translateY(0)';
-          activeAuthor.style.opacity = '1';
-          if (testimonialNumber) {
-            testimonialNumber.style.opacity = '0.03';
-            testimonialNumber.style.transform = 'translateY(0) scale(1)';
-          }
-        }, 220);
+        activeTestimonialIndex = index;
+        switchTestimonial(index);
+        resetTestimonialTimer();
       });
     });
+    // Start initial timer
+    startTestimonialTimer();
+  }
+
+  // --- Interactive Selection Process Timeline ---
+  const processSteps = document.querySelectorAll('.process-step');
+  const progressFill = document.getElementById('timeline-progress-fill');
+  const detailTitle = document.getElementById('process-detail-title');
+  const detailDesc = document.getElementById('process-detail-desc');
+  const detailContent = document.getElementById('detail-panel-content');
+
+  if (processSteps.length > 0 && progressFill && detailTitle && detailDesc && detailContent) {
+    processSteps.forEach((step, idx) => {
+      step.addEventListener('click', () => {
+        // Calculate progress percentage: index 0 is 0%, index 5 is 100%
+        const percent = (idx / (processSteps.length - 1)) * 100;
+        progressFill.style.width = `${percent}%`;
+
+        // Update active/completed classes
+        processSteps.forEach((s, sIdx) => {
+          if (sIdx < idx) {
+            s.classList.add('completed');
+            s.classList.remove('active');
+          } else if (sIdx === idx) {
+            s.classList.add('active');
+            s.classList.remove('completed');
+          } else {
+            s.classList.remove('active', 'completed');
+          }
+        });
+
+        // Animate detail panel text swap
+        detailContent.classList.add('fade-out');
+
+        setTimeout(() => {
+          const stepNum = idx + 1;
+          const titleKey = `process_detail_title_${stepNum}`;
+          const descKey = `process_detail_desc_${stepNum}`;
+
+          detailTitle.setAttribute('data-i18n', titleKey);
+          detailDesc.setAttribute('data-i18n', descKey);
+
+          const lang = currentLang || 'en';
+          if (translations[lang]) {
+            detailTitle.textContent = translations[lang][titleKey] || '';
+            detailDesc.textContent = translations[lang][descKey] || '';
+          }
+
+          detailContent.classList.remove('fade-out');
+        }, 200);
+      });
+    });
+  }
+
+  // --- Episodes Marquee Ticker & Interaction Logic ---
+  const marqueeContainer = document.getElementById('episodes-marquee-container');
+  const marqueeGrid = document.getElementById('episodes-cards-grid');
+
+  if (marqueeContainer && marqueeGrid) {
+    // Duplicate children to ensure seamless infinite looping
+    const originalCards = Array.from(marqueeGrid.children);
+    originalCards.forEach(card => {
+      const clone = card.cloneNode(true);
+      marqueeGrid.appendChild(clone);
+    });
+
+    let isDown = false;
+    let startX;
+    let scrollLeftStart;
+    let isHovered = false;
+    let W = 0;
+
+    // Helper to calculate total original cards width
+    const updateWidth = () => {
+      W = marqueeGrid.scrollWidth / 2;
+    };
+
+    window.addEventListener('load', () => {
+      updateWidth();
+      // Initialize scroll position in the center
+      marqueeContainer.scrollLeft = W;
+    });
+
+    window.addEventListener('resize', updateWidth);
+    
+    // Drag-to-scroll event handlers
+    marqueeContainer.addEventListener('mousedown', (e) => {
+      isDown = true;
+      marqueeContainer.classList.add('active');
+      startX = e.pageX - marqueeContainer.offsetLeft;
+      scrollLeftStart = marqueeContainer.scrollLeft;
+      e.preventDefault(); // prevent images outline drag behavior
+    });
+
+    marqueeContainer.addEventListener('mouseleave', () => {
+      isDown = false;
+      marqueeContainer.classList.remove('active');
+      isHovered = false;
+    });
+
+    marqueeContainer.addEventListener('mouseup', () => {
+      isDown = false;
+      marqueeContainer.classList.remove('active');
+    });
+
+    marqueeContainer.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - marqueeContainer.offsetLeft;
+      const walk = (x - startX) * 1.5; // Drag scroll velocity modifier
+      marqueeContainer.scrollLeft = scrollLeftStart - walk;
+    });
+
+    // Touch events for mobile swiping
+    marqueeContainer.addEventListener('touchstart', (e) => {
+      isDown = true;
+      startX = e.touches[0].pageX - marqueeContainer.offsetLeft;
+      scrollLeftStart = marqueeContainer.scrollLeft;
+    });
+
+    marqueeContainer.addEventListener('touchend', () => {
+      isDown = false;
+    });
+
+    marqueeContainer.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX - marqueeContainer.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      marqueeContainer.scrollLeft = scrollLeftStart - walk;
+    });
+
+    // Hover to pause ticker
+    marqueeContainer.addEventListener('mouseenter', () => {
+      isHovered = true;
+    });
+
+    // Run slow loop animation (speed = 0.6px per frame, left-to-right means decrementing scrollLeft)
+    const marqueeSpeed = 0.6;
+    const tickerStep = () => {
+      // Lazy measure if W isn't loaded yet
+      if (W === 0) updateWidth();
+
+      if (W > 0) {
+        if (!isDown && !isHovered) {
+          marqueeContainer.scrollLeft -= marqueeSpeed;
+
+          // Wrap scroll position infinitely
+          if (marqueeContainer.scrollLeft <= 0) {
+            marqueeContainer.scrollLeft += W;
+          }
+        } else {
+          // Keep it bounded during interaction too
+          if (marqueeContainer.scrollLeft <= 0) {
+            marqueeContainer.scrollLeft += W;
+          } else if (marqueeContainer.scrollLeft >= W * 2) {
+            marqueeContainer.scrollLeft -= W;
+          }
+        }
+      }
+      requestAnimationFrame(tickerStep);
+    };
+
+    requestAnimationFrame(tickerStep);
   }
   // --- Spotlight hover effect for Show Cards ---
   const showCards = document.querySelectorAll('.show-card');
@@ -987,6 +1200,13 @@ function setLanguage(lang) {
   if (emailInput) {
     emailInput.setAttribute('aria-errormessage', 'email-err-msg');
   }
+
+  // Update episode card YouTube links based on language
+  document.querySelectorAll('.episode-card').forEach(card => {
+    card.href = lang === 'ar' 
+      ? 'https://www.youtube.com/@No2ta3alsater' 
+      : 'https://www.youtube.com/@betweenthelinesbyrania';
+  });
 }
 
 // --- Success Modal Controller ---

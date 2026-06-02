@@ -281,7 +281,7 @@ body.rtl .nav-link::after {
   color: var(--text-primary);
   font-size: 1.8rem;
   cursor: pointer;
-  z-index: 110;
+  z-index: 1110;
   transition: var(--transition-fast);
 }
 
@@ -294,7 +294,7 @@ body.rtl .nav-link::after {
   height: 100vh;
   background: rgba(5, 7, 18, 0.96);
   backdrop-filter: blur(20px);
-  z-index: 105;
+  z-index: 1100;
   border-left: 1px solid var(--border-glass);
   padding: 6rem 2rem calc(2rem + 75px);
   display: flex;
@@ -378,7 +378,7 @@ body.rtl .mobile-drawer.open {
   height: 100vh;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
-  z-index: 104;
+  z-index: 1095;
   opacity: 0;
   pointer-events: none;
   transition: var(--transition-fast);
@@ -780,22 +780,37 @@ body.rtl .production-standards .guest-criteria-item {
   position: relative;
 }
 
-.process-timeline::after {
-  content: '';
+.timeline-progress-line {
   position: absolute;
   top: 24px;
   left: 8%;
   width: 84%;
   height: 2px;
-  background: linear-gradient(90deg, rgba(0, 242, 254, 0.1) 0%, var(--accent-cobalt) 50%, rgba(0, 242, 254, 0.1) 100%);
-  box-shadow: 0 0 8px var(--accent-cobalt-glow);
+  background: rgba(255, 255, 255, 0.05);
   z-index: 0;
+}
+
+.timeline-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%; /* updated in JS */
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-teal) 0%, var(--accent-cobalt) 100%);
+  box-shadow: 0 0 12px var(--accent-teal);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.rtl .timeline-progress-fill {
+  left: auto;
+  right: 0;
 }
 
 .process-step {
   text-align: center;
   position: relative;
   z-index: 1;
+  cursor: pointer;
 }
 
 .step-num {
@@ -803,8 +818,8 @@ body.rtl .production-standards .guest-criteria-item {
   height: 48px;
   border-radius: 50%;
   background: #080b16;
-  border: 2px solid var(--border-glass-active);
-  color: var(--text-secondary);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-muted);
   font-family: var(--font-en-head);
   font-size: 1.15rem;
   font-weight: 700;
@@ -813,33 +828,91 @@ body.rtl .production-standards .guest-criteria-item {
   justify-content: center;
   margin: 0 auto 1.25rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  transition: var(--transition-smooth);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body.rtl .step-num {
   font-family: var(--font-ar-head);
 }
 
+/* Hover and active timeline states */
 .process-step:hover .step-num {
-  transform: scale(1.1);
+  transform: scale(1.08);
   border-color: var(--accent-teal);
   color: #ffffff;
   box-shadow: 0 0 20px rgba(0, 242, 254, 0.4), inset 0 0 8px rgba(0, 242, 254, 0.2);
   background: #0d1225;
 }
 
-/* Active timeline state indicators */
-.process-step:nth-child(-n+3) .step-num {
+.process-step.active .step-num {
+  border-color: var(--accent-teal);
+  color: #ffffff;
+  background: #080b16;
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.5), inset 0 0 8px rgba(0, 242, 254, 0.2);
+}
+
+.process-step.completed .step-num {
   border-color: var(--accent-cobalt);
   color: var(--accent-teal);
-  box-shadow: 0 0 15px rgba(76, 96, 255, 0.25);
+  background: #080b16;
+  box-shadow: 0 0 15px rgba(76, 96, 255, 0.3);
 }
 
 .step-text {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text-muted);
   line-height: 1.4;
+  transition: color 0.4s ease;
+}
+
+.process-step.active .step-text,
+.process-step.completed .step-text {
+  color: #ffffff;
+}
+
+/* --- Interactive Details Panel --- */
+.process-detail-panel {
+  margin-top: 3.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 2.5rem 3rem;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.detail-panel-content {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.detail-panel-content.fade-out {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.process-detail-panel h4 {
+  font-family: var(--font-en-head);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.8rem;
+}
+
+body.rtl .process-detail-panel h4 {
+  font-family: var(--font-ar-head);
+}
+
+.process-detail-panel p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 /* --- About Rania Section --- */
@@ -925,15 +998,40 @@ body.rtl .about-headline {
 }
 
 /* --- Podcast Episodes Showcase Section --- */
+.episodes-marquee-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  display: flex;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  cursor: grab;
+  position: relative;
+  width: 100%;
+}
+
+.episodes-marquee-container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.episodes-marquee-container:active {
+  cursor: grabbing;
+}
+
 .episodes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
   gap: 2rem;
+  width: max-content;
   margin-top: 3rem;
+  will-change: transform;
 }
 
 .episode-card {
   position: relative;
+  flex: 0 0 280px;
+  width: 280px;
   aspect-ratio: 3 / 4;
   border-radius: 16px;
   overflow: hidden;
@@ -1766,13 +1864,19 @@ body.rtl .success-summary {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
+  .guest-profile-content {
+    order: 1;
+  }
+  .guest-criteria-list {
+    order: 2;
+  }
   
   .process-timeline {
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
   }
   
-  .process-timeline::after {
+  .timeline-progress-line {
     display: none; /* remove timeline line on stack wrap */
   }
   
@@ -1821,9 +1925,7 @@ body.rtl .success-summary {
   }
   
   .episodes-grid {
-    grid-template-columns: 1fr;
-    max-width: 340px;
-    margin: 3rem auto 0;
+    margin-top: 2rem;
   }
   
   .form-card {
