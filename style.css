@@ -67,7 +67,7 @@ body {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M0 0h80v40H0z' fill='%2308090c'/%3E%3Cpath d='M0 20h80M40 0v20M0 20v20M80 20v20' stroke='%23141720' stroke-width='1.5'/%3E%3C/svg%3E");
   background-attachment: fixed;
   opacity: 1;
-  filter: blur(0);
+  filter: none;
   transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -207,7 +207,7 @@ header.scrolled {
 
 .brand-text {
   font-family: var(--font-en-head);
-  font-weight: 800;
+  font-weight: 600;
   font-size: 1.35rem;
   letter-spacing: -0.5px;
   color: #ffffff;
@@ -215,6 +215,7 @@ header.scrolled {
 
 body.rtl .brand-text {
   font-family: var(--font-ar-head);
+  font-weight: 600;
 }
 
 /* --- Desktop Nav --- */
@@ -262,6 +263,9 @@ body.rtl .nav-link::after {
 
 /* Header Button / Action */
 .nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(135deg, var(--accent-indigo) 0%, var(--accent-cobalt) 100%);
   color: #fff;
   border: none;
@@ -445,8 +449,8 @@ body.rtl .mobile-drawer.open {
   font-family: var(--font-en-head);
   font-size: 3.5rem;
   line-height: 1.1;
-  font-weight: 800;
-  letter-spacing: -1.5px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
   margin-bottom: 1.5rem;
   max-width: 600px;
 }
@@ -457,6 +461,7 @@ body.rtl .mobile-drawer.open {
 
 body.rtl .hero-title {
   font-family: var(--font-ar-head);
+  font-weight: 600;
   font-size: 2.8rem;
   letter-spacing: normal;
   line-height: 1.3;
@@ -531,12 +536,13 @@ section {
 .section-title {
   font-family: var(--font-en-head);
   font-size: 2.5rem;
-  font-weight: 800;
-  letter-spacing: -1px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
 }
 
 body.rtl .section-title {
   font-family: var(--font-ar-head);
+  font-weight: 600;
   font-size: 2.3rem;
   letter-spacing: normal;
 }
@@ -616,12 +622,13 @@ body.rtl .section-title {
 .show-title {
   font-family: var(--font-en-head);
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 500;
   margin-bottom: 1rem;
 }
 
 body.rtl .show-title {
   font-family: var(--font-ar-head);
+  font-weight: 600;
   font-size: 1.6rem;
 }
 
@@ -988,13 +995,14 @@ body.rtl .process-detail-panel h4 {
 .about-headline {
   font-family: var(--font-en-head);
   font-size: 2.2rem;
-  font-weight: 800;
+  font-weight: 500;
   margin-bottom: 1.5rem;
   line-height: 1.25;
 }
 
 body.rtl .about-headline {
   font-family: var(--font-ar-head);
+  font-weight: 600;
   font-size: 2rem;
 }
 
@@ -1539,7 +1547,7 @@ body.rtl .faq-question-btn {
 .cta-card-wrapper h2 {
   font-family: var(--font-en-head);
   font-size: 2.8rem;
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: -0.5px;
   margin-bottom: 1.2rem;
   color: #ffffff;
@@ -1547,6 +1555,7 @@ body.rtl .faq-question-btn {
 
 body.rtl .cta-card-wrapper h2 {
   font-family: var(--font-ar-head);
+  font-weight: 600;
   letter-spacing: normal;
 }
 
@@ -1773,12 +1782,13 @@ body.rtl .footer-brand-title svg text {
 .success-title {
   font-family: var(--font-en-head);
   font-size: 1.8rem;
-  font-weight: 800;
+  font-weight: 500;
   margin-bottom: 1rem;
 }
 
 body.rtl .success-title {
   font-family: var(--font-ar-head);
+  font-weight: 600;
 }
 
 .success-desc {
