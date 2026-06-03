@@ -1,2 +1,2 @@
 [run]
-build = "mkdir -p dist && cp -r public/. dist/ && cp dist/landing.html dist/index.html"
+build = "sh -c 'mkdir -p dist && cp -R public/. dist/ && cp dist/landing.html dist/index.html'"
