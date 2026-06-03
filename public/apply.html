@@ -11,10 +11,10 @@
   <meta name="author" content="The Next Chapter LLC">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/assets/logo.png">
+  <link rel="icon" type="image/png" href="assets/logo.png">
   
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="/style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -28,18 +28,18 @@
   <!-- Header Navigation -->
   <header id="main-header">
     <div class="container header-container">
-      <a href="/landing.html" class="logo-wrapper" id="header-logo-link">
-        <img src="/assets/logo.png" alt="No2ta 3al Sater Logo" class="logo-img" id="header-logo-img">
+      <a href="index.html" class="logo-wrapper" id="header-logo-link">
+        <img src="assets/logo.png" alt="No2ta 3al Sater Logo" class="logo-img" id="header-logo-img">
         <span class="brand-text" id="brand-logo-text" data-i18n="brand_logo_text">Between The Lines</span>
       </a>
       
       <!-- Desktop Navigation Menu -->
       <nav class="desktop-nav" aria-label="Main Navigation">
         <ul class="nav-menu">
-          <li><a class="nav-link" href="/landing.html#about" data-i18n="nav_about" id="nav-lnk-about">About Rania</a></li>
-          <li><a class="nav-link" href="/landing.html#shows" data-i18n="nav_shows" id="nav-lnk-shows">The Podcasts</a></li>
-          <li><a class="nav-link" href="/landing.html#process" data-i18n="nav_process" id="nav-lnk-process">Selection Process</a></li>
-          <li><a class="nav-cta" href="/apply.html" data-i18n="nav_apply" id="nav-lnk-apply">Apply Now</a></li>
+          <li><a class="nav-link" href="index.html#about" data-i18n="nav_about" id="nav-lnk-about">About Rania</a></li>
+          <li><a class="nav-link" href="index.html#shows" data-i18n="nav_shows" id="nav-lnk-shows">The Podcasts</a></li>
+          <li><a class="nav-link" href="index.html#process" data-i18n="nav_process" id="nav-lnk-process">Selection Process</a></li>
+          <li><a class="nav-cta" href="apply.html" data-i18n="nav_apply" id="nav-lnk-apply">Apply Now</a></li>
         </ul>
       </nav>
       
@@ -55,10 +55,10 @@
   <aside class="mobile-drawer" id="mobile-drawer" aria-label="Mobile Navigation">
     <nav class="mobile-nav" aria-label="Mobile menu links">
       <ul class="nav-menu">
-        <li><a class="nav-link" href="/landing.html#about" data-i18n="nav_about" id="mob-lnk-about">About Rania</a></li>
-        <li><a class="nav-link" href="/landing.html#shows" data-i18n="nav_shows" id="mob-lnk-shows">The Podcasts</a></li>
-        <li><a class="nav-link" href="/landing.html#process" data-i18n="nav_process" id="mob-lnk-process">Selection Process</a></li>
-        <li><a class="nav-link" href="/apply.html" data-i18n="nav_apply" style="color: var(--accent-teal); font-weight: 700;" id="mob-lnk-apply">Apply Now</a></li>
+        <li><a class="nav-link" href="index.html#about" data-i18n="nav_about" id="mob-lnk-about">About Rania</a></li>
+        <li><a class="nav-link" href="index.html#shows" data-i18n="nav_shows" id="mob-lnk-shows">The Podcasts</a></li>
+        <li><a class="nav-link" href="index.html#process" data-i18n="nav_process" id="mob-lnk-process">Selection Process</a></li>
+        <li><a class="nav-link" href="apply.html" data-i18n="nav_apply" style="color: var(--accent-teal); font-weight: 700;" id="mob-lnk-apply">Apply Now</a></li>
       </ul>
     </nav>
     
@@ -80,16 +80,6 @@
         <p style="color: var(--text-secondary); margin-top: 1rem;" data-i18n="form_desc" id="form-section-desc">Please complete the application details below. Every field helps our editorial team evaluate the fit and prepare for the pre-interview research.</p>
       </div>
       
-      <!-- Tab Toggle Buttons -->
-      <div class="form-toggle-tabs">
-        <button type="button" class="form-toggle-btn active" id="btn-toggle-guest" data-form="guest">
-          <span data-i18n="tab_apply_guest">Apply as Guest</span>
-        </button>
-        <button type="button" class="form-toggle-btn" id="btn-toggle-sponsor" data-form="sponsor">
-          <span data-i18n="tab_become_sponsor">Become a Sponsor</span>
-        </button>
-      </div>
-
       <!-- Guest Application Glass Card -->
       <div class="form-card" id="application-form-card">
         <form id="apply-form" novalidate>
@@ -447,178 +437,6 @@
           </div>
           
         </form>
-
-        <!-- Sponsor Inquiry Form -->
-        <form id="sponsor-form" style="display: none;" novalidate>
-          
-          <!-- PART 1: Company & Contact Information -->
-          <div class="form-section-header">
-            <h3 data-i18n="sec_sponsor_info">1. Company & Contact Information</h3>
-          </div>
-          
-          <div class="form-grid">
-            <!-- Company / Organisation Name -->
-            <div class="form-group" id="grp-sponsor-company">
-              <label for="form-sponsor-company" class="form-label">
-                <span data-i18n="lbl_company_name">Company Name</span>
-              </label>
-              <input type="text" id="form-sponsor-company" name="companyname" required data-i18n-placeholder="ph_company_name" placeholder="Enter company or brand name" class="form-input">
-              <span class="field-error-msg" data-i18n="err_company_name" id="err-msg-sponsor-company">Company name is required.</span>
-            </div>
-            
-            <!-- Contact Person Name -->
-            <div class="form-group" id="grp-sponsor-contact">
-              <label for="form-sponsor-contact" class="form-label">
-                <span data-i18n="lbl_contact_name">Contact Person</span>
-              </label>
-              <input type="text" id="form-sponsor-contact" name="contactname" required data-i18n-placeholder="ph_contact_name" placeholder="Enter your full name" class="form-input">
-              <span class="field-error-msg" data-i18n="err_contact_name" id="err-msg-sponsor-contact">Contact person name is required.</span>
-            </div>
-            
-            <!-- Position / Title -->
-            <div class="form-group" id="grp-sponsor-title">
-              <label for="form-sponsor-title" class="form-label">
-                <span data-i18n="lbl_contact_title">Position / Title</span>
-              </label>
-              <input type="text" id="form-sponsor-title" name="contacttitle" required data-i18n-placeholder="ph_contact_title" placeholder="e.g., Marketing Director, CEO" class="form-input">
-              <span class="field-error-msg" data-i18n="err_contact_title" id="err-msg-sponsor-title">Position/Title is required.</span>
-            </div>
-            
-            <!-- Email Address -->
-            <div class="form-group" id="grp-sponsor-email">
-              <label for="form-sponsor-email" class="form-label">
-                <span data-i18n="lbl_email">Email Address</span>
-              </label>
-              <input type="email" id="form-sponsor-email" name="email" required autocomplete="email" data-i18n-placeholder="ph_email" placeholder="e.g., name@domain.com" class="form-input">
-              <span class="field-error-msg" data-i18n="err_email" id="sponsor-email-err-msg">Please enter a valid email address.</span>
-            </div>
-            
-            <!-- Mobile Number -->
-            <div class="form-group" id="grp-sponsor-mobile">
-              <label for="form-sponsor-phone-number" class="form-label">
-                <span data-i18n="lbl_mobile">Mobile Number</span>
-              </label>
-              <div class="phone-input-container">
-                <select class="country-select" id="sponsor-country-select" aria-label="Select Country Code">
-                  <option value="ae" selected>UAE</option>
-                  <option value="sa">KSA</option>
-                  <option value="qa">Qatar</option>
-                  <option value="kw">Kuwait</option>
-                  <option value="uk">UK</option>
-                  <option value="intl">Intl</option>
-                </select>
-                <input type="text" id="sponsor-phone-prefix" class="form-input" style="width: 80px; text-align: center; border-right: none; border-radius: 12px 0 0 12px; pointer-events: none; background: rgba(255,255,255,0.01);" value="+971" readonly aria-label="Phone Prefix">
-                <input type="tel" id="form-sponsor-phone-number" name="phone" required pattern="[0-9]{7,12}" data-i18n-placeholder="ph_mobile" placeholder="50 123 4567" class="form-input" style="border-radius: 0 12px 12px 0;">
-              </div>
-              <span class="field-error-msg" data-i18n="err_mobile" id="err-msg-sponsor-mobile">Please enter a valid mobile phone number.</span>
-            </div>
-            
-            <!-- Website URL -->
-            <div class="form-group" id="grp-sponsor-website">
-              <label for="form-sponsor-website" class="form-label">
-                <span data-i18n="lbl_website">Website URL</span>
-              </label>
-              <input type="url" id="form-sponsor-website" name="website" data-i18n-placeholder="ph_website" placeholder="e.g., www.company.com" class="form-input">
-            </div>
-          </div>
-          
-          <!-- PART 2: Sponsorship Details -->
-          <div class="form-section-header">
-            <h3 data-i18n="sec_sponsorship_details">2. Sponsorship Details</h3>
-          </div>
-          
-          <div class="form-grid">
-            <!-- Sponsorship Tier select -->
-            <div class="form-group" id="grp-sponsor-tier">
-              <label for="form-sponsor-tier" class="form-label">
-                <span data-i18n="lbl_sponsor_tier">Sponsorship Tier of Interest</span>
-              </label>
-              <select id="form-sponsor-tier" name="sponsortier" required class="form-input form-select">
-                <option value="" disabled selected data-i18n="ph_sponsor_tier">Select a sponsorship tier</option>
-                <option value="Title" data-i18n="opt_tier_title">Title Sponsor (Exclusive)</option>
-                <option value="Episode" data-i18n="opt_tier_episode">Episode Sponsor</option>
-                <option value="Segment" data-i18n="opt_tier_segment">Segment Sponsor</option>
-                <option value="Partner" data-i18n="opt_tier_general">General Partner</option>
-              </select>
-              <span class="field-error-msg" data-i18n="err_sponsor_tier" id="err-msg-sponsor-tier">Please select a sponsorship tier.</span>
-            </div>
-            
-            <!-- Target Podcast select -->
-            <div class="form-group" id="grp-sponsor-target">
-              <label for="form-sponsor-target" class="form-label">
-                <span data-i18n="lbl_target_podcast">Target Podcast</span>
-              </label>
-              <select id="form-sponsor-target" name="targetpodcast" required class="form-input form-select">
-                <option value="both" selected data-i18n="opt_target_both">Both Podcasts (Arabic & English)</option>
-                <option value="nos" data-i18n="opt_target_nos">No2ta 3al Sater (Arabic)</option>
-                <option value="btl" data-i18n="opt_target_btl">Between The Lines (English)</option>
-              </select>
-            </div>
-            
-            <!-- Estimated Budget Range select -->
-            <div class="form-group" id="grp-sponsor-budget">
-              <label for="form-sponsor-budget" class="form-label">
-                <span data-i18n="lbl_budget_range">Estimated Budget Range</span>
-              </label>
-              <select id="form-sponsor-budget" name="budgetrange" class="form-input form-select">
-                <option value="under_5k" selected data-i18n="opt_budget_under_5k">Under $5,000</option>
-                <option value="5k_10k" data-i18n="opt_budget_5k_10k">$5,000 - $10,000</option>
-                <option value="10k_25k" data-i18n="opt_budget_10k_25k">$10,000 - $25,000</option>
-                <option value="over_25k" data-i18n="opt_budget_over_25k">Above $25,000</option>
-              </select>
-            </div>
-            
-            <!-- Partnership & Marketing Goals textarea -->
-            <div class="form-group form-group-full" id="grp-sponsor-goals">
-              <label for="form-sponsor-goals" class="form-label">
-                <span data-i18n="lbl_sponsor_goals">Partnership & Marketing Goals</span>
-              </label>
-              <textarea id="form-sponsor-goals" name="sponsorgoals" required data-i18n-placeholder="ph_sponsor_goals" placeholder="Describe your primary objectives and what you hope to achieve through this partnership..." class="form-textarea" style="min-height: 120px;"></textarea>
-              <span class="field-error-msg" data-i18n="err_sponsor_goals" id="err-msg-sponsor-goals">This field is required.</span>
-            </div>
-          </div>
-          
-          <!-- PART 3: Partnership Agreement & Consent -->
-          <div class="form-section-header">
-            <h3 data-i18n="sec_sponsor_agreement">3. Partnership Agreement & Consent</h3>
-          </div>
-          
-          <div class="agreement-wrapper">
-            <!-- Sponsor Agreement Text -->
-            <div class="agreement-text-box" style="height: auto; max-height: 150px; overflow-y: auto; padding: 1.5rem; border: 1px solid var(--border-glass); border-radius: 12px; background: rgba(0,0,0,0.1); font-size: 0.9rem; line-height: 1.6;">
-              <p data-i18n="sponsor_agreement_text">I confirm that I am authorized to submit this sponsorship inquiry on behalf of the company listed above. I understand that submitting this inquiry does not constitute a binding sponsorship agreement, and that partnership terms are subject to mutual contract execution.</p>
-            </div>
-            
-            <!-- Checkbox agreement -->
-            <div class="agreement-check-wrapper" style="margin-top: 1.5rem;">
-              <input type="checkbox" id="form-sponsor-agreement-check" required>
-              <label for="form-sponsor-agreement-check" class="agreement-check-label" id="sponsor-agreement-check-label" data-i18n="lbl_sponsor_agree_check" style="cursor: pointer; opacity: 1;">I have read, understood, and agreed to the sponsorship terms.</label>
-            </div>
-            
-            <!-- Signature details inputs -->
-            <div class="form-grid" style="margin-top: 1.5rem;">
-              <div class="form-group">
-                <label for="form-sponsor-sig-name" class="form-label"><span data-i18n="lbl_sig_name">Full Name Signature</span></label>
-                <input type="text" id="form-sponsor-sig-name" name="sponsorsignature" required data-i18n-placeholder="ph_sig_name" placeholder="Type your full name to sign" class="form-input">
-                <span class="field-error-msg" data-i18n="err_sig_name" id="sponsor-sig-error-msg">Signature is required and must match your full name.</span>
-              </div>
-              <div class="form-group">
-                <label for="form-sponsor-sig-date" class="form-label"><span data-i18n="lbl_sig_date">Date</span></label>
-                <input type="date" id="form-sponsor-sig-date" name="sponsorsigdate" required class="form-input" value="2026-06-02">
-                <span class="field-error-msg" data-i18n="err_sig_date" id="sponsor-sig-date-error">Date is required.</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Submit Button -->
-          <div class="form-submit-wrapper">
-            <button type="submit" class="btn-primary" id="sponsor-submit-btn">
-              <span id="sponsor-submit-spinner" class="spinner"></span>
-              <span id="sponsor-submit-btn-text" data-i18n="btn_submit_sponsor">Submit Sponsor Inquiry</span>
-            </button>
-          </div>
-          
-        </form>
       </div>
     </div>
   </section>
@@ -628,14 +446,10 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-info">
-          <a href="/landing.html" class="logo-wrapper" style="margin-bottom: 0.5rem;" id="footer-logo-link">
+          <a href="index.html" class="logo-wrapper" style="margin-bottom: 0.5rem;" id="footer-logo-link">
             <span class="brand-text" style="font-size: 1.2rem;" id="footer-logo-text" data-i18n="brand_logo_text">Between The Lines</span>
           </a>
           <p style="max-width: 380px; font-size: 0.85rem;" data-i18n="shows_desc">Our podcasts are carefully curated to ensure that every conversation delivers value, insight, inspiration, and meaningful discussion for our audience across the Middle East and beyond.</p>
-          <div class="footer-links-inline" style="display: flex; gap: 1.5rem; margin-top: 0.5rem;">
-            <a href="apply.html#guest" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: var(--transition-fast);" data-i18n="tab_apply_guest">Apply as Guest</a>
-            <a href="apply.html#sponsor" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: var(--transition-fast);" data-i18n="tab_become_sponsor">Become a Sponsor</a>
-          </div>
         </div>
         
         <!-- Social Connections column -->
@@ -750,6 +564,7 @@
   </button>
 
   <!-- Scripts Connection -->
-  <script src="/app.js?v=2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
