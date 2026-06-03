@@ -1487,40 +1487,7 @@ function showSuccessModal(data) {
   }
 }
 
-// --- Scroll reveal intersection observer ---
-const observer = new IntersectionObserver(
-  (entries) => {
-    for (const entry of entries) {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-        entry.target.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-        observer.unobserve(entry.target);
-      }
-    }
-  },
-  {
-    threshold: 0.05,
-  }
-);
-
-document.addEventListener('DOMContentLoaded', () => {
-  // Check if inside iframe to skip scroll reveal hides (prevents empty sections in iframe scroll wrappers)
-  let isInsideIframe = false;
-  try {
-    isInsideIframe = window.self !== window.top;
-  } catch (e) {
-    isInsideIframe = true;
-  }
-
-  if (!isInsideIframe) {
-    document.querySelectorAll('.scroll-reveal').forEach((el) => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(40px)';
-      observer.observe(el);
-    });
-  }
-});
+// --- Scroll reveal disabled to ensure maximum reliability and prevent blank screens on scroll ---
 
 // ==========================================================================
 // DYNAMIC DATABASE & AUDIO PLAYER COUPLING LOGIC (CMS PERSISTENCE)
