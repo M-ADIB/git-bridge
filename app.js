@@ -1487,31 +1487,30 @@ function showSuccessModal(data) {
   }
 }
 
-// --- CSS supports fallback view() intersection details ---
-if (!CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-          entry.target.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-        }
+// --- Scroll reveal intersection observer ---
+const observer = new IntersectionObserver(
+  (entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        entry.target.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+        observer.unobserve(entry.target);
       }
-    },
-    {
-      threshold: 0.1,
     }
-  );
+  },
+  {
+    threshold: 0.1,
+  }
+);
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.scroll-reveal').forEach((el) => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(40px)';
-      observer.observe(el);
-    });
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.scroll-reveal').forEach((el) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(40px)';
+    observer.observe(el);
   });
-}
+});
 
 // ==========================================================================
 // DYNAMIC DATABASE & AUDIO PLAYER COUPLING LOGIC (CMS PERSISTENCE)
@@ -1560,115 +1559,115 @@ function renderLatestEpisode(data) {
   const epDesc = document.getElementById('latest-ep-desc');
   const epMeta = document.getElementById('latest-ep-meta');
 
-  if (!visualContainer || !epName || !epDesc || !epMeta) return;
-
   const trackTitle = currentLang === 'ar' ? (data.title_ar || data.title_en) : (data.title_en || data.title_ar);
   const trackDesc = currentLang === 'ar' ? (data.description_ar || data.description_en) : (data.description_en || data.description_ar);
 
-  // Set titles and description
-  epName.textContent = trackTitle || 'Latest Episode';
-  epDesc.textContent = trackDesc || '';
+  // Set titles and description if spotlight elements exist
+  if (epName) epName.textContent = trackTitle || 'Latest Episode';
+  if (epDesc) epDesc.textContent = trackDesc || '';
 
-  // Render visual content based on type
-  if (data.type === 'youtube') {
-    const videoId = getYouTubeId(data.youtube_url);
-    if (videoId) {
-      visualContainer.innerHTML = `
-        <button class="latest-ep-cover-btn" id="latest-ep-youtube-play">
-          <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" class="latest-ep-cover-img" alt="Episode Thumbnail" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${videoId}/mqdefault.jpg';">
-          <div class="latest-ep-overlay">
-            <div class="latest-ep-play-btn-visual">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 19 12 8 19 8 5" fill="#ffffff"></polygon></svg>
+  // Render visual content based on type if spotlight elements exist
+  if (visualContainer && epMeta) {
+    if (data.type === 'youtube') {
+      const videoId = getYouTubeId(data.youtube_url);
+      if (videoId) {
+        visualContainer.innerHTML = `
+          <button class="latest-ep-cover-btn" id="latest-ep-youtube-play">
+            <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" class="latest-ep-cover-img" alt="Episode Thumbnail" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${videoId}/mqdefault.jpg';">
+            <div class="latest-ep-overlay">
+              <div class="latest-ep-play-btn-visual">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 19 12 8 19 8 5" fill="#ffffff"></polygon></svg>
+              </div>
             </div>
-          </div>
-        </button>
-      `;
+          </button>
+        `;
 
-      // Wire play button to embed iframe inline
-      const playBtnVisual = document.getElementById('latest-ep-youtube-play');
-      if (playBtnVisual) {
-        playBtnVisual.addEventListener('click', () => {
-          visualContainer.innerHTML = `
-            <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          `;
-        });
+        // Wire play button to embed iframe inline
+        const playBtnVisual = document.getElementById('latest-ep-youtube-play');
+        if (playBtnVisual) {
+          playBtnVisual.addEventListener('click', () => {
+            visualContainer.innerHTML = `
+              <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            `;
+          });
+        }
+      } else {
+        visualContainer.innerHTML = `
+          <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);">
+            No valid YouTube video ID found.
+          </div>
+        `;
       }
-    } else {
+      epMeta.style.display = 'none';
+    } else if (data.type === 'audio') {
+      // Show Audio player card in visualContainer
       visualContainer.innerHTML = `
-        <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);">
-          No valid YouTube video ID found.
-        </div>
-      `;
-    }
-    epMeta.style.display = 'none';
-  } else if (data.type === 'audio') {
-    // Show Audio player card in visualContainer
-    visualContainer.innerHTML = `
-      <div class="latest-ep-card-loading" style="background:url('assets/rania_hero.png') no-repeat center center; background-size:cover; border-radius:20px;">
-        <div class="latest-ep-overlay" style="background:rgba(4,6,15,0.75); width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
-          <div class="latest-ep-audio-player-card" style="max-width:85%; background:rgba(13,20,43,0.85); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(10px); padding: 1.5rem; border-radius:16px;">
-            <div class="latest-ep-audio-row" style="display:flex; align-items:center; gap:1.25rem;">
-              <button class="latest-ep-audio-btn" id="spotlight-audio-play-btn" style="width:52px; height:52px; border-radius:50%; background:var(--accent-cobalt); border:none; color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:var(--transition-fast);">
-                <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:24px; height:24px;"><polygon points="8 5 19 12 8 19 8 5"></polygon></svg>
-                <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:24px; height:24px; display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-              </button>
-              <div class="latest-ep-audio-info" style="display:flex; flex-direction:column; gap:0.25rem; text-align:left;">
-                <span class="latest-ep-audio-track" style="font-weight:700; color:#fff; font-size:0.95rem; display:block;">${trackTitle}</span>
-                <span class="latest-ep-audio-artist" style="color:var(--text-muted); font-size:0.8rem;">Hosted by Rania Barghout</span>
+        <div class="latest-ep-card-loading" style="background:url('assets/rania_hero.png') no-repeat center center; background-size:cover; border-radius:20px;">
+          <div class="latest-ep-overlay" style="background:rgba(4,6,15,0.75); width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+            <div class="latest-ep-audio-player-card" style="max-width:85%; background:rgba(13,20,43,0.85); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(10px); padding: 1.5rem; border-radius:16px;">
+              <div class="latest-ep-audio-row" style="display:flex; align-items:center; gap:1.25rem;">
+                <button class="latest-ep-audio-btn" id="spotlight-audio-play-btn" style="width:52px; height:52px; border-radius:50%; background:var(--accent-cobalt); border:none; color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:var(--transition-fast);">
+                  <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:24px; height:24px;"><polygon points="8 5 19 12 8 19 8 5"></polygon></svg>
+                  <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:24px; height:24px; display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                </button>
+                <div class="latest-ep-audio-info" style="display:flex; flex-direction:column; gap:0.25rem; text-align:left;">
+                  <span class="latest-ep-audio-track" style="font-weight:700; color:#fff; font-size:0.95rem; display:block;">${trackTitle}</span>
+                  <span class="latest-ep-audio-artist" style="color:var(--text-muted); font-size:0.8rem;">Hosted by Rania Barghout</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    `;
+      `;
 
-    // Wire Spotlight play button click to control bottom player
-    const spotlightAudioPlayBtn = document.getElementById('spotlight-audio-play-btn');
-    if (spotlightAudioPlayBtn) {
-      // Sync initial state
-      spotlightAudioPlayBtn.classList.toggle('playing', window.isPlaying || false);
-      const playIconSvg = spotlightAudioPlayBtn.querySelector('.play-icon');
-      const pauseIconSvg = spotlightAudioPlayBtn.querySelector('.pause-icon');
-      if (playIconSvg && pauseIconSvg) {
-        playIconSvg.style.display = window.isPlaying ? 'none' : 'block';
-        pauseIconSvg.style.display = window.isPlaying ? 'block' : 'none';
+      // Wire Spotlight play button click to control bottom player
+      const spotlightAudioPlayBtn = document.getElementById('spotlight-audio-play-btn');
+      if (spotlightAudioPlayBtn) {
+        // Sync initial state
+        spotlightAudioPlayBtn.classList.toggle('playing', window.isPlaying || false);
+        const playIconSvg = spotlightAudioPlayBtn.querySelector('.play-icon');
+        const pauseIconSvg = spotlightAudioPlayBtn.querySelector('.pause-icon');
+        if (playIconSvg && pauseIconSvg) {
+          playIconSvg.style.display = window.isPlaying ? 'none' : 'block';
+          pauseIconSvg.style.display = window.isPlaying ? 'block' : 'none';
+        }
+
+        spotlightAudioPlayBtn.addEventListener('click', () => {
+          const playerPlayBtn = document.getElementById('player-play-btn');
+          if (playerPlayBtn) playerPlayBtn.click();
+        });
       }
+    }
+  }
 
-      spotlightAudioPlayBtn.addEventListener('click', () => {
-        const playerPlayBtn = document.getElementById('player-play-btn');
-        if (playerPlayBtn) playerPlayBtn.click();
+  // Prepare HTML5 Audio Instance (Always run for audio type, decoupled from spotlight elements)
+  if (data.type === 'audio' && data.audio_url) {
+    if (!realAudioInstance || realAudioInstance.src !== data.audio_url) {
+      realAudioInstance = new Audio(data.audio_url);
+      realAudioInstance.preload = "metadata";
+      
+      // Listen to timeupdate to sync states
+      realAudioInstance.addEventListener('timeupdate', () => {
+        currentTime = realAudioInstance.currentTime;
+        updateTimeAndProgress();
+      });
+      
+      realAudioInstance.addEventListener('loadedmetadata', () => {
+        duration = realAudioInstance.duration || 90;
+        updateTimeAndProgress();
+      });
+      
+      realAudioInstance.addEventListener('ended', () => {
+        pausePodcast();
+        currentTime = 0;
+        updateTimeAndProgress();
       });
     }
 
-    // Prepare HTML5 Audio Instance
-    if (data.audio_url) {
-      if (!realAudioInstance || realAudioInstance.src !== data.audio_url) {
-        realAudioInstance = new Audio(data.audio_url);
-        realAudioInstance.preload = "metadata";
-        
-        // Listen to timeupdate to sync states
-        realAudioInstance.addEventListener('timeupdate', () => {
-          currentTime = realAudioInstance.currentTime;
-          updateTimeAndProgress();
-        });
-        
-        realAudioInstance.addEventListener('loadedmetadata', () => {
-          duration = realAudioInstance.duration || 90;
-          updateTimeAndProgress();
-        });
-        
-        realAudioInstance.addEventListener('ended', () => {
-          pausePodcast();
-          currentTime = 0;
-          updateTimeAndProgress();
-        });
-      }
-
-      // Update sticky bottom player text
-      const playerTrackTitle = document.getElementById('player-track-title');
-      if (playerTrackTitle) {
-        playerTrackTitle.textContent = trackTitle;
-      }
+    // Update sticky bottom player text
+    const playerTrackTitle = document.getElementById('player-track-title');
+    if (playerTrackTitle) {
+      playerTrackTitle.textContent = trackTitle;
     }
   }
 }

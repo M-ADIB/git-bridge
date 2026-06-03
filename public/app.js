@@ -1487,31 +1487,30 @@ function showSuccessModal(data) {
   }
 }
 
-// --- CSS supports fallback view() intersection details ---
-if (!CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-          entry.target.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-        }
+// --- Scroll reveal intersection observer ---
+const observer = new IntersectionObserver(
+  (entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        entry.target.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+        observer.unobserve(entry.target);
       }
-    },
-    {
-      threshold: 0.1,
     }
-  );
+  },
+  {
+    threshold: 0.1,
+  }
+);
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.scroll-reveal').forEach((el) => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(40px)';
-      observer.observe(el);
-    });
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.scroll-reveal').forEach((el) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(40px)';
+    observer.observe(el);
   });
-}
+});
 
 // ==========================================================================
 // DYNAMIC DATABASE & AUDIO PLAYER COUPLING LOGIC (CMS PERSISTENCE)

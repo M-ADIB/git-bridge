@@ -67,7 +67,7 @@ body {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M0 0h80v40H0z' fill='%2308090c'/%3E%3Cpath d='M0 20h80M40 0v20M0 20v20M80 20v20' stroke='%23141720' stroke-width='1.5'/%3E%3C/svg%3E");
   background-attachment: fixed;
   opacity: 1;
-  filter: blur(0);
+  filter: none;
   transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1847,24 +1847,6 @@ body.rtl .success-summary {
 }
 
 
-/* --- CSS Fallback Scroll reveals --- */
-@media (prefers-reduced-motion: no-preference) {
-  @supports ((animation-timeline: view()) and (animation-range: entry)) {
-    @keyframes revealFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-    }
-    
-    .scroll-reveal {
-      animation: revealFadeIn auto linear forwards;
-      animation-timeline: view();
-      animation-range: entry 10% cover 30%;
-    }
-  }
-}
-
 
 /* ==========================================================================
    RESPONSIVE DESIGN MEDIA QUERIES (MOBILE FIRST)
@@ -2507,49 +2489,12 @@ body.rtl .player-track-artist {
 }
 
 .collapse-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-glass);
-  color: var(--text-secondary);
-  font-size: 0.75rem;
-}
-
-.collapse-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-primary);
+  display: none !important;
 }
 
 /* Floating Expand Trigger Button */
 .player-expand-btn {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.8rem 1.6rem;
-  border-radius: 100px;
-  font-family: var(--font-en-head);
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  z-index: 998;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  animation: floatBtn 3s infinite ease-in-out;
-}
-
-body.rtl .player-expand-btn {
-  right: auto;
-  left: 24px;
-  font-family: var(--font-ar-head);
+  display: none !important;
 }
 
 .player-expand-btn:hover {
