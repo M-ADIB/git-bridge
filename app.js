@@ -251,54 +251,12 @@ const translations = {
     player_track_title: "No2ta 3al Sater - Season 1 Episode 1 (Teaser)",
     player_track_artist: "Hosted by Rania Barghout",
     player_listen_latest: "Listen to Latest Episode",
-    
-    tab_apply_guest: "Apply as Guest",
-    tab_become_sponsor: "Become a Sponsor",
-    form_badge_sponsor: "Sponsorship Inquiry",
-    form_title_sponsor: "Sponsor Inquiry Form",
-    form_desc_sponsor: "Please complete the inquiry details below. Our sponsorship team will review your proposal and get in touch within 2 business days.",
-    
-    sec_sponsor_info: "1. Company & Contact Information",
-    lbl_company_name: "Company Name",
-    ph_company_name: "Enter company or brand name",
-    err_company_name: "Company name is required.",
-    lbl_contact_name: "Contact Person",
-    ph_contact_name: "Enter your full name",
-    err_contact_name: "Contact person name is required.",
-    lbl_contact_title: "Position / Title",
-    ph_contact_title: "e.g., Marketing Director, CEO",
-    err_contact_title: "Position/Title is required.",
-    
-    sec_sponsorship_details: "2. Sponsorship Details",
-    lbl_sponsor_tier: "Sponsorship Tier of Interest",
-    ph_sponsor_tier: "Select a sponsorship tier",
-    opt_tier_title: "Title Sponsor (Exclusive)",
-    opt_tier_episode: "Episode Sponsor",
-    opt_tier_segment: "Segment Sponsor",
-    opt_tier_general: "General Partner",
-    err_sponsor_tier: "Sponsorship tier is required.",
-    
-    lbl_target_podcast: "Target Podcast",
-    opt_target_both: "Both Podcasts (Arabic & English)",
-    opt_target_nos: "No2ta 3al Sater (Arabic)",
-    opt_target_btl: "Between The Lines (English)",
-    
-    lbl_budget_range: "Estimated Budget Range",
-    opt_budget_under_5k: "Under $5,000",
-    opt_budget_5k_10k: "$5,000 - $10,000",
-    opt_budget_10k_25k: "$10,000 - $25,000",
-    opt_budget_over_25k: "Above $25,000",
-    
-    lbl_sponsor_goals: "Partnership & Marketing Goals",
-    ph_sponsor_goals: "Describe your primary objectives and what you hope to achieve through this partnership...",
-    err_sponsor_goals: "Please describe your partnership goals.",
-    
-    sec_sponsor_agreement: "3. Partnership Agreement & Consent",
-    sponsor_agreement_text: "I confirm that I am authorized to submit this sponsorship inquiry on behalf of the company listed above. I understand that submitting this inquiry does not constitute a binding sponsorship agreement, and that partnership terms are subject to mutual contract execution.",
-    lbl_sponsor_agree_check: "I have read, understood, and agreed to the sponsorship terms.",
-    btn_submit_sponsor: "Submit Sponsor Inquiry",
-    btn_submitting_sponsor: "Submitting Inquiry...",
-    cta_become_sponsor: "Become a Sponsor"
+    latest_ep_subtitle: "Featured Episode",
+    latest_ep_title: "Latest Episode Spotlight",
+    latest_ep_loading_title: "Loading Featured Episode...",
+    latest_ep_loading_desc: "Connecting to the database to fetch the latest episode.",
+    btn_play_audio: "Play Audio Episode",
+    btn_pause_audio: "Pause Audio"
   },
   
   ar: {
@@ -548,59 +506,26 @@ const translations = {
     player_track_title: "نقطة ع السطر - الموسم الأول، الحلقة الأولى (مقتطف التقديم)",
     player_track_artist: "تقديم رانيا برغوت",
     player_listen_latest: "استمع للحلقة الأخيرة",
-    
-    tab_apply_guest: "تقديم طلب استضافة",
-    tab_become_sponsor: "رعاية البودكاست",
-    form_badge_sponsor: "طلب رعاية",
-    form_title_sponsor: "استمارة طلب رعاية البودكاست",
-    form_desc_sponsor: "يرجى تعبئة تفاصيل طلب الرعاية أدناه. سيقوم فريق الرعاية والدعم بمراجعة طلبك والتواصل معك خلال يومي عمل.",
-    
-    sec_sponsor_info: "١. معلومات الشركة والتواصل",
-    lbl_company_name: "اسم الشركة",
-    ph_company_name: "أدخل اسم الشركة أو العلامة التجارية",
-    err_company_name: "اسم الشركة مطلوب.",
-    lbl_contact_name: "اسم شخص التواصل",
-    ph_contact_name: "أدخل اسمك الكامل",
-    err_contact_name: "اسم شخص التواصل مطلوب.",
-    lbl_contact_title: "المنصب / المسمى الوظيفي",
-    ph_contact_title: "مثال: مدير التسويق، الرئيس التنفيذي",
-    err_contact_title: "المنصب / المسمى الوظيفي مطلوب.",
-    
-    sec_sponsorship_details: "٢. تفاصيل الرعاية المطلوبة",
-    lbl_sponsor_tier: "فئة الرعاية المهتم بها",
-    ph_sponsor_tier: "اختر فئة الرعاية",
-    opt_tier_title: "الراعي الرئيسي (حصري)",
-    opt_tier_episode: "راعي حلقة",
-    opt_tier_segment: "راعي فقرة",
-    opt_tier_general: "شريك عام",
-    err_sponsor_tier: "فئة الرعاية مطلوبة.",
-    
-    lbl_target_podcast: "البودكاست المستهدف",
-    opt_target_both: "كلا البودكاستين (عربي وإنجليزي)",
-    opt_target_nos: "نقطة ع السطر (عربي)",
-    opt_target_btl: "Between The Lines (إنجليزي)",
-    
-    lbl_budget_range: "الميزانية التقديرية",
-    opt_budget_under_5k: "أقل من 5,000 دولار",
-    opt_budget_5k_10k: "5,000 - 10,000 دولار",
-    opt_budget_10k_25k: "10,000 - 25,000 دولار",
-    opt_budget_over_25k: "أكثر من 25,000 دولار",
-    
-    lbl_sponsor_goals: "أهداف الشراكة والتسويق",
-    ph_sponsor_goals: "صِف أهدافكم الرئيسية وما تأملون في تحقيقه من خلال هذه الشراكة...",
-    err_sponsor_goals: "يرجى كتابة أهداف الشراكة.",
-    
-    sec_sponsor_agreement: "٣. اتفاقية الشراكة والموافقة",
-    sponsor_agreement_text: "أؤكد أنني مفوض لتقديم هذا الطلب بالنيابة عن الشركة المذكورة أعلاه. وأتفهم أن تقديم هذا الطلب لا يمثل اتفاقية رعاية ملزمة، وأن شروط الشراكة تخضع لتوقيع عقد متبادل.",
-    lbl_sponsor_agree_check: "لقد قرأت الشروط وأوافق على شروط تقديم طلب الرعاية.",
-    btn_submit_sponsor: "تقديم طلب الرعاية",
-    btn_submitting_sponsor: "جاري إرسال الطلب...",
-    cta_become_sponsor: "رعاية البودكاست"
+    latest_ep_subtitle: "الحلقة المميزة",
+    latest_ep_title: "آخر حلقة تسليط الضوء",
+    latest_ep_loading_title: "جاري تحميل الحلقة المميزة...",
+    latest_ep_loading_desc: "جاري الاتصال بقاعدة البيانات لجلب الحلقة الأخيرة.",
+    btn_play_audio: "تشغيل الحلقة الصوتية",
+    btn_pause_audio: "إيقاف مؤقت"
   }
 };
 
 // --- Language Controller State ---
 let currentLang = 'en';
+
+// --- Supabase Config ---
+const SUPABASE_URL = 'https://uaqdwpsammcqrlyzstlj.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhcWR3cHNhbW1jcXJseXpzdGxqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0OTM5NjYsImV4cCI6MjA5NjA2OTk2Nn0.eVqT47zk1J8LRtK_y0kveMW6eCOn5zZZSiQklWouC68';
+const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+// --- Global Audio/Video State ---
+let realAudioInstance = null;
+let latestEpisodeData = null;
 
 // --- Initialize App Controls ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -614,20 +539,12 @@ document.addEventListener('DOMContentLoaded', () => {
     heroVideo.load();
   }
 
-  // Inject Premium Full-Screen Language Transition Overlay
-  const transOverlay = document.createElement('div');
-  transOverlay.className = 'lang-transition-overlay';
-  transOverlay.id = 'lang-trans-overlay';
-  transOverlay.innerHTML = `
-    <div class="lang-transition-loader">
-      <div class="lang-transition-spinner"></div>
-      <span id="lang-transition-text">TRANSLATING...</span>
-    </div>
-  `;
-  document.body.appendChild(transOverlay);
-
   // Sync page default LTR
   setLanguage('en');
+
+  // Load dynamic content from Supabase
+  loadLatestEpisode();
+  loadTickerEpisodes();
   
   // Scrolled Header Animation
   const header = document.querySelector('header');
@@ -649,7 +566,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const isOpen = mobileDrawer.classList.contains('open');
     mobileDrawer.classList.toggle('open', !isOpen);
     drawerOverlay.classList.toggle('visible', !isOpen);
-    hamburgerBtn.innerHTML = isOpen ? '☰' : '✕';
+    if (hamburgerBtn) {
+      hamburgerBtn.classList.toggle('active', !isOpen);
+      hamburgerBtn.innerHTML = isOpen ? '☰' : '✕';
+    }
   };
   
   if (hamburgerBtn) {
@@ -658,7 +578,10 @@ document.addEventListener('DOMContentLoaded', () => {
   drawerCloseLinks.forEach(link => link.addEventListener('click', () => {
     mobileDrawer.classList.remove('open');
     drawerOverlay.classList.remove('visible');
-    if (hamburgerBtn) hamburgerBtn.innerHTML = '☰';
+    if (hamburgerBtn) {
+      hamburgerBtn.classList.remove('active');
+      hamburgerBtn.innerHTML = '☰';
+    }
   }));
   
   // Bind Language Switches (Updated with premium Transition Delay)
@@ -668,18 +591,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const selectedLang = e.target.getAttribute('data-lang');
       if (selectedLang === currentLang) return; // avoid redundant switches
 
-      // Update text in loading overlay based on target language
-      const transText = document.getElementById('lang-transition-text');
-      if (transText) {
-        transText.textContent = selectedLang === 'ar' ? 'جاري التحميل...' : 'TRANSLATING...';
-        transText.style.fontFamily = selectedLang === 'ar' ? 'var(--font-ar-head)' : 'var(--font-en-head)';
-      }
-
-      // Start transition fade-in
-      const overlay = document.getElementById('lang-trans-overlay');
-      if (overlay) {
-        overlay.classList.add('active');
-      }
+      // Start transition blur fade-out
       document.body.classList.add('lang-transitioning');
 
       setTimeout(() => {
@@ -692,14 +604,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         setLanguage(selectedLang);
 
-        setTimeout(() => {
-          // Fade back out smoothly
-          if (overlay) {
-            overlay.classList.remove('active');
-          }
-          document.body.classList.remove('lang-transitioning');
-        }, 150); // slight delay after translation before starting to fade out
-      }, 400); // match transition duration
+        // Fade back in smoothly
+        document.body.classList.remove('lang-transitioning');
+      }, 350);
     });
   });
   
@@ -937,191 +844,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Dual Forms Toggle Tabs & Routing Logic (apply.html only) ---
-  const btnToggleGuest = document.getElementById('btn-toggle-guest');
-  const btnToggleSponsor = document.getElementById('btn-toggle-sponsor');
-  const guestForm = document.getElementById('apply-form');
-  const sponsorForm = document.getElementById('sponsor-form');
-
-  const switchForm = (target) => {
-    const subtitle = document.getElementById('form-section-subtitle');
-    const title = document.getElementById('form-section-title');
-    const desc = document.getElementById('form-section-desc');
-
-    if (target === 'sponsor') {
-      if (btnToggleGuest && btnToggleSponsor && guestForm && sponsorForm) {
-        btnToggleGuest.classList.remove('active');
-        btnToggleSponsor.classList.add('active');
-        
-        // Transition: Fade out guest form, show sponsor form
-        guestForm.style.opacity = '0';
-        setTimeout(() => {
-          guestForm.style.display = 'none';
-          sponsorForm.style.display = 'block';
-          // trigger layout reflow before opacity
-          sponsorForm.offsetHeight; 
-          sponsorForm.style.opacity = '1';
-        }, 400);
-
-        if (subtitle) subtitle.setAttribute('data-i18n', 'form_badge_sponsor');
-        if (title) title.setAttribute('data-i18n', 'form_title_sponsor');
-        if (desc) desc.setAttribute('data-i18n', 'form_desc_sponsor');
-        
-        setLanguage(currentLang);
-      }
-    } else {
-      if (btnToggleGuest && btnToggleSponsor && guestForm && sponsorForm) {
-        btnToggleSponsor.classList.remove('active');
-        btnToggleGuest.classList.add('active');
-        
-        // Transition: Fade out sponsor form, show guest form
-        sponsorForm.style.opacity = '0';
-        setTimeout(() => {
-          sponsorForm.style.display = 'none';
-          guestForm.style.display = 'block';
-          // trigger layout reflow before opacity
-          guestForm.offsetHeight; 
-          guestForm.style.opacity = '1';
-        }, 400);
-
-        if (subtitle) subtitle.setAttribute('data-i18n', 'form_badge');
-        if (title) title.setAttribute('data-i18n', 'form_title');
-        if (desc) desc.setAttribute('data-i18n', 'form_desc');
-        
-        setLanguage(currentLang);
-      }
-    }
-  };
-
-  if (btnToggleGuest && btnToggleSponsor) {
-    // Add transition style inline to forms
-    if (guestForm) guestForm.style.transition = 'opacity 0.4s ease';
-    if (sponsorForm) sponsorForm.style.transition = 'opacity 0.4s ease';
-
-    btnToggleGuest.addEventListener('click', () => {
-      window.location.hash = 'guest';
-    });
-    btnToggleSponsor.addEventListener('click', () => {
-      window.location.hash = 'sponsor';
-    });
-
-    // Check initial hash and bind hashchange routing
-    const handleHashRouting = () => {
-      const hash = window.location.hash;
-      if (hash === '#sponsor') {
-        switchForm('sponsor');
-      } else {
-        switchForm('guest');
-      }
-    };
-
-    window.addEventListener('hashchange', handleHashRouting);
-    // Trigger routing on load
-    handleHashRouting();
-  }
-
-  // Sponsor Phone Code Dropdown Selector
-  const sponsorCountrySelect = document.querySelector('#sponsor-country-select');
-  const sponsorPhonePrefixInput = document.querySelector('#sponsor-phone-prefix');
-  
-  if (sponsorCountrySelect && sponsorPhonePrefixInput) {
-    sponsorCountrySelect.addEventListener('change', (e) => {
-      const selectedVal = e.target.value;
-      let prefix = '+971';
-      
-      if (selectedVal === 'sa') {
-        prefix = '+966';
-      } else if (selectedVal === 'qa') {
-        prefix = '+974';
-      } else if (selectedVal === 'kw') {
-        prefix = '+965';
-      } else if (selectedVal === 'uk') {
-        prefix = '+44';
-      } else if (selectedVal === 'intl') {
-        prefix = '+1';
-      }
-      sponsorPhonePrefixInput.value = prefix;
-    });
-  }
-
-  // Validate that sponsor signature text matches contact person name
-  const sponsorContactInput = document.querySelector('#form-sponsor-contact');
-  const sponsorSignatureInput = document.querySelector('#form-sponsor-sig-name');
-  const sponsorSignatureError = document.querySelector('#sponsor-sig-error-msg');
-  
-  const verifySponsorSignature = () => {
-    if (!sponsorContactInput || !sponsorSignatureInput) return true;
-    const name = sponsorContactInput.value.trim();
-    const signature = sponsorSignatureInput.value.trim();
-    
-    if (name.length > 0 && signature.length > 0 && name.toLowerCase() !== signature.toLowerCase()) {
-      sponsorSignatureInput.setCustomValidity('Signature does not match contact person name');
-      if (sponsorSignatureError) sponsorSignatureError.style.display = 'block';
-      return false;
-    } else {
-      sponsorSignatureInput.setCustomValidity('');
-      if (sponsorSignatureError) sponsorSignatureError.style.display = 'none';
-      return true;
-    }
-  };
-  
-  if (sponsorSignatureInput && sponsorContactInput) {
-    sponsorSignatureInput.addEventListener('input', verifySponsorSignature);
-    sponsorContactInput.addEventListener('input', verifySponsorSignature);
-  }
-
-  // Sponsor Form submission logic
-  const sponsorFormEl = document.querySelector('#sponsor-form');
-  const sponsorSubmitBtn = document.querySelector('#sponsor-submit-btn');
-  const sponsorSubmitText = document.querySelector('#sponsor-submit-btn-text');
-  const sponsorSubmitSpinner = document.querySelector('#sponsor-submit-spinner');
-  
-  if (sponsorFormEl) {
-    sponsorFormEl.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const isSignatureValid = verifySponsorSignature();
-      
-      if (!isSignatureValid) {
-        sponsorSignatureInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        sponsorSignatureInput.focus();
-        return;
-      }
-      
-      if (sponsorFormEl.checkValidity()) {
-        sponsorSubmitBtn.disabled = true;
-        sponsorSubmitText.textContent = translations[currentLang].btn_submitting_sponsor || "Submitting Inquiry...";
-        sponsorSubmitSpinner.style.display = 'inline-block';
-        
-        const companyName = document.querySelector('#form-sponsor-company').value.trim();
-        const contactName = sponsorContactInput.value.trim();
-        const email = document.querySelector('#form-sponsor-email').value.trim();
-        const phonePrefix = sponsorPhonePrefixInput.value;
-        const phoneNum = document.querySelector('#form-sponsor-phone-number').value.trim();
-        const tier = document.querySelector('#form-sponsor-tier').value;
-        
-        setTimeout(() => {
-          sponsorSubmitSpinner.style.display = 'none';
-          sponsorSubmitBtn.disabled = false;
-          sponsorSubmitText.textContent = translations[currentLang].btn_submit_sponsor || "Submit Sponsor Inquiry";
-          
-          showSuccessModal({
-            name: contactName,
-            email: email,
-            phone: `${phonePrefix} ${phoneNum}`,
-            profession: `${tier} Sponsor (${companyName})`
-          });
-          
-          sponsorFormEl.reset();
-          sponsorPhonePrefixInput.value = '+971';
-          sponsorCountrySelect.value = 'ae';
-        }, 2000);
-      } else {
-        sponsorFormEl.reportValidity();
-      }
-    });
-  }
-
   // --- Sticky Audio Player Logic ---
   const sonaarPlayer = document.querySelector('#sonaar-player');
   const playBtn = document.querySelector('#player-play-btn');
@@ -1155,26 +877,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  const updateSpotlightPlayState = (playing) => {
+    const spotlightBtn = document.getElementById('spotlight-audio-play-btn');
+    if (spotlightBtn) {
+      spotlightBtn.classList.toggle('playing', playing);
+      const playIconSvg = spotlightBtn.querySelector('.play-icon');
+      const pauseIconSvg = spotlightBtn.querySelector('.pause-icon');
+      if (playIconSvg && pauseIconSvg) {
+        playIconSvg.style.display = playing ? 'none' : 'block';
+        pauseIconSvg.style.display = playing ? 'block' : 'none';
+      }
+    }
+  };
+
   const playPodcast = () => {
     isPlaying = true;
     if (playBtn) playBtn.classList.add('playing');
     if (sonaarPlayer) sonaarPlayer.classList.add('playing');
+    updateSpotlightPlayState(true);
     
-    playbackInterval = setInterval(() => {
-      currentTime += 1;
-      if (currentTime >= duration) {
-        pausePodcast();
-        currentTime = 0;
-      }
-      updateTimeAndProgress();
-    }, 1000);
+    if (realAudioInstance) {
+      realAudioInstance.play();
+    } else {
+      if (playbackInterval) clearInterval(playbackInterval);
+      playbackInterval = setInterval(() => {
+        currentTime += 1;
+        if (currentTime >= duration) {
+          pausePodcast();
+          currentTime = 0;
+        }
+        updateTimeAndProgress();
+      }, 1000);
+    }
   };
 
   const pausePodcast = () => {
     isPlaying = false;
     if (playBtn) playBtn.classList.remove('playing');
     if (sonaarPlayer) sonaarPlayer.classList.remove('playing');
-    clearInterval(playbackInterval);
+    updateSpotlightPlayState(false);
+    
+    if (realAudioInstance) {
+      realAudioInstance.pause();
+    } else {
+      clearInterval(playbackInterval);
+    }
   };
 
   if (playBtn) {
@@ -1195,6 +942,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const width = rect.width;
       const clickPercentage = clickX / width;
       currentTime = Math.floor(clickPercentage * duration);
+      
+      if (realAudioInstance) {
+        realAudioInstance.currentTime = currentTime;
+      }
       updateTimeAndProgress();
     });
   }
@@ -1204,6 +955,9 @@ document.addEventListener('DOMContentLoaded', () => {
     volumeBtn.addEventListener('click', () => {
       isMuted = !isMuted;
       volumeBtn.classList.toggle('muted', isMuted);
+      if (realAudioInstance) {
+        realAudioInstance.muted = isMuted;
+      }
     });
   }
 
@@ -1390,142 +1144,6 @@ document.addEventListener('DOMContentLoaded', () => {
     startTimelineTimer();
   }
 
-  // --- Episodes Marquee Ticker & Interaction Logic ---
-  const marqueeContainer = document.getElementById('episodes-marquee-container');
-  const marqueeGrid = document.getElementById('episodes-cards-grid');
-
-  if (marqueeContainer && marqueeGrid) {
-    // Duplicate children to ensure seamless infinite looping
-    const originalCards = Array.from(marqueeGrid.children);
-    originalCards.forEach(card => {
-      const clone = card.cloneNode(true);
-      marqueeGrid.appendChild(clone);
-    });
-
-    let isDown = false;
-    let startX;
-    let scrollLeftStart;
-    let isHovered = false;
-    let W = 0;
-    let currentScroll = 0;
-
-    // Helper to calculate total original cards width
-    const updateWidth = () => {
-      W = marqueeGrid.scrollWidth / 2;
-    };
-
-    const initMarquee = () => {
-      updateWidth();
-      if (W > 0) {
-        marqueeContainer.scrollLeft = W;
-        currentScroll = W;
-      }
-    };
-
-    // Run initialization immediately, on readyState complete, and on load
-    initMarquee();
-    if (document.readyState === 'complete') {
-      initMarquee();
-    } else {
-      window.addEventListener('load', initMarquee);
-    }
-
-    window.addEventListener('resize', initMarquee);
-    
-    // Drag-to-scroll event handlers
-    marqueeContainer.addEventListener('mousedown', (e) => {
-      isDown = true;
-      marqueeContainer.classList.add('active');
-      startX = e.pageX - marqueeContainer.offsetLeft;
-      scrollLeftStart = marqueeContainer.scrollLeft;
-      currentScroll = scrollLeftStart;
-      e.preventDefault(); // prevent images outline drag behavior
-    });
-
-    marqueeContainer.addEventListener('mouseleave', () => {
-      isDown = false;
-      marqueeContainer.classList.remove('active');
-      isHovered = false;
-      currentScroll = marqueeContainer.scrollLeft;
-    });
-
-    marqueeContainer.addEventListener('mouseup', () => {
-      isDown = false;
-      marqueeContainer.classList.remove('active');
-      currentScroll = marqueeContainer.scrollLeft;
-    });
-
-    marqueeContainer.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - marqueeContainer.offsetLeft;
-      const walk = (x - startX) * 1.5; // Drag scroll velocity modifier
-      marqueeContainer.scrollLeft = scrollLeftStart - walk;
-      currentScroll = marqueeContainer.scrollLeft;
-    });
-
-    // Touch events for mobile swiping
-    marqueeContainer.addEventListener('touchstart', (e) => {
-      isDown = true;
-      isHovered = false; // ensure touch interaction clears hover pause
-      startX = e.touches[0].pageX - marqueeContainer.offsetLeft;
-      scrollLeftStart = marqueeContainer.scrollLeft;
-      currentScroll = scrollLeftStart;
-    });
-
-    marqueeContainer.addEventListener('touchend', () => {
-      isDown = false;
-      isHovered = false; // ensure touch interaction clears hover pause
-      currentScroll = marqueeContainer.scrollLeft;
-    });
-
-    marqueeContainer.addEventListener('touchmove', (e) => {
-      if (!isDown) return;
-      const x = e.touches[0].pageX - marqueeContainer.offsetLeft;
-      const walk = (x - startX) * 1.5;
-      marqueeContainer.scrollLeft = scrollLeftStart - walk;
-      currentScroll = marqueeContainer.scrollLeft;
-    });
-
-    // Hover to pause ticker (mouse-only)
-    marqueeContainer.addEventListener('mouseenter', (e) => {
-      if (e.pointerType === 'touch') return; // ignore touch pointer types
-      isHovered = true;
-    });
-
-    // Run slow loop animation (speed = 0.45px per frame, left-to-right means decrementing scrollLeft)
-    const marqueeSpeed = 0.45;
-    const tickerStep = () => {
-      // Lazy measure if W isn't loaded yet
-      if (W === 0) updateWidth();
-
-      if (W > 0) {
-        if (!isDown && !isHovered) {
-          currentScroll -= marqueeSpeed;
-
-          // Wrap scroll position infinitely
-          if (currentScroll <= 0) {
-            currentScroll += W;
-          }
-          marqueeContainer.scrollLeft = currentScroll;
-        } else {
-          // Keep it bounded during interaction too
-          if (marqueeContainer.scrollLeft <= 0) {
-            marqueeContainer.scrollLeft += W;
-            currentScroll = marqueeContainer.scrollLeft;
-          } else if (marqueeContainer.scrollLeft >= W * 2) {
-            marqueeContainer.scrollLeft -= W;
-            currentScroll = marqueeContainer.scrollLeft;
-          } else {
-            currentScroll = marqueeContainer.scrollLeft;
-          }
-        }
-      }
-      requestAnimationFrame(tickerStep);
-    };
-
-    requestAnimationFrame(tickerStep);
-  }
   // --- Spotlight hover effect for Show Cards ---
   const showCards = document.querySelectorAll('.show-card');
   showCards.forEach(card => {
@@ -1580,18 +1198,8 @@ function setLanguage(lang) {
       : 'https://www.youtube.com/@betweenthelinesbyrania';
   });
 
-  // Stretched SVG for footer brand title to align left/right edges with the content
-  const footerBrandTitle = document.querySelector('.footer-brand-title');
-  if (footerBrandTitle) {
-    const rawText = translations[lang].brand_logo_text || '';
-    const text = rawText.toUpperCase();
-    const textLength = lang === 'ar' ? 1100 : 1200;
-    
-    footerBrandTitle.innerHTML = `
-      <svg viewBox="0 0 1200 120" width="100%" height="100%" preserveAspectRatio="none" style="display: block; overflow: visible;">
-        <text x="50%" y="95" text-anchor="middle" font-size="100" font-weight="900" fill="currentColor" textLength="${textLength}" lengthAdjust="spacingAndGlyphs">${text}</text>
-      </svg>
-    `;
+  if (latestEpisodeData) {
+    renderLatestEpisode(latestEpisodeData);
   }
 }
 
@@ -1633,4 +1241,350 @@ if (!CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) 
       observer.observe(el);
     });
   });
+}
+
+// ==========================================================================
+// DYNAMIC DATABASE & AUDIO PLAYER COUPLING LOGIC (CMS PERSISTENCE)
+// ==========================================================================
+
+// Helper to extract YouTube video ID from URL
+function getYouTubeId(url) {
+  if (!url) return '';
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : '';
+}
+
+// Dynamic Fetch Latest Episode
+async function loadLatestEpisode() {
+  if (!supabaseClient) {
+    console.warn('Supabase client not loaded.');
+    renderLatestEpisodeFallback();
+    return;
+  }
+
+  try {
+    const { data, error } = await supabaseClient
+      .from('rania_latest_episode')
+      .select('*')
+      .eq('id', 1)
+      .single();
+
+    if (error || !data) {
+      console.error('Error fetching latest episode:', error);
+      renderLatestEpisodeFallback();
+      return;
+    }
+
+    latestEpisodeData = data;
+    renderLatestEpisode(data);
+  } catch (err) {
+    console.error('Catch error fetching latest episode:', err);
+    renderLatestEpisodeFallback();
+  }
+}
+
+function renderLatestEpisode(data) {
+  const visualContainer = document.getElementById('latest-ep-visual-container');
+  const epName = document.getElementById('latest-ep-name');
+  const epDesc = document.getElementById('latest-ep-desc');
+  const epMeta = document.getElementById('latest-ep-meta');
+
+  if (!visualContainer || !epName || !epDesc || !epMeta) return;
+
+  const trackTitle = currentLang === 'ar' ? (data.title_ar || data.title_en) : (data.title_en || data.title_ar);
+  const trackDesc = currentLang === 'ar' ? (data.description_ar || data.description_en) : (data.description_en || data.description_ar);
+
+  // Set titles and description
+  epName.textContent = trackTitle || 'Latest Episode';
+  epDesc.textContent = trackDesc || '';
+
+  // Render visual content based on type
+  if (data.type === 'youtube') {
+    const videoId = getYouTubeId(data.youtube_url);
+    if (videoId) {
+      visualContainer.innerHTML = `
+        <button class="latest-ep-cover-btn" id="latest-ep-youtube-play">
+          <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" class="latest-ep-cover-img" alt="Episode Thumbnail" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${videoId}/mqdefault.jpg';">
+          <div class="latest-ep-overlay">
+            <div class="latest-ep-play-btn-visual">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 19 12 8 19 8 5" fill="#ffffff"></polygon></svg>
+            </div>
+          </div>
+        </button>
+      `;
+
+      // Wire play button to embed iframe inline
+      const playBtnVisual = document.getElementById('latest-ep-youtube-play');
+      if (playBtnVisual) {
+        playBtnVisual.addEventListener('click', () => {
+          visualContainer.innerHTML = `
+            <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          `;
+        });
+      }
+    } else {
+      visualContainer.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);">
+          No valid YouTube video ID found.
+        </div>
+      `;
+    }
+    epMeta.style.display = 'none';
+  } else if (data.type === 'audio') {
+    // Show Audio player card in visualContainer
+    visualContainer.innerHTML = `
+      <div class="latest-ep-card-loading" style="background:url('assets/rania_hero.png') no-repeat center center; background-size:cover; border-radius:20px;">
+        <div class="latest-ep-overlay" style="background:rgba(4,6,15,0.75); width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+          <div class="latest-ep-audio-player-card" style="max-width:85%; background:rgba(13,20,43,0.85); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(10px); padding: 1.5rem; border-radius:16px;">
+            <div class="latest-ep-audio-row" style="display:flex; align-items:center; gap:1.25rem;">
+              <button class="latest-ep-audio-btn" id="spotlight-audio-play-btn" style="width:52px; height:52px; border-radius:50%; background:var(--accent-cobalt); border:none; color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:var(--transition-fast);">
+                <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:24px; height:24px;"><polygon points="8 5 19 12 8 19 8 5"></polygon></svg>
+                <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:24px; height:24px; display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+              </button>
+              <div class="latest-ep-audio-info" style="display:flex; flex-direction:column; gap:0.25rem; text-align:left;">
+                <span class="latest-ep-audio-track" style="font-weight:700; color:#fff; font-size:0.95rem; display:block;">${trackTitle}</span>
+                <span class="latest-ep-audio-artist" style="color:var(--text-muted); font-size:0.8rem;">Hosted by Rania Barghout</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Wire Spotlight play button click to control bottom player
+    const spotlightAudioPlayBtn = document.getElementById('spotlight-audio-play-btn');
+    if (spotlightAudioPlayBtn) {
+      // Sync initial state
+      spotlightAudioPlayBtn.classList.toggle('playing', window.isPlaying || false);
+      const playIconSvg = spotlightAudioPlayBtn.querySelector('.play-icon');
+      const pauseIconSvg = spotlightAudioPlayBtn.querySelector('.pause-icon');
+      if (playIconSvg && pauseIconSvg) {
+        playIconSvg.style.display = window.isPlaying ? 'none' : 'block';
+        pauseIconSvg.style.display = window.isPlaying ? 'block' : 'none';
+      }
+
+      spotlightAudioPlayBtn.addEventListener('click', () => {
+        const playerPlayBtn = document.getElementById('player-play-btn');
+        if (playerPlayBtn) playerPlayBtn.click();
+      });
+    }
+
+    // Prepare HTML5 Audio Instance
+    if (data.audio_url) {
+      if (!realAudioInstance || realAudioInstance.src !== data.audio_url) {
+        realAudioInstance = new Audio(data.audio_url);
+        realAudioInstance.preload = "metadata";
+        
+        // Listen to timeupdate to sync states
+        realAudioInstance.addEventListener('timeupdate', () => {
+          currentTime = realAudioInstance.currentTime;
+          updateTimeAndProgress();
+        });
+        
+        realAudioInstance.addEventListener('loadedmetadata', () => {
+          duration = realAudioInstance.duration || 90;
+          updateTimeAndProgress();
+        });
+        
+        realAudioInstance.addEventListener('ended', () => {
+          pausePodcast();
+          currentTime = 0;
+          updateTimeAndProgress();
+        });
+      }
+
+      // Update sticky bottom player text
+      const playerTrackTitle = document.getElementById('player-track-title');
+      if (playerTrackTitle) {
+        playerTrackTitle.textContent = trackTitle;
+      }
+    }
+  }
+}
+
+function renderLatestEpisodeFallback() {
+  const data = {
+    type: 'youtube',
+    youtube_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    title_en: 'Welcome to Between The Lines',
+    title_ar: 'مرحباً بكم في نقطة ع السطر',
+    description_en: 'This is the official guest registration and podcast showcase portal for Between The Lines and No2ta 3al Sater, hosted by Rania Barghout.',
+    description_ar: 'هذه هي البوابة الرسمية لتسجيل الضيوف وعرض حلقات بودكاست نقطة ع السطر وبين السطور، تقديم الإعلامية رانيا برغوت.'
+  };
+  renderLatestEpisode(data);
+}
+
+// Dynamic Fetch Ticker Episodes
+async function loadTickerEpisodes() {
+  const marqueeGrid = document.getElementById('episodes-cards-grid');
+  if (!marqueeGrid) return;
+
+  if (!supabaseClient) {
+    console.warn('Supabase client not loaded for ticker.');
+    initializeMarqueeTicker();
+    return;
+  }
+
+  try {
+    const { data, error } = await supabaseClient
+      .from('rania_episodes')
+      .select('*')
+      .order('position', { ascending: true });
+
+    if (error || !data || data.length === 0) {
+      console.warn('No ticker episodes found in database, using HTML fallbacks.');
+      initializeMarqueeTicker();
+      return;
+    }
+
+    // Clear current grid cards
+    marqueeGrid.innerHTML = '';
+
+    data.forEach(episode => {
+      const videoId = getYouTubeId(episode.youtube_url);
+      if (videoId) {
+        const card = document.createElement('a');
+        card.className = 'episode-card';
+        card.id = `ep-card-${episode.id}`;
+        card.href = episode.youtube_url;
+        card.target = '_blank';
+        card.innerHTML = `
+          <div class="episode-image-container">
+            <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="${episode.title_en || 'Episode'}" class="episode-img" loading="lazy" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${videoId}/mqdefault.jpg';">
+            <div class="episode-overlay">
+              <span class="play-indicator-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
+              </span>
+            </div>
+          </div>
+        `;
+        marqueeGrid.appendChild(card);
+      }
+    });
+
+    initializeMarqueeTicker();
+  } catch (err) {
+    console.error('Catch error fetching ticker episodes:', err);
+    initializeMarqueeTicker();
+  }
+}
+
+let marqueeInitialized = false;
+
+function initializeMarqueeTicker() {
+  const marqueeContainer = document.getElementById('episodes-marquee-container');
+  const marqueeGrid = document.getElementById('episodes-cards-grid');
+
+  if (!marqueeContainer || !marqueeGrid) return;
+  if (marqueeInitialized) return; // Prevent duplicate setups
+  marqueeInitialized = true;
+
+  // Duplicate children to ensure seamless infinite looping
+  const originalCards = Array.from(marqueeGrid.children);
+  originalCards.forEach(card => {
+    const clone = card.cloneNode(true);
+    marqueeGrid.appendChild(clone);
+  });
+
+  let isDown = false;
+  let startX;
+  let scrollLeftStart;
+  let isHovered = false;
+  let W = 0;
+
+  // Helper to calculate total original cards width
+  const updateWidth = () => {
+    W = marqueeGrid.scrollWidth / 2;
+  };
+
+  updateWidth();
+  // Initialize scroll position in the center
+  marqueeContainer.scrollLeft = W;
+
+  window.addEventListener('load', () => {
+    updateWidth();
+    marqueeContainer.scrollLeft = W;
+  });
+
+  window.addEventListener('resize', updateWidth);
+  
+  // Drag-to-scroll event handlers
+  marqueeContainer.addEventListener('mousedown', (e) => {
+    isDown = true;
+    marqueeContainer.classList.add('active');
+    startX = e.pageX - marqueeContainer.offsetLeft;
+    scrollLeftStart = marqueeContainer.scrollLeft;
+    e.preventDefault(); // prevent images outline drag behavior
+  });
+
+  marqueeContainer.addEventListener('mouseleave', () => {
+    isDown = false;
+    marqueeContainer.classList.remove('active');
+    isHovered = false;
+  });
+
+  marqueeContainer.addEventListener('mouseup', () => {
+    isDown = false;
+    marqueeContainer.classList.remove('active');
+  });
+
+  marqueeContainer.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - marqueeContainer.offsetLeft;
+    const walk = (x - startX) * 1.5; // Drag scroll velocity modifier
+    marqueeContainer.scrollLeft = scrollLeftStart - walk;
+  });
+
+  // Touch events for mobile swiping
+  marqueeContainer.addEventListener('touchstart', (e) => {
+    isDown = true;
+    startX = e.touches[0].pageX - marqueeContainer.offsetLeft;
+    scrollLeftStart = marqueeContainer.scrollLeft;
+  });
+
+  marqueeContainer.addEventListener('touchend', () => {
+    isDown = false;
+  });
+
+  marqueeContainer.addEventListener('touchmove', (e) => {
+    if (!isDown) return;
+    const x = e.touches[0].pageX - marqueeContainer.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    marqueeContainer.scrollLeft = scrollLeftStart - walk;
+  });
+
+  // Hover to pause ticker
+  marqueeContainer.addEventListener('mouseenter', () => {
+    isHovered = true;
+  });
+
+  // Run slow loop animation (speed = 0.6px per frame, left-to-right means decrementing scrollLeft)
+  const marqueeSpeed = 0.6;
+  const tickerStep = () => {
+    // Lazy measure if W isn't loaded yet
+    if (W === 0) updateWidth();
+
+    if (W > 0) {
+      if (!isDown && !isHovered) {
+        marqueeContainer.scrollLeft -= marqueeSpeed;
+
+        // Wrap scroll position infinitely
+        if (marqueeContainer.scrollLeft <= 0) {
+          marqueeContainer.scrollLeft += W;
+        }
+      } else {
+        // Keep it bounded during interaction too
+        if (marqueeContainer.scrollLeft <= 0) {
+          marqueeContainer.scrollLeft += W;
+        } else if (marqueeContainer.scrollLeft >= W * 2) {
+          marqueeContainer.scrollLeft -= W;
+        }
+      }
+    }
+    requestAnimationFrame(tickerStep);
+  };
+
+  requestAnimationFrame(tickerStep);
 }
