@@ -5,6 +5,7 @@
 // --- Comprehensive Translation Dictionary (NO EMOJIS) ---
 const translations = {
   en: {
+    landing_page_title: "The Next Chapter | Podcasts by Rania Barghout",
     page_title: "Guest Application Form | The Next Chapter LLC",
     nav_about: "About Rania",
     nav_shows: "The Podcasts",
@@ -303,6 +304,7 @@ const translations = {
   },
   
   ar: {
+    landing_page_title: "المنعطف التالي | بودكاست رانيا برغوت",
     page_title: "استمارة طلب استضافة | شركة The Next Chapter",
     nav_about: "عن رانيا",
     nav_shows: "البودكاست",
@@ -1447,7 +1449,7 @@ function setLanguage(lang) {
     document.body.classList.remove('rtl');
   }
   
-  document.title = translations[lang].page_title;
+  // Title is translated dynamically via data-i18n query loop
   
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
