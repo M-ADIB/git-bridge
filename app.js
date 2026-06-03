@@ -1500,16 +1500,26 @@ const observer = new IntersectionObserver(
     }
   },
   {
-    threshold: 0.1,
+    threshold: 0.05,
   }
 );
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.scroll-reveal').forEach((el) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(40px)';
-    observer.observe(el);
-  });
+  // Check if inside iframe to skip scroll reveal hides (prevents empty sections in iframe scroll wrappers)
+  let isInsideIframe = false;
+  try {
+    isInsideIframe = window.self !== window.top;
+  } catch (e) {
+    isInsideIframe = true;
+  }
+
+  if (!isInsideIframe) {
+    document.querySelectorAll('.scroll-reveal').forEach((el) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(40px)';
+      observer.observe(el);
+    });
+  }
 });
 
 // ==========================================================================
