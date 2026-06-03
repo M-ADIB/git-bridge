@@ -256,7 +256,50 @@ const translations = {
     latest_ep_loading_title: "Loading Featured Episode...",
     latest_ep_loading_desc: "Connecting to the database to fetch the latest episode.",
     btn_play_audio: "Play Audio Episode",
-    btn_pause_audio: "Pause Audio"
+    btn_pause_audio: "Pause Audio",
+    
+    // Sponsorship Form
+    tab_become_sponsor: "Become a Sponsor",
+    form_badge_sponsor: "Sponsorship Inquiry",
+    form_title_sponsor: "Sponsor Inquiry Form",
+    form_desc_sponsor: "Please complete the inquiry details below. Our sponsorship team will review your proposal and get in touch within 2 business days.",
+    sec_sponsor_info: "1. Company & Contact Information",
+    sec_sponsorship_details: "2. Sponsorship Details",
+    lbl_sponsor_tier: "Sponsorship Tier of Interest",
+    ph_sponsor_tier: "Select a sponsorship tier",
+    opt_tier_title: "Title Sponsor (Exclusive)",
+    opt_tier_episode: "Episode Sponsor",
+    opt_tier_segment: "Segment Sponsor",
+    opt_tier_general: "General Partner",
+    err_sponsor_tier: "Sponsorship tier is required.",
+    lbl_sponsor_goals: "Partnership & Marketing Goals",
+    ph_sponsor_goals: "Describe your primary objectives and what you hope to achieve through this partnership...",
+    err_sponsor_goals: "Please describe your partnership goals.",
+    sec_sponsor_agreement: "3. Partnership Agreement & Consent",
+    sponsor_agreement_text: "I confirm that I am authorized to submit this sponsorship inquiry on behalf of the company listed above. I understand that submitting this inquiry does not constitute a binding sponsorship agreement, and that partnership terms are subject to mutual contract execution.",
+    lbl_sponsor_agree_check: "I have read, understood, and agreed to the sponsorship terms.",
+    btn_submit_sponsor: "Submit Sponsor Inquiry",
+    btn_submitting_sponsor: "Submitting Inquiry...",
+    cta_become_sponsor: "Become a Sponsor",
+    tab_apply_guest: "Apply as Guest",
+    lbl_target_podcast: "Target Podcast",
+    opt_target_both: "Both Podcasts (Arabic & English)",
+    opt_target_nos: "No2ta 3al Sater (Arabic)",
+    opt_target_btl: "Between The Lines (English)",
+    lbl_budget_range: "Estimated Budget Range",
+    opt_budget_under_5k: "Under $5,000",
+    opt_budget_5k_10k: "$5,000 - $10,000",
+    opt_budget_10k_25k: "$10,000 - $25,000",
+    opt_budget_over_25k: "Above $25,000",
+    lbl_company_name: "Company Name",
+    ph_company_name: "Enter company or brand name",
+    err_company_name: "Company name is required.",
+    lbl_contact_name: "Contact Person",
+    ph_contact_name: "Enter your full name",
+    err_contact_name: "Contact person name is required.",
+    lbl_contact_title: "Position / Title",
+    ph_contact_title: "e.g., Marketing Director, CEO",
+    err_contact_title: "Position/Title is required."
   },
   
   ar: {
@@ -511,7 +554,50 @@ const translations = {
     latest_ep_loading_title: "جاري تحميل الحلقة المميزة...",
     latest_ep_loading_desc: "جاري الاتصال بقاعدة البيانات لجلب الحلقة الأخيرة.",
     btn_play_audio: "تشغيل الحلقة الصوتية",
-    btn_pause_audio: "إيقاف مؤقت"
+    btn_pause_audio: "إيقاف مؤقت",
+    
+    // Sponsorship Form Arabic
+    tab_become_sponsor: "رعاية البودكاست",
+    form_badge_sponsor: "طلب رعاية",
+    form_title_sponsor: "استمارة طلب رعاية البودكاست",
+    form_desc_sponsor: "يرجى تعبئة تفاصيل طلب الرعاية أدناه. سيقوم فريق الرعاية والدعم بمراجعة طلبك والتواصل معك خلال يومي عمل.",
+    sec_sponsor_info: "١. معلومات الشركة والتواصل",
+    sec_sponsorship_details: "٢. تفاصيل الرعاية المطلوبة",
+    lbl_sponsor_tier: "فئة الرعاية المهتم بها",
+    ph_sponsor_tier: "اختر فئة الرعاية",
+    opt_tier_title: "راعي رئيسي (حصري)",
+    opt_tier_episode: "راعي حلقة",
+    opt_tier_segment: "راعي فقرة",
+    opt_tier_general: "شريك عام",
+    err_sponsor_tier: "فئة الرعاية مطلوبة.",
+    lbl_sponsor_goals: "أهداف الشراكة والتسويق",
+    ph_sponsor_goals: "صِف أهدافكم الرئيسية وما تأملون في تحقيقه من خلال هذه الشراكة...",
+    err_sponsor_goals: "يرجى كتابة أهداف الشراكة.",
+    sec_sponsor_agreement: "٣. اتفاقية الشراكة والموافقة",
+    sponsor_agreement_text: "أؤكد أنني مفوض لتقديم هذا الطلب بالنيابة عن الشركة المذكورة أعلاه. وأتفهم أن تقديم هذا الطلب لا يمثل اتفاقية رعاية ملزمة، وأن شروط الشراكة تخضع لتوقيع عقد متبادل.",
+    lbl_sponsor_agree_check: "لقد قرأت الشروط وأوافق على شروط تقديم طلب الرعاية.",
+    btn_submit_sponsor: "تقديم طلب الرعاية",
+    btn_submitting_sponsor: "جاري إرسال الطلب...",
+    cta_become_sponsor: "رعاية البودكاست",
+    tab_apply_guest: "تقديم كضيف",
+    lbl_target_podcast: "البودكاست المستهدف",
+    opt_target_both: "كلا البرنامجين (بالعربية والانجليزية)",
+    opt_target_nos: "نقطة ع السطر (بالعربية)",
+    opt_target_btl: "Between The Lines (بالانجليزية)",
+    lbl_budget_range: "الميزانية التقديرية",
+    opt_budget_under_5k: "أقل من ٥,٠٠٠ دولار",
+    opt_budget_5k_10k: "٥,٠٠٠ - ١٠,٠٠٠ دولار",
+    opt_budget_10k_25k: "١٠,٠٠٠ - ٢٥,٠٠٠ دولار",
+    opt_budget_over_25k: "أكثر من ٢٥,٠٠٠ دولار",
+    lbl_company_name: "اسم الشركة / العلامة التجارية",
+    ph_company_name: "أدخل اسم الشركة أو العلامة التجارية",
+    err_company_name: "اسم الشركة مطلوب.",
+    lbl_contact_name: "اسم الشخص المسؤول",
+    ph_contact_name: "أدخل اسمك الكامل",
+    err_contact_name: "اسم المسؤول مطلوب.",
+    lbl_contact_title: "المسمى الوظيفي",
+    ph_contact_title: "مثال: مدير التسويق، الرئيس التنفيذي",
+    err_contact_title: "المسمى الوظيفي مطلوب."
   }
 };
 
@@ -526,6 +612,79 @@ const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_U
 // --- Global Audio/Video State ---
 let realAudioInstance = null;
 let latestEpisodeData = null;
+let isPlaying = false;
+let isMuted = false;
+let duration = 90; // mock duration in seconds (1:30)
+let currentTime = 0;
+let playbackInterval = null;
+
+// Format seconds into MM:SS
+const formatTime = (secs) => {
+  const mins = Math.floor(secs / 60);
+  const remainingSecs = Math.floor(secs % 60);
+  return `${mins.toString().padStart(2, '0')}:${remainingSecs.toString().padStart(2, '0')}`;
+};
+
+const updateTimeAndProgress = () => {
+  const timeDisplay = document.querySelector('#player-time-display');
+  const progressBar = document.querySelector('#player-progress-bar');
+  if (timeDisplay && progressBar) {
+    timeDisplay.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+    const percentage = (currentTime / duration) * 100;
+    progressBar.style.width = `${percentage}%`;
+  }
+};
+
+const updateSpotlightPlayState = (playing) => {
+  const spotlightBtn = document.getElementById('spotlight-audio-play-btn');
+  if (spotlightBtn) {
+    spotlightBtn.classList.toggle('playing', playing);
+    const playIconSvg = spotlightBtn.querySelector('.play-icon');
+    const pauseIconSvg = spotlightBtn.querySelector('.pause-icon');
+    if (playIconSvg && pauseIconSvg) {
+      playIconSvg.style.display = playing ? 'none' : 'block';
+      pauseIconSvg.style.display = playing ? 'block' : 'none';
+    }
+  }
+};
+
+const playPodcast = () => {
+  isPlaying = true;
+  const playBtn = document.querySelector('#player-play-btn');
+  const sonaarPlayer = document.querySelector('#sonaar-player');
+  if (playBtn) playBtn.classList.add('playing');
+  if (sonaarPlayer) sonaarPlayer.classList.add('playing');
+  updateSpotlightPlayState(true);
+  
+  if (realAudioInstance) {
+    realAudioInstance.play();
+  } else {
+    if (playbackInterval) clearInterval(playbackInterval);
+    playbackInterval = setInterval(() => {
+      currentTime += 1;
+      if (currentTime >= duration) {
+        pausePodcast();
+        currentTime = 0;
+      }
+      updateTimeAndProgress();
+    }, 1000);
+  }
+};
+
+const pausePodcast = () => {
+  isPlaying = false;
+  const playBtn = document.querySelector('#player-play-btn');
+  const sonaarPlayer = document.querySelector('#sonaar-player');
+  if (playBtn) playBtn.classList.remove('playing');
+  if (sonaarPlayer) sonaarPlayer.classList.remove('playing');
+  updateSpotlightPlayState(false);
+  
+  if (realAudioInstance) {
+    realAudioInstance.pause();
+  } else {
+    clearInterval(playbackInterval);
+  }
+};
 
 // --- Initialize App Controls ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -844,6 +1003,191 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- Dual Forms Toggle Tabs & Routing Logic (apply.html only) ---
+  const btnToggleGuest = document.getElementById('btn-toggle-guest');
+  const btnToggleSponsor = document.getElementById('btn-toggle-sponsor');
+  const guestForm = document.getElementById('apply-form');
+  const sponsorForm = document.getElementById('sponsor-form');
+
+  const switchForm = (target) => {
+    const subtitle = document.getElementById('form-section-subtitle');
+    const title = document.getElementById('form-section-title');
+    const desc = document.getElementById('form-section-desc');
+
+    if (target === 'sponsor') {
+      if (btnToggleGuest && btnToggleSponsor && guestForm && sponsorForm) {
+        btnToggleGuest.classList.remove('active');
+        btnToggleSponsor.classList.add('active');
+        
+        // Transition: Fade out guest form, show sponsor form
+        guestForm.style.opacity = '0';
+        setTimeout(() => {
+          guestForm.style.display = 'none';
+          sponsorForm.style.display = 'block';
+          // trigger layout reflow before opacity
+          sponsorForm.offsetHeight; 
+          sponsorForm.style.opacity = '1';
+        }, 400);
+
+        if (subtitle) subtitle.setAttribute('data-i18n', 'form_badge_sponsor');
+        if (title) title.setAttribute('data-i18n', 'form_title_sponsor');
+        if (desc) desc.setAttribute('data-i18n', 'form_desc_sponsor');
+        
+        setLanguage(currentLang);
+      }
+    } else {
+      if (btnToggleGuest && btnToggleSponsor && guestForm && sponsorForm) {
+        btnToggleSponsor.classList.remove('active');
+        btnToggleGuest.classList.add('active');
+        
+        // Transition: Fade out sponsor form, show guest form
+        sponsorForm.style.opacity = '0';
+        setTimeout(() => {
+          sponsorForm.style.display = 'none';
+          guestForm.style.display = 'block';
+          // trigger layout reflow before opacity
+          guestForm.offsetHeight; 
+          guestForm.style.opacity = '1';
+        }, 400);
+
+        if (subtitle) subtitle.setAttribute('data-i18n', 'form_badge');
+        if (title) title.setAttribute('data-i18n', 'form_title');
+        if (desc) desc.setAttribute('data-i18n', 'form_desc');
+        
+        setLanguage(currentLang);
+      }
+    }
+  };
+
+  if (btnToggleGuest && btnToggleSponsor) {
+    // Add transition style inline to forms
+    if (guestForm) guestForm.style.transition = 'opacity 0.4s ease';
+    if (sponsorForm) sponsorForm.style.transition = 'opacity 0.4s ease';
+
+    btnToggleGuest.addEventListener('click', () => {
+      window.location.hash = 'guest';
+    });
+    btnToggleSponsor.addEventListener('click', () => {
+      window.location.hash = 'sponsor';
+    });
+
+    // Check initial hash and bind hashchange routing
+    const handleHashRouting = () => {
+      const hash = window.location.hash;
+      if (hash === '#sponsor') {
+        switchForm('sponsor');
+      } else {
+        switchForm('guest');
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashRouting);
+    // Trigger routing on load
+    handleHashRouting();
+  }
+
+  // Sponsor Phone Code Dropdown Selector
+  const sponsorCountrySelect = document.querySelector('#sponsor-country-select');
+  const sponsorPhonePrefixInput = document.querySelector('#sponsor-phone-prefix');
+  
+  if (sponsorCountrySelect && sponsorPhonePrefixInput) {
+    sponsorCountrySelect.addEventListener('change', (e) => {
+      const selectedVal = e.target.value;
+      let prefix = '+971';
+      
+      if (selectedVal === 'sa') {
+        prefix = '+966';
+      } else if (selectedVal === 'qa') {
+        prefix = '+974';
+      } else if (selectedVal === 'kw') {
+        prefix = '+965';
+      } else if (selectedVal === 'uk') {
+        prefix = '+44';
+      } else if (selectedVal === 'intl') {
+        prefix = '+1';
+      }
+      sponsorPhonePrefixInput.value = prefix;
+    });
+  }
+
+  // Validate that sponsor signature text matches contact person name
+  const sponsorContactInput = document.querySelector('#form-sponsor-contact');
+  const sponsorSignatureInput = document.querySelector('#form-sponsor-sig-name');
+  const sponsorSignatureError = document.querySelector('#sponsor-sig-error-msg');
+  
+  const verifySponsorSignature = () => {
+    if (!sponsorContactInput || !sponsorSignatureInput) return true;
+    const name = sponsorContactInput.value.trim();
+    const signature = sponsorSignatureInput.value.trim();
+    
+    if (name.length > 0 && signature.length > 0 && name.toLowerCase() !== signature.toLowerCase()) {
+      sponsorSignatureInput.setCustomValidity('Signature does not match contact person name');
+      if (sponsorSignatureError) sponsorSignatureError.style.display = 'block';
+      return false;
+    } else {
+      sponsorSignatureInput.setCustomValidity('');
+      if (sponsorSignatureError) sponsorSignatureError.style.display = 'none';
+      return true;
+    }
+  };
+  
+  if (sponsorSignatureInput && sponsorContactInput) {
+    sponsorSignatureInput.addEventListener('input', verifySponsorSignature);
+    sponsorContactInput.addEventListener('input', verifySponsorSignature);
+  }
+
+  // Sponsor Form submission logic
+  const sponsorFormEl = document.querySelector('#sponsor-form');
+  const sponsorSubmitBtn = document.querySelector('#sponsor-submit-btn');
+  const sponsorSubmitText = document.querySelector('#sponsor-submit-btn-text');
+  const sponsorSubmitSpinner = document.querySelector('#sponsor-submit-spinner');
+  
+  if (sponsorFormEl) {
+    sponsorFormEl.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const isSignatureValid = verifySponsorSignature();
+      
+      if (!isSignatureValid) {
+        sponsorSignatureInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        sponsorSignatureInput.focus();
+        return;
+      }
+      
+      if (sponsorFormEl.checkValidity()) {
+        sponsorSubmitBtn.disabled = true;
+        sponsorSubmitText.textContent = translations[currentLang].btn_submitting_sponsor || "Submitting Inquiry...";
+        sponsorSubmitSpinner.style.display = 'inline-block';
+        
+        const companyName = document.querySelector('#form-sponsor-company').value.trim();
+        const contactName = sponsorContactInput.value.trim();
+        const email = document.querySelector('#form-sponsor-email').value.trim();
+        const phonePrefix = sponsorPhonePrefixInput.value;
+        const phoneNum = document.querySelector('#form-sponsor-phone-number').value.trim();
+        const tier = document.querySelector('#form-sponsor-tier').value;
+        
+        setTimeout(() => {
+          sponsorSubmitSpinner.style.display = 'none';
+          sponsorSubmitBtn.disabled = false;
+          sponsorSubmitText.textContent = translations[currentLang].btn_submit_sponsor || "Submit Sponsor Inquiry";
+          
+          showSuccessModal({
+            name: contactName,
+            email: email,
+            phone: `${phonePrefix} ${phoneNum}`,
+            profession: `${tier} Sponsor (${companyName})`
+          });
+          
+          sponsorFormEl.reset();
+          sponsorPhonePrefixInput.value = '+971';
+          sponsorCountrySelect.value = 'ae';
+        }, 2000);
+      } else {
+        sponsorFormEl.reportValidity();
+      }
+    });
+  }
+
   // --- Sticky Audio Player Logic ---
   const sonaarPlayer = document.querySelector('#sonaar-player');
   const playBtn = document.querySelector('#player-play-btn');
@@ -855,74 +1199,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const volumeIcon = document.querySelector('#player-volume-icon');
   const collapseBtn = document.querySelector('#player-collapse-btn');
   const expandBtn = document.querySelector('#player-expand-btn');
-
-  let isPlaying = false;
-  let isMuted = false;
-  let duration = 90; // mock duration in seconds (1:30)
-  let currentTime = 0;
-  let playbackInterval = null;
-
-  // Format seconds into MM:SS
-  const formatTime = (secs) => {
-    const mins = Math.floor(secs / 60);
-    const remainingSecs = Math.floor(secs % 60);
-    return `${mins.toString().padStart(2, '0')}:${remainingSecs.toString().padStart(2, '0')}`;
-  };
-
-  const updateTimeAndProgress = () => {
-    if (timeDisplay && progressBar) {
-      timeDisplay.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
-      const percentage = (currentTime / duration) * 100;
-      progressBar.style.width = `${percentage}%`;
-    }
-  };
-
-  const updateSpotlightPlayState = (playing) => {
-    const spotlightBtn = document.getElementById('spotlight-audio-play-btn');
-    if (spotlightBtn) {
-      spotlightBtn.classList.toggle('playing', playing);
-      const playIconSvg = spotlightBtn.querySelector('.play-icon');
-      const pauseIconSvg = spotlightBtn.querySelector('.pause-icon');
-      if (playIconSvg && pauseIconSvg) {
-        playIconSvg.style.display = playing ? 'none' : 'block';
-        pauseIconSvg.style.display = playing ? 'block' : 'none';
-      }
-    }
-  };
-
-  const playPodcast = () => {
-    isPlaying = true;
-    if (playBtn) playBtn.classList.add('playing');
-    if (sonaarPlayer) sonaarPlayer.classList.add('playing');
-    updateSpotlightPlayState(true);
-    
-    if (realAudioInstance) {
-      realAudioInstance.play();
-    } else {
-      if (playbackInterval) clearInterval(playbackInterval);
-      playbackInterval = setInterval(() => {
-        currentTime += 1;
-        if (currentTime >= duration) {
-          pausePodcast();
-          currentTime = 0;
-        }
-        updateTimeAndProgress();
-      }, 1000);
-    }
-  };
-
-  const pausePodcast = () => {
-    isPlaying = false;
-    if (playBtn) playBtn.classList.remove('playing');
-    if (sonaarPlayer) sonaarPlayer.classList.remove('playing');
-    updateSpotlightPlayState(false);
-    
-    if (realAudioInstance) {
-      realAudioInstance.pause();
-    } else {
-      clearInterval(playbackInterval);
-    }
-  };
+  // (Audio variables and control functions moved to global scope)
 
   if (playBtn) {
     playBtn.addEventListener('click', () => {
@@ -1190,13 +1467,6 @@ function setLanguage(lang) {
   if (emailInput) {
     emailInput.setAttribute('aria-errormessage', 'email-err-msg');
   }
-
-  // Update episode card YouTube links based on language
-  document.querySelectorAll('.episode-card').forEach(card => {
-    card.href = lang === 'ar' 
-      ? 'https://www.youtube.com/@No2ta3alsater' 
-      : 'https://www.youtube.com/@betweenthelinesbyrania';
-  });
 
   if (latestEpisodeData) {
     renderLatestEpisode(latestEpisodeData);
@@ -1492,22 +1762,36 @@ function initializeMarqueeTicker() {
   let scrollLeftStart;
   let isHovered = false;
   let W = 0;
+  let currentScroll = 0;
 
   // Helper to calculate total original cards width
   const updateWidth = () => {
     W = marqueeGrid.scrollWidth / 2;
   };
 
-  updateWidth();
-  // Initialize scroll position in the center
-  marqueeContainer.scrollLeft = W;
+  const initMarquee = () => {
+    updateWidth();
+    if (W > 0) {
+      marqueeContainer.scrollLeft = W;
+      currentScroll = W;
+    }
+  };
+
+  // Run initialization immediately, on readyState complete, and on load
+  initMarquee();
 
   window.addEventListener('load', () => {
     updateWidth();
-    marqueeContainer.scrollLeft = W;
+    if (W > 0) {
+      marqueeContainer.scrollLeft = W;
+      currentScroll = W;
+    }
   });
 
-  window.addEventListener('resize', updateWidth);
+  window.addEventListener('resize', () => {
+    updateWidth();
+    currentScroll = marqueeContainer.scrollLeft;
+  });
   
   // Drag-to-scroll event handlers
   marqueeContainer.addEventListener('mousedown', (e) => {
@@ -1515,6 +1799,7 @@ function initializeMarqueeTicker() {
     marqueeContainer.classList.add('active');
     startX = e.pageX - marqueeContainer.offsetLeft;
     scrollLeftStart = marqueeContainer.scrollLeft;
+    currentScroll = scrollLeftStart;
     e.preventDefault(); // prevent images outline drag behavior
   });
 
@@ -1522,11 +1807,13 @@ function initializeMarqueeTicker() {
     isDown = false;
     marqueeContainer.classList.remove('active');
     isHovered = false;
+    currentScroll = marqueeContainer.scrollLeft;
   });
 
   marqueeContainer.addEventListener('mouseup', () => {
     isDown = false;
     marqueeContainer.classList.remove('active');
+    currentScroll = marqueeContainer.scrollLeft;
   });
 
   marqueeContainer.addEventListener('mousemove', (e) => {
@@ -1535,17 +1822,22 @@ function initializeMarqueeTicker() {
     const x = e.pageX - marqueeContainer.offsetLeft;
     const walk = (x - startX) * 1.5; // Drag scroll velocity modifier
     marqueeContainer.scrollLeft = scrollLeftStart - walk;
+    currentScroll = marqueeContainer.scrollLeft;
   });
 
   // Touch events for mobile swiping
   marqueeContainer.addEventListener('touchstart', (e) => {
     isDown = true;
+    isHovered = false; // ensure touch interaction clears hover pause
     startX = e.touches[0].pageX - marqueeContainer.offsetLeft;
     scrollLeftStart = marqueeContainer.scrollLeft;
+    currentScroll = scrollLeftStart;
   });
 
   marqueeContainer.addEventListener('touchend', () => {
     isDown = false;
+    isHovered = false; // ensure touch interaction clears hover pause
+    currentScroll = marqueeContainer.scrollLeft;
   });
 
   marqueeContainer.addEventListener('touchmove', (e) => {
@@ -1553,10 +1845,12 @@ function initializeMarqueeTicker() {
     const x = e.touches[0].pageX - marqueeContainer.offsetLeft;
     const walk = (x - startX) * 1.5;
     marqueeContainer.scrollLeft = scrollLeftStart - walk;
+    currentScroll = marqueeContainer.scrollLeft;
   });
 
-  // Hover to pause ticker
-  marqueeContainer.addEventListener('mouseenter', () => {
+  // Hover to pause ticker (mouse-only)
+  marqueeContainer.addEventListener('mouseenter', (e) => {
+    if (e.pointerType === 'touch') return; // ignore touch pointer types
     isHovered = true;
   });
 
@@ -1568,18 +1862,23 @@ function initializeMarqueeTicker() {
 
     if (W > 0) {
       if (!isDown && !isHovered) {
-        marqueeContainer.scrollLeft -= marqueeSpeed;
+        currentScroll -= marqueeSpeed;
 
         // Wrap scroll position infinitely
-        if (marqueeContainer.scrollLeft <= 0) {
-          marqueeContainer.scrollLeft += W;
+        if (currentScroll <= 0) {
+          currentScroll += W;
         }
+        marqueeContainer.scrollLeft = currentScroll;
       } else {
         // Keep it bounded during interaction too
         if (marqueeContainer.scrollLeft <= 0) {
           marqueeContainer.scrollLeft += W;
+          currentScroll = marqueeContainer.scrollLeft;
         } else if (marqueeContainer.scrollLeft >= W * 2) {
           marqueeContainer.scrollLeft -= W;
+          currentScroll = marqueeContainer.scrollLeft;
+        } else {
+          currentScroll = marqueeContainer.scrollLeft;
         }
       }
     }
