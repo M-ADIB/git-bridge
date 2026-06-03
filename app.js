@@ -526,6 +526,14 @@ const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_U
 // --- Global Audio/Video State ---
 let realAudioInstance = null;
 let latestEpisodeData = null;
+let isPlaying = false;
+let isMuted = false;
+let duration = 90; // mock duration in seconds (1:30)
+let currentTime = 0;
+let playbackInterval = null;
+let updateTimeAndProgress = null;
+let pausePodcast = null;
+let playPodcast = null;
 
 // --- Initialize App Controls ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -856,11 +864,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const collapseBtn = document.querySelector('#player-collapse-btn');
   const expandBtn = document.querySelector('#player-expand-btn');
 
-  let isPlaying = false;
-  let isMuted = false;
-  let duration = 90; // mock duration in seconds (1:30)
-  let currentTime = 0;
-  let playbackInterval = null;
+  // Reference the global states instead of redeclaring them locally
+  isPlaying = false;
+  isMuted = false;
+  duration = 90; // mock duration in seconds (1:30)
+  currentTime = 0;
+  playbackInterval = null;
 
   // Format seconds into MM:SS
   const formatTime = (secs) => {
@@ -869,7 +878,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return `${mins.toString().padStart(2, '0')}:${remainingSecs.toString().padStart(2, '0')}`;
   };
 
-  const updateTimeAndProgress = () => {
+  updateTimeAndProgress = () => {
     if (timeDisplay && progressBar) {
       timeDisplay.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
       const percentage = (currentTime / duration) * 100;
@@ -890,7 +899,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const playPodcast = () => {
+  playPodcast = () => {
     isPlaying = true;
     if (playBtn) playBtn.classList.add('playing');
     if (sonaarPlayer) sonaarPlayer.classList.add('playing');
@@ -911,7 +920,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const pausePodcast = () => {
+  pausePodcast = () => {
     isPlaying = false;
     if (playBtn) playBtn.classList.remove('playing');
     if (sonaarPlayer) sonaarPlayer.classList.remove('playing');
@@ -1379,16 +1388,26 @@ function renderLatestEpisode(data) {
         // Listen to timeupdate to sync states
         realAudioInstance.addEventListener('timeupdate', () => {
           currentTime = realAudioInstance.currentTime;
+          // Dynamically check and update duration during playback in case metadata was loaded before listener was attached
+          if (realAudioInstance.duration && !isNaN(realAudioInstance.duration) && isFinite(realAudioInstance.duration)) {
+            duration = realAudioInstance.duration;
+          }
           updateTimeAndProgress();
         });
         
         realAudioInstance.addEventListener('loadedmetadata', () => {
-          duration = realAudioInstance.duration || 90;
+          if (realAudioInstance.duration && !isNaN(realAudioInstance.duration) && isFinite(realAudioInstance.duration)) {
+            duration = realAudioInstance.duration;
+          } else {
+            duration = 90;
+          }
           updateTimeAndProgress();
         });
         
         realAudioInstance.addEventListener('ended', () => {
-          pausePodcast();
+          if (typeof pausePodcast === 'function') {
+            pausePodcast();
+          }
           currentTime = 0;
           updateTimeAndProgress();
         });
