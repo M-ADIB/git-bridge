@@ -1,2 +1,3 @@
 [run]
+dev = "npx -y serve public -l 8080"
 build = "sh -c 'mkdir -p dist && cp -R public/. dist/ && cp dist/landing.html dist/index.html'"
