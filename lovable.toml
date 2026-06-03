@@ -1,0 +1,2 @@
+[run]
+build = "mkdir -p dist && cp -r public/. dist/ && cp dist/landing.html dist/index.html"
