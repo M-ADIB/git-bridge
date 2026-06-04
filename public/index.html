@@ -438,7 +438,7 @@
       const lbl = document.getElementById('theme-label');
       if (lbl) lbl.textContent = t === 'dark' ? 'Light mode' : 'Dark mode';
     }
-    applyTheme(localStorage.getItem('tnc-theme') || 'dark');
+    applyTheme(localStorage.getItem('tnc-theme') || 'light');
     function toggleTheme(){
       const cur = document.documentElement.getAttribute('data-theme');
       applyTheme(cur === 'dark' ? 'light' : 'dark');
