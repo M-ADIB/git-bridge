@@ -700,8 +700,17 @@ document.addEventListener('DOMContentLoaded', () => {
     heroVideo.load();
   }
 
-  // Sync page default LTR
-  setLanguage('en');
+  // Sync page default language (honor ?lang= query param)
+  var _initLang = 'en';
+  try {
+    var _qs = new URLSearchParams(window.location.search);
+    var _q = (_qs.get('lang') || '').toLowerCase();
+    if (_q === 'ar' || _q === 'en') _initLang = _q;
+  } catch(e) {}
+  document.querySelectorAll('.lang-btn[data-lang]').forEach(function(b){
+    b.classList.toggle('active', b.getAttribute('data-lang') === _initLang);
+  });
+  setLanguage(_initLang);
 
   // Load dynamic content from Supabase
   loadLatestEpisode();
