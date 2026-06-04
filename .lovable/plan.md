@@ -1,54 +1,40 @@
-## What's broken
+## What I found
 
-The live site (`thenextchapter.vip`) is a static site, not a TanStack app. The `build` script in `package.json` is destroying the real podcast pages:
+The live deployment is serving the actual files at:
 
-```
-cp public/btl.html public/btl/index.html
-cp public/no2ta.html public/no2ta/index.html
-```
+- `https://thenextchapter.vip/btl/index.html` works
+- `https://thenextchapter.vip/no2ta/index.html` works
+- `https://thenextchapter.vip/btl` returns 404
+- `https://thenextchapter.vip/no2ta` returns 404
 
-- `public/btl/index.html` and `public/no2ta/index.html` are the real podcast pages (full HTML, ~650 lines for BTL).
-- `public/btl.html` and `public/no2ta.html` are tiny stubs whose only job is `location.replace('/btl')` / `/no2ta`.
-- The build copies the stubs over the real pages. On the live host, visiting `/btl` serves the stub, which redirects to `/btl`, which serves the stub again — and the host ultimately returns "Not Found".
+So the content exists, but the host is not automatically mapping clean directory URLs like `/btl` to `/btl/index.html`.
 
-The earlier `src/routes/btl.tsx` and `src/routes/no2ta.tsx` work I did is irrelevant — there is no Vite/TanStack build wired up in this project (no `vite.config.ts`, no `src/router.tsx`, no `routeTree.gen.ts`). Those files are never built or served.
+## Plan
 
-## Fix
+1. **Add clean-route entry files**
+   - Restore/create `public/btl.html` as a real page copy, not a redirect stub.
+   - Restore/create `public/no2ta.html` as a real page copy, not a redirect stub.
+   - This matches what the live host already proves works: `/btl.html` is served successfully.
 
-1. **`package.json`** — rewrite `dev` and `build` so they:
-   - Do NOT copy `public/btl.html` over `public/btl/index.html` (or the equivalent for no2ta).
-   - Still produce a working `dist/` for the host: just `cp -R public/. dist/`.
-   - For the slash-less URLs (`/btl`, `/no2ta`), also copy the real page to `dist/btl.html` and `dist/no2ta.html` so the host can serve them whether or not it auto-redirects to a trailing slash.
+2. **Update homepage and internal links**
+   - Change homepage podcast links from `/btl?lang=en` and `/btl?lang=ar` to `/btl.html?lang=en` and `/btl.html?lang=ar`.
+   - Change internal podcast navigation that points at `/btl` or `/no2ta` to the corresponding `.html` URL where needed.
 
-   New scripts:
-   ```
-   "dev":   "cd public && python3 -m http.server 8080"
-   "build": "rm -rf dist && mkdir -p dist && cp -R public/. dist/ && cp public/btl/index.html dist/btl.html && cp public/no2ta/index.html dist/no2ta.html"
-   ```
+3. **Keep the directory pages too**
+   - Leave `public/btl/index.html` and `public/no2ta/index.html` intact so `/btl/index.html` and `/no2ta/index.html` keep working.
+   - Build output will include both route styles.
 
-2. **Delete the redirect stubs** so they can never be copied over the real pages again:
-   - `public/btl.html` (stub)
-   - `public/no2ta.html` (stub)
+4. **Adjust build config safely**
+   - Update the build commands so they no longer depend on deleted files in a way that can fail.
+   - Ensure production deploy includes both `btl.html` / `no2ta.html` and the existing folder pages.
 
-3. **Delete the dead TanStack route files** to avoid future confusion:
-   - `src/routes/btl.tsx`
-   - `src/routes/no2ta.tsx`
-   - `src/routes/index.tsx`, `src/routes/apply.tsx`, `src/routes/dashboard-home.tsx` (unused — no router exists)
-   - Optionally the whole `src/` tree, since none of it is built.
+5. **Verify**
+   - Check the local file tree and build configuration references.
+   - After publishing, verify:
+     - `https://thenextchapter.vip/btl.html?lang=en`
+     - `https://thenextchapter.vip/btl.html?lang=ar`
+     - `https://thenextchapter.vip/no2ta.html`
 
-4. **Publish**. Click Update in the Publish dialog so the corrected `dist/` ships to `thenextchapter.vip`.
+## Important note
 
-5. **Verify on live** after publish:
-   - `https://thenextchapter.vip/btl/?lang=en` — loads BTL page
-   - `https://thenextchapter.vip/btl?lang=ar` — loads BTL page (Arabic)
-   - `https://thenextchapter.vip/no2ta/` — loads No2ta page
-   - Homepage cards (`/btl?lang=en`, `/btl?lang=ar`) work end-to-end
-
-## Why this is the right fix
-
-The real pages already exist and already handle the `?lang=` switching. The only thing breaking them is the build clobbering them. Removing the clobber + keeping a slash-less HTML copy is the smallest change that makes every existing link work.
-
-## Notes / risks
-
-- If the static host *requires* a redirect file for slash-less URLs, the `cp public/btl/index.html dist/btl.html` step covers that — `/btl` will serve a full copy of the page instead of a redirect. Slightly duplicated bytes, but bulletproof.
-- I'm not changing any visual content of the podcast pages.
+Because the live platform is not resolving `/btl` to `/btl/index.html`, the reliable fix is to use `.html` URLs for the published static site. The content is already deployed; the failure is the clean URL mapping.
