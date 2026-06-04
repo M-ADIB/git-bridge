@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نقطة ع السطر — The Next Chapter</title>
+  <meta name="description" content="نقطة ع السطر — البودكاست العربي الجريء لرانيا برغوث، من إنتاج The Next Chapter.">
+  <link rel="canonical" href="https://thenextchapter.vip/no2ta">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Next Chapter">
+  <meta property="og:title" content="نقطة ع السطر — The Next Chapter">
+  <meta property="og:description" content="البودكاست العربي الجريء لرانيا برغوث.">
+  <meta property="og:url" content="https://thenextchapter.vip/no2ta">
+  <meta property="og:image" content="https://thenextchapter.vip/__l5e/assets-v1/88342a43-1d2d-449c-8eca-8fa325bf846e/no2ta_logo.png">
+  <link rel="icon" type="image/png" href="/__l5e/assets-v1/88342a43-1d2d-449c-8eca-8fa325bf846e/no2ta_mark.png">
+
+  <script>(function(){try{var t=localStorage.getItem('tnc-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root { --bg:#0a0a14; --bg-elev:#13131f; --bg-card:#1a1a28; --fg:#f5f5f5; --fg-muted:#a1a1b1; --border:rgba(255,255,255,0.08); --accent:#14b8a6; --accent-2:#1e2a78; --shadow:0 20px 60px -20px rgba(0,0,0,0.6); }
+    :root[data-theme="light"] { --bg:#f7f7fb; --bg-elev:#ffffff; --bg-card:#ffffff; --fg:#1a1a2e; --fg-muted:#5a5a6e; --border:rgba(0,0,0,0.08); --accent:#0f766e; --accent-2:#1e2a78; --shadow:0 20px 60px -20px rgba(0,0,0,0.15); }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--fg);line-height:1.7;transition:background .3s,color .3s}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+
+    header{position:sticky;top:0;z-index:50;background:color-mix(in oklab,var(--bg) 85%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+    .header-row{display:flex;align-items:center;justify-content:space-between;padding:1rem 0;gap:1rem}
+    .parent-brand{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:var(--fg-muted);letter-spacing:.05em}
+    .parent-brand img{height:24px;width:auto}
+    :root[data-theme="dark"] .parent-brand img{filter:invert(1) brightness(1.05)}
+    .hamburger{background:none;border:none;color:var(--fg);font-size:1.6rem;cursor:pointer;padding:.25rem .5rem}
+
+    .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .3s;z-index:60}
+    .drawer-overlay.open{opacity:1;pointer-events:auto}
+    .drawer{position:fixed;top:0;left:0;height:100vh;width:min(320px,85vw);background:var(--bg-elev);border-right:1px solid var(--border);transform:translateX(-100%);transition:transform .3s ease;z-index:70;display:flex;flex-direction:column;padding:1.5rem}
+    .drawer.open{transform:translateX(0)}
+    .drawer-close{align-self:flex-start;background:none;border:none;color:var(--fg);font-size:1.5rem;cursor:pointer}
+    .drawer nav{margin-top:2rem;display:flex;flex-direction:column;gap:1.25rem}
+    .drawer nav a{font-size:1.1rem;color:var(--fg)}
+    .drawer-foot{margin-top:auto;padding-top:1.5rem;border-top:1px solid var(--border)}
+    .theme-toggle{display:inline-flex;align-items:center;gap:.6rem;padding:.6rem .9rem;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;color:var(--fg);cursor:pointer;font-size:.9rem;font-family:inherit;width:100%}
+    .icon{width:18px;height:18px}
+    :root[data-theme="light"] .icon-moon{display:none}
+    :root[data-theme="dark"] .icon-sun{display:none}
+
+    .hero{padding:5rem 0 4rem;text-align:center;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,color-mix(in oklab,var(--accent) 22%,transparent),transparent 60%);pointer-events:none}
+    .hero-logo{width:min(420px,80%);height:auto;margin:0 auto 2rem;position:relative}
+    :root[data-theme="dark"] .hero-logo{filter:invert(1) brightness(1.05) hue-rotate(180deg) saturate(1.2)}
+    .hero h1{font-size:clamp(2rem,5vw,3.4rem);margin-bottom:1rem;position:relative;font-weight:900}
+    .hero p{font-size:1.1rem;color:var(--fg-muted);max-width:600px;margin:0 auto 2rem;position:relative}
+    .btn{display:inline-block;padding:.95rem 2rem;background:var(--accent);color:#fff;border-radius:999px;font-weight:700;font-size:.95rem;transition:transform .2s,box-shadow .2s}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px -10px var(--accent)}
+
+    section.block{padding:4rem 0}
+    .section-eyebrow{display:inline-block;font-size:.78rem;letter-spacing:.18em;color:var(--accent);margin-bottom:1rem;font-weight:700}
+    .section-title{font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:1.25rem;font-weight:900}
+    .lead{color:var(--fg-muted);font-size:1.05rem;max-width:720px}
+
+    .platforms{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:2rem}
+    .platform{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1.25rem;text-align:center;font-weight:700;transition:border-color .2s,transform .2s}
+    .platform:hover{border-color:var(--accent);transform:translateY(-3px)}
+
+    .about-band{background:var(--bg-elev);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+
+    footer{padding:3rem 0;text-align:center;color:var(--fg-muted);font-size:.88rem}
+    footer img{height:28px;margin:0 auto .75rem}
+    :root[data-theme="dark"] footer img{filter:invert(1) brightness(1.05)}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container header-row">
+      <a href="/" class="parent-brand" aria-label="The Next Chapter">
+        <img src="/__l5e/assets-v1/cdf34ebd-b5c4-424a-a6a2-67d703618b7e/tnc_logo.png" alt="The Next Chapter">
+        <span>عودة إلى The Next Chapter</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="القائمة">☰</button>
+    </div>
+  </header>
+
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+  <aside class="drawer" id="drawer">
+    <button class="drawer-close" id="drawer-close">✕</button>
+    <nav>
+      <a href="/">The Next Chapter</a>
+      <a href="#about">عن البودكاست</a>
+      <a href="#listen">استمع</a>
+      <a href="/btl">Between the Lines</a>
+    </nav>
+    <div class="drawer-foot">
+      <button class="theme-toggle" id="theme-toggle">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <span id="theme-label">الوضع الفاتح</span>
+      </button>
+    </div>
+  </aside>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <img class="hero-logo" src="/__l5e/assets-v1/88342a43-1d2d-449c-8eca-8fa325bf846e/no2ta_logo.png" alt="نقطة ع السطر">
+        <h1>نقطة ع السطر</h1>
+        <p>بودكاست عربي جريء من تقديم رانيا برغوث، يُسلّط الضوء على القصص والأصوات التي تُشكّل المشهد العربي اليوم.</p>
+        <a href="#listen" class="btn">استمع الآن</a>
+      </div>
+    </section>
+
+    <section class="block about-band" id="about">
+      <div class="container">
+        <span class="section-eyebrow">عن البودكاست</span>
+        <h2 class="section-title">حوارات تتجاوز السطر</h2>
+        <p class="lead">"نقطة ع السطر" هو الإصدار الأول من <strong>The Next Chapter</strong>، شركة الإعلام الجديدة التي أسستها رانيا برغوث. حوارات صريحة وعميقة مع شخصيات تُحدث فرقاً — من رواد الأعمال إلى الفنانين والمفكرين.</p>
+      </div>
+    </section>
+
+    <section class="block" id="listen">
+      <div class="container">
+        <span class="section-eyebrow">استمع</span>
+        <h2 class="section-title">على منصاتك المفضلة</h2>
+        <div class="platforms">
+          <a class="platform" href="#" target="_blank" rel="noopener">YouTube</a>
+          <a class="platform" href="#" target="_blank" rel="noopener">Spotify</a>
+          <a class="platform" href="#" target="_blank" rel="noopener">Apple Podcasts</a>
+          <a class="platform" href="#" target="_blank" rel="noopener">Anghami</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <a href="/"><img src="/__l5e/assets-v1/cdf34ebd-b5c4-424a-a6a2-67d703618b7e/tnc_logo.png" alt="The Next Chapter"></a>
+      <p>© <span id="yr"></span> The Next Chapter</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    const drawer=document.getElementById('drawer'),overlay=document.getElementById('drawer-overlay');
+    const open=()=>{drawer.classList.add('open');overlay.classList.add('open');};
+    const close=()=>{drawer.classList.remove('open');overlay.classList.remove('open');};
+    document.getElementById('hamburger').onclick=open;
+    document.getElementById('drawer-close').onclick=close;
+    overlay.onclick=close;
+    drawer.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',close));
+    function applyTheme(t){document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('tnc-theme',t)}catch(e){}var l=document.getElementById('theme-label');if(l)l.textContent=t==='dark'?'الوضع الفاتح':'الوضع الداكن';}
+    applyTheme(localStorage.getItem('tnc-theme')||'dark');
+    document.getElementById('theme-toggle').onclick=()=>applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
+  </script>
+</body>
+</html>
