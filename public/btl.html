@@ -16,9 +16,9 @@
 
   <link rel="canonical" href="https://thenextchapter.vip/btl">
 
-  <script>document.documentElement.setAttribute('data-theme','dark');</script>
+  <script>(function(){try{var t=localStorage.getItem('btl-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
 
-  <link rel="stylesheet" href="/style.css?v=7">
+  <link rel="stylesheet" href="/style.css?v=8">
 </head>
 <body>
 
@@ -638,11 +638,11 @@
     (function(){
       function apply(t){
         document.documentElement.setAttribute('data-theme', t);
-        try { localStorage.setItem('tnc-theme', t); } catch(e){}
+        try { localStorage.setItem('btl-theme', t); } catch(e){}
         var lbl = document.getElementById('theme-toggle-label');
         if (lbl) lbl.textContent = (t === 'dark') ? 'Light mode' : 'Dark mode';
       }
-      apply(localStorage.getItem('tnc-theme') || 'dark');
+      apply(localStorage.getItem('btl-theme') || 'dark');
       var btn = document.getElementById('theme-toggle-btn');
       if (btn) btn.addEventListener('click', function(){
         var cur = document.documentElement.getAttribute('data-theme');
