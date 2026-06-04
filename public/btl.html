@@ -633,5 +633,22 @@
   <!-- Scripts Connection -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="app.js?v=6"></script>
+
+  <script>
+    (function(){
+      function apply(t){
+        document.documentElement.setAttribute('data-theme', t);
+        try { localStorage.setItem('tnc-theme', t); } catch(e){}
+        var lbl = document.getElementById('theme-toggle-label');
+        if (lbl) lbl.textContent = (t === 'dark') ? 'Light mode' : 'Dark mode';
+      }
+      apply(localStorage.getItem('tnc-theme') || 'dark');
+      var btn = document.getElementById('theme-toggle-btn');
+      if (btn) btn.addEventListener('click', function(){
+        var cur = document.documentElement.getAttribute('data-theme');
+        apply(cur === 'dark' ? 'light' : 'dark');
+      });
+    })();
+  </script>
 </body>
 </html>
