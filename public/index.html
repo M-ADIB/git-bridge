@@ -25,7 +25,7 @@
     // Pre-paint theme application (avoid FOUC)
     (function(){
       try {
-        var t = localStorage.getItem('tnc-theme') || 'dark';
+        var t = localStorage.getItem('tnc-theme') || 'light';
         document.documentElement.setAttribute('data-theme', t);
       } catch(e) {}
     })();
