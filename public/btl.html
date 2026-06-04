@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="riQlavt5PPJmKYnr7RUgLrCm9GCp0BMAmI5KmS_DDMw" />
+  
+  <!-- SEO Meta Tags -->
+  <title data-i18n="landing_page_title">The Next Chapter | Podcasts by Rania Barghout</title>
+  <meta name="description" content="Register as a guest on Rania Barghout's visual podcasts: No2ta 3al Sater & Between The Lines. Share your inspiring story and expertise with the Arab world.">
+  <meta name="keywords" content="Rania Barghout, No2ta 3al Sater, Between The Lines, The Next Chapter, Podcast Guest, Dubai Media, Leadership Arabic Podcast">
+  <meta name="author" content="The Next Chapter LLC">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <link rel="canonical" href="https://thenextchapter.vip/btl">
+
+  <script>(function(){try{var t=localStorage.getItem('tnc-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+
+  <link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+
+  <!-- Background Animated Glowing Orbs -->
+  <div class="glow-container">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header id="main-header">
+    <div class="container header-container">
+      <a href="index.html" class="logo-wrapper" id="header-logo-link">
+        <img src="assets/logo.png" alt="No2ta 3al Sater Logo" class="logo-img" id="header-logo-img">
+        <span class="brand-text" id="brand-logo-text" data-i18n="brand_logo_text">Between The Lines</span>
+      </a>
+      
+      <!-- Desktop Navigation Menu -->
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <ul class="nav-menu">
+          <li><a class="nav-link" href="#about" data-i18n="nav_about" id="nav-lnk-about">About Rania</a></li>
+          <li><a class="nav-link" href="#shows" data-i18n="nav_shows" id="nav-lnk-shows">The Podcasts</a></li>
+          <li><a class="nav-link" href="#process" data-i18n="nav_process" id="nav-lnk-process">Selection Process</a></li>
+          <li><a class="nav-cta" href="apply.html" data-i18n="nav_apply" id="nav-lnk-apply">Apply Now</a></li>
+        </ul>
+      </nav>
+      
+      <!-- Hamburger Toggle Button -->
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-drawer">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Drawer Menu -->
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+  <aside class="mobile-drawer" id="mobile-drawer" aria-label="Mobile Navigation">
+    <nav class="mobile-nav" aria-label="Mobile menu links">
+      <ul class="nav-menu">
+        <li><a class="nav-link" href="#about" data-i18n="nav_about" id="mob-lnk-about">About Rania</a></li>
+        <li><a class="nav-link" href="#shows" data-i18n="nav_shows" id="mob-lnk-shows">The Podcasts</a></li>
+        <li><a class="nav-link" href="#process" data-i18n="nav_process" id="mob-lnk-process">Selection Process</a></li>
+        <li><a class="nav-link" href="apply.html" data-i18n="nav_apply" style="color: var(--accent-teal); font-weight: 700;" id="mob-lnk-apply">Apply Now</a></li>
+      </ul>
+    </nav>
+    
+    <!-- Bilingual Language Toggle inside Hamburger -->
+    <div class="lang-toggle-container">
+      <div class="lang-switch" role="group" aria-label="Language selector">
+        <button class="lang-btn active" data-lang="en" id="lang-btn-en">ENG</button>
+        <button class="lang-btn ar-lang" data-lang="ar" id="lang-btn-ar">العربية</button>
+      </div>
+    </div>
+
+    <!-- Theme toggle -->
+    <div class="theme-toggle-row">
+      <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle light/dark theme">
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <span id="theme-toggle-label">Light mode</span>
+      </button>
+    </div>
+
+    <!-- Parent brand link -->
+    <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border-glass);">
+      <a href="/" style="display:flex;align-items:center;gap:0.6rem;color:var(--text-muted);font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;">
+        <img src="/__l5e/assets-v1/cdf34ebd-b5c4-424a-a6a2-67d703618b7e/tnc_logo.png" alt="" style="height:20px;filter:invert(1) brightness(1.05);">
+        <span>← The Next Chapter</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero-section">
+    <!-- Background Video with lazy src injection -->
+    <div class="hero-video-wrapper">
+      <video id="hero-video" autoplay muted loop playsinline preload="none" class="hero-video-bg"></video>
+      <div class="hero-video-overlay"></div>
+    </div>
+    
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <h1 class="hero-title" id="hero-main-title" data-i18n="hero_title">Where Stories Become Conversations</h1>
+        <p class="hero-desc" id="hero-description" data-i18n="hero_desc">If you believe your story, expertise, or experience can add value to our audience, we would love to hear from you. Complete the guest application form below, and our editorial team will review your submission.</p>
+        
+        <a href="apply.html" class="nav-cta" style="padding: 1.1rem 2.5rem; font-size: 1rem; border-radius: 40px;" data-i18n="hero_cta" id="hero-cta-btn">Apply to Be a Guest</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Podcast Episodes Showcase Section -->
+  <section class="episodes-showcase" id="episodes-section">
+    <div class="container scroll-reveal">
+      <div class="section-header">
+        <span class="section-subtitle" data-i18n="eps_subtitle" id="eps-section-subtitle">Episodes Gallery</span>
+        <h2 class="section-title" data-i18n="eps_title" id="eps-section-title">Latest Podcast Episodes</h2>
+        <p style="color: var(--text-secondary); margin-top: 1rem;" data-i18n="eps_desc" id="eps-section-desc">Browse through some of our most impactful and powerful conversations on No2ta 3al Sater.</p>
+      </div>
+      
+      <div class="episodes-marquee-container" id="episodes-marquee-container" dir="ltr">
+        <div class="episodes-grid" id="episodes-cards-grid">
+          <!-- Episode Card 1 -->
+          <a class="episode-card" id="ep-card-1" href="https://www.youtube.com/watch?v=VCfdSt1C7mc" target="_blank">
+            <div class="episode-image-container">
+              <img src="https://img.youtube.com/vi/VCfdSt1C7mc/maxresdefault.jpg" alt="Episode Cover 1" class="episode-img" loading="lazy">
+              <div class="episode-overlay">
+                <span class="play-indicator-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+          <!-- Episode Card 2 -->
+          <a class="episode-card" id="ep-card-2" href="https://www.youtube.com/watch?v=gebLN_70ByE" target="_blank">
+            <div class="episode-image-container">
+              <img src="https://img.youtube.com/vi/gebLN_70ByE/maxresdefault.jpg" alt="Episode Cover 2" class="episode-img" loading="lazy">
+              <div class="episode-overlay">
+                <span class="play-indicator-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+          <!-- Episode Card 3 -->
+          <a class="episode-card" id="ep-card-3" href="https://www.youtube.com/watch?v=FqsvJEJZti8" target="_blank">
+            <div class="episode-image-container">
+              <img src="https://img.youtube.com/vi/FqsvJEJZti8/maxresdefault.jpg" alt="Episode Cover 3" class="episode-img" loading="lazy">
+              <div class="episode-overlay">
+                <span class="play-indicator-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+          <!-- Episode Card 4 -->
+          <a class="episode-card" id="ep-card-4" href="https://www.youtube.com/watch?v=Pp57JyWcuGs" target="_blank">
+            <div class="episode-image-container">
+              <img src="https://img.youtube.com/vi/Pp57JyWcuGs/maxresdefault.jpg" alt="Episode Cover 4" class="episode-img" loading="lazy">
+              <div class="episode-overlay">
+                <span class="play-indicator-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+          <!-- Episode Card 5 -->
+          <a class="episode-card" id="ep-card-5" href="https://www.youtube.com/watch?v=6gdjq2ZDMHY" target="_blank">
+            <div class="episode-image-container">
+              <img src="https://img.youtube.com/vi/6gdjq2ZDMHY/maxresdefault.jpg" alt="Episode Cover 5" class="episode-img" loading="lazy">
+              <div class="episode-overlay">
+                <span class="play-indicator-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+          <!-- Episode Card 6 -->
+          <a class="episode-card" id="ep-card-6" href="https://www.youtube.com/watch?v=sJ5__DNg9eA" target="_blank">
+            <div class="episode-image-container">
+              <img src="https://img.youtube.com/vi/sJ5__DNg9eA/maxresdefault.jpg" alt="Episode Cover 6" class="episode-img" loading="lazy">
+              <div class="episode-overlay">
+                <span class="play-indicator-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+          <!-- Episode Card 7 -->
+          <a class="episode-card" id="ep-card-7" href="https://www.youtube.com/watch?v=fdoiLa0B4hs" target="_blank">
+            <div class="episode-image-container">
+              <img src="https://img.youtube.com/vi/fdoiLa0B4hs/maxresdefault.jpg" alt="Episode Cover 7" class="episode-img" loading="lazy">
+              <div class="episode-overlay">
+                <span class="play-indicator-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+          <!-- Episode Card 8 -->
+          <a class="episode-card" id="ep-card-8" href="https://www.youtube.com/watch?v=hCjJ-XT8wUE" target="_blank">
+            <div class="episode-image-container">
+              <img src="https://img.youtube.com/vi/hCjJ-XT8wUE/maxresdefault.jpg" alt="Episode Cover 8" class="episode-img" loading="lazy">
+              <div class="episode-overlay">
+                <span class="play-indicator-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+          <!-- Episode Card 9 -->
+          <a class="episode-card" id="ep-card-9" href="https://www.youtube.com/watch?v=ARu32dwf6RI" target="_blank">
+            <div class="episode-image-container">
+              <img src="https://img.youtube.com/vi/ARu32dwf6RI/maxresdefault.jpg" alt="Episode Cover 9" class="episode-img" loading="lazy">
+              <div class="episode-overlay">
+                <span class="play-indicator-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+          <!-- Episode Card 10 -->
+          <a class="episode-card" id="ep-card-10" href="https://www.youtube.com/watch?v=aqfuBE96ISU" target="_blank">
+            <div class="episode-image-container">
+              <img src="https://img.youtube.com/vi/aqfuBE96ISU/maxresdefault.jpg" alt="Episode Cover 10" class="episode-img" loading="lazy">
+              <div class="episode-overlay">
+                <span class="play-indicator-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+          <!-- Episode Card 11 -->
+          <a class="episode-card" id="ep-card-11" href="https://www.youtube.com/watch?v=jvKo1TSmFlg" target="_blank">
+            <div class="episode-image-container">
+              <img src="https://img.youtube.com/vi/jvKo1TSmFlg/maxresdefault.jpg" alt="Episode Cover 11" class="episode-img" loading="lazy">
+              <div class="episode-overlay">
+                <span class="play-indicator-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Premium Stats Section -->
+  <section class="stats-section" id="stats-section">
+    <div class="container scroll-reveal">
+      <div class="stats-grid">
+        <!-- Stat Card 1 -->
+        <div class="stat-card">
+          <div class="stat-icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="22"></line>
+            </svg>
+          </div>
+          <div class="stat-number" data-i18n="stat_media_num" id="stat-num-media">10M+</div>
+          <div class="stat-label" data-i18n="stat_media_label" id="stat-lbl-media">Video Views</div>
+        </div>
+
+        <!-- Stat Card 2 -->
+        <div class="stat-card">
+          <div class="stat-icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </div>
+          <div class="stat-number" data-i18n="stat_views_num" id="stat-num-views">15M+</div>
+          <div class="stat-label" data-i18n="stat_views_label" id="stat-lbl-views">Impressions Reached</div>
+        </div>
+
+        <!-- Stat Card 3 -->
+        <div class="stat-card">
+          <div class="stat-icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="stat-number" data-i18n="stat_seats_num" id="stat-num-seats">5M+</div>
+          <div class="stat-label" data-i18n="stat_seats_label" id="stat-lbl-seats">Audience Reach</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Rania Barghout Section -->
+  <section class="about" id="about">
+    <div class="container about-grid scroll-reveal">
+      <div class="about-graphics">
+        <div class="about-glow-orb"></div>
+        <div class="about-card-stack" id="about-stack-container">
+          <div class="about-photo-card" id="about-rania-card">
+            <img src="assets/rania_bio.png" alt="Rania Barghout" class="about-photo-img" id="about-rania-img">
+          </div>
+        </div>
+      </div>
+      
+      <div class="about-content">
+        <span class="section-subtitle" data-i18n="about_subtitle" id="about-sec-subtitle">About The Host</span>
+        <h2 class="about-headline" data-i18n="about_title" id="about-sec-title">Rania Barghout</h2>
+        <p class="about-bio-text" data-i18n="about_bio_1" id="about-bio-p1">Rania Barghout is a renowned media personality, television presenter, producer, executive communication coach, and founder of The Next Chapter LLC. With over three decades of experience in television, media production, public speaking, interviewing, and executive coaching, she has interviewed hundreds of public figures, celebrities, experts, and leaders throughout her career.</p>
+        <p class="about-bio-text" data-i18n="about_bio_2" id="about-bio-p2">Her interviewing style combines warmth, curiosity, depth, and authenticity, creating a space where guests feel comfortable sharing both their achievements and the stories that shape who they are behind the public success.</p>
+        
+        <a href="https://instagram.com/notaassater" target="_blank" class="nav-cta" style="margin-top: 1.5rem;" data-i18n="about_btn" id="about-cta-btn">Connect With Rania</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section (Premium Asymmetric Design) -->
+  <section class="testimonials" id="testimonials-section">
+    <div class="container testimonials-container scroll-reveal">
+      <!-- Bleeding Background Index Number -->
+      <div class="testimonial-number" id="testimonial-number">01</div>
+      
+      <div class="testimonials-layout">
+        <!-- Left Column: Vertical Label & Progress Line -->
+        <div class="testimonial-left-column">
+          <span class="testimonial-vertical-label" data-i18n="testimonials_title">TESTIMONIALS</span>
+          <div class="testimonial-progress-track">
+            <div class="testimonial-progress-fill" id="testimonial-progress-fill" style="height: 33.33%;"></div>
+          </div>
+        </div>
+        
+        <!-- Right Column: Quote Content and Selectors -->
+        <div class="testimonial-right-column">
+          <div class="testimonial-content-wrapper">
+            <!-- Giant Quote Marks -->
+            <span class="quote-mark-left">“</span>
+            
+            <div class="testimonial-content">
+              <blockquote class="active-quote" id="active-quote-text" data-i18n="quote_1_text">"Rania creates an environment where you feel safe to speak your truth, share your vulnerability, and inspire others."</blockquote>
+              <cite class="active-author" id="active-quote-author" data-i18n="quote_1_author">— UAE Media Entrepreneur</cite>
+            </div>
+            
+            <span class="quote-mark-right">”</span>
+          </div>
+          
+          <!-- Testimonial Selector Pills -->
+          <div class="testimonial-selectors" id="testimonial-selectors">
+            <button class="selector-btn active" data-index="0" aria-label="Testimonial 1">
+              <span class="selector-dot"></span>
+              <span class="selector-label" data-i18n="testimonial_label_1">Media Entrepreneur</span>
+            </button>
+            <button class="selector-btn" data-index="1" aria-label="Testimonial 2">
+              <span class="selector-dot"></span>
+              <span class="selector-label" data-i18n="testimonial_label_2">Corporate CEO</span>
+            </button>
+            <button class="selector-btn" data-index="2" aria-label="Testimonial 3">
+              <span class="selector-dot"></span>
+              <span class="selector-label" data-i18n="testimonial_label_3">Startup Founder</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Podcast Showcase Section -->
+  <section class="shows" id="shows">
+    <div class="container scroll-reveal">
+      <div class="section-header">
+        <span class="section-subtitle" data-i18n="shows_subtitle" id="shows-section-subtitle">The Podcasts</span>
+        <h2 class="section-title" data-i18n="shows_title" id="shows-section-title">Where Stories Become Conversations That Matter</h2>
+        <p style="color: var(--text-secondary); margin-top: 1rem;" data-i18n="shows_desc" id="shows-section-desc">Our podcasts are carefully curated to ensure that every conversation delivers value, insight, inspiration, and meaningful discussion for our audience across the Middle East and beyond.</p>
+      </div>
+      
+      <div class="shows-grid">
+        <!-- Arabic Podcast: No2ta 3al Sater -->
+        <article class="show-card ar-card" id="show-card-nos">
+          <div class="show-logo-placeholder" id="show-logo-nos-ph" style="margin-bottom: 1.5rem;">
+            <img src="assets/logo.png" alt="No2ta 3al Sater Logo" class="show-logo-img">
+          </div>
+          <h3 class="show-title" data-i18n="show_nos_title" id="show-title-nos">No2ta 3al Sater (نقطة ع السطر)</h3>
+          <p class="show-desc" data-i18n="show_nos_desc" id="show-desc-nos">Hosted by veteran television presenter Rania Barghout, No2ta 3al Sater is one of the region's fastest-growing Arabic visual podcasts. More than an interview, each episode is an opportunity to uncover the experiences, lessons, challenges, and insights that shape who we become.</p>
+          <div class="show-topics-wrapper">
+            <span class="show-topics-title" data-i18n="show_nos_topics_lbl">Key Topics Explored:</span>
+            <ul class="show-topics-list">
+              <li data-i18n="show_nos_topic_1">Personal Transformation & Reinvention After 40</li>
+              <li data-i18n="show_nos_topic_2">Women's Empowerment & Leadership</li>
+              <li data-i18n="show_nos_topic_3">Functional Medicine, Wellness & Mental Health</li>
+              <li data-i18n="show_nos_topic_4">Relationships, Media & Social Impact</li>
+            </ul>
+          </div>
+          <ul class="show-meta-list" id="show-meta-list-nos">
+            <li class="show-meta-item"><span class="show-meta-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></span> <span data-i18n="show_nos_meta_lang">Language: Arabic (العربية)</span></li>
+            <li class="show-meta-item"><span class="show-meta-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span> <span data-i18n="show_nos_meta_target">Audience: Modern Arab Women 40+</span></li>
+            <li class="show-meta-item"><span class="show-meta-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span> <span data-i18n="show_nos_meta_format">Format: Social & Personal Transitions</span></li>
+          </ul>
+          <div class="show-links">
+            <a href="https://www.youtube.com/@No2ta3alsater" target="_blank" class="btn-secondary" style="border-color: rgba(0, 242, 254, 0.2);" data-i18n="btn_watch_youtube" id="watch-btn-nos">Watch on YouTube</a>
+            <a href="https://www.instagram.com/notaassater" target="_blank" class="btn-secondary" style="border-color: rgba(0, 242, 254, 0.2);" data-i18n="btn_follow_insta" id="insta-btn-nos">Follow on Instagram</a>
+          </div>
+        </article>
+
+        <!-- English Podcast: Between The Lines -->
+        <article class="show-card" id="show-card-btl">
+          <div class="show-logo-placeholder" id="show-logo-btl-ph" style="margin-bottom: 1.5rem; font-family: var(--font-en-head); font-weight: 800; font-size: 1.25rem; color: var(--accent-cobalt);">BTL</div>
+          <h3 class="show-title" data-i18n="show_btl_title" id="show-title-btl">Between The Lines</h3>
+          <p class="show-desc" data-i18n="show_btl_desc" id="show-desc-btl">Our English-language leadership visual podcast. Exploring leadership as a raw human experience, Rania sits down with prominent corporate founders, executives, and emerging female changemakers to co-author a 'Leadership Manifesto'.</p>
+          <div class="show-topics-wrapper">
+            <span class="show-topics-title" data-i18n="show_btl_topics_lbl">Key Topics Explored:</span>
+            <ul class="show-topics-list">
+              <li data-i18n="show_btl_topic_1">Leadership & Entrepreneurship</li>
+              <li data-i18n="show_btl_topic_2">Personal Branding & Public Speaking</li>
+              <li data-i18n="show_btl_topic_3">Technology, Innovation & Artificial Intelligence</li>
+              <li data-i18n="show_btl_topic_4">Career Development & Strategic Growth</li>
+            </ul>
+          </div>
+          <ul class="show-meta-list" id="show-meta-list-btl">
+            <li class="show-meta-item"><span class="show-meta-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></span> <span data-i18n="show_btl_meta_lang">Language: English</span></li>
+            <li class="show-meta-item"><span class="show-meta-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span> <span data-i18n="show_btl_meta_target">Audience: Emerging Leaders & Founders</span></li>
+            <li class="show-meta-item"><span class="show-meta-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span> <span data-i18n="show_btl_meta_format">Format: Human leadership & Manifestos</span></li>
+          </ul>
+          <div class="show-links">
+            <a href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank" class="btn-secondary" data-i18n="btn_watch_youtube" id="watch-btn-btl">Watch on YouTube</a>
+            <a href="https://instagram.com/betweenthelinesbyrania" target="_blank" class="btn-secondary" data-i18n="btn_follow_insta" id="insta-btn-btl">Follow on Instagram</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guest Criteria Profiles Section -->
+  <section class="who-we-want" id="who-section">
+    <div class="container guest-profile-grid scroll-reveal">
+      <div class="guest-profile-content">
+        <span class="section-subtitle" data-i18n="who_subtitle" id="who-sec-subtitle">Guest Profile</span>
+        <h2 class="section-title" data-i18n="who_title" id="who-sec-title" style="margin-bottom: 1.5rem; text-align: left;">Who Appears On Our Podcasts?</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;" data-i18n="who_desc" id="who-sec-desc">We welcome dynamic individuals whose journeys have the power to inspire, educate, and transform lives.</p>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;" data-i18n="who_review_note" id="who-sec-note">Applications are reviewed individually and selected based on relevance, audience value, and editorial fit. Please note that submission of an application does not guarantee acceptance.</p>
+      </div>
+      
+      <ul class="guest-criteria-list">
+        <li class="guest-criteria-item" data-i18n="who_item_1" id="criteria-item-1">A meaningful story to share with the audience</li>
+        <li class="guest-criteria-item" data-i18n="who_item_2" id="criteria-item-2">Valuable expertise and professional credibility</li>
+        <li class="guest-criteria-item" data-i18n="who_item_3" id="criteria-item-3">A unique perspective on modern challenges</li>
+        <li class="guest-criteria-item" data-i18n="who_item_4" id="criteria-item-4">An inspiring journey with clear lessons</li>
+        <li class="guest-criteria-item" data-i18n="who_item_5" id="criteria-item-5">Lessons that can directly benefit others</li>
+        <li class="guest-criteria-item" data-i18n="who_item_6" id="criteria-item-6">Passion for driving positive social impact</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Guest Selection Pipeline Timeline -->
+  <section class="selection-process" id="process">
+    <div class="container scroll-reveal">
+      <div class="section-header" style="margin-bottom: 2rem;">
+        <span class="section-subtitle" data-i18n="process_subtitle" id="process-sec-subtitle">The Pipeline</span>
+        <h2 class="section-title" data-i18n="process_title" id="process-sec-title">Guest Selection Process</h2>
+      </div>
+      
+      <!-- Timeline Roadmap layout -->
+      <div class="process-timeline" id="selection-timeline-wrapper">
+        <div class="timeline-progress-line">
+          <div class="timeline-progress-fill" id="timeline-progress-fill"></div>
+        </div>
+        <div class="process-step active" id="timeline-step-1" data-step="1">
+          <div class="step-num">1</div>
+          <span class="step-text" data-i18n="process_step_1">Submit Application</span>
+        </div>
+        <div class="process-step" id="timeline-step-2" data-step="2">
+          <div class="step-num">2</div>
+          <span class="step-text" data-i18n="process_step_2">Editorial Review</span>
+        </div>
+        <div class="process-step" id="timeline-step-3" data-step="3">
+          <div class="step-num">3</div>
+          <span class="step-text" data-i18n="process_step_3">Approval Notification</span>
+        </div>
+        <div class="process-step" id="timeline-step-4" data-step="4">
+          <div class="step-num">4</div>
+          <span class="step-text" data-i18n="process_step_4">Participation Agreement</span>
+        </div>
+        <div class="process-step" id="timeline-step-5" data-step="5">
+          <div class="step-num">5</div>
+          <span class="step-text" data-i18n="process_step_5">Production Contribution</span>
+        </div>
+        <div class="process-step" id="timeline-step-6" data-step="6">
+          <div class="step-num">6</div>
+          <span class="step-text" data-i18n="process_step_6">Scheduling & Recording</span>
+        </div>
+      </div>
+      
+      <!-- Interactive Step Detail Panel -->
+      <div class="process-detail-panel" id="process-detail-panel">
+        <div class="detail-panel-content" id="detail-panel-content">
+          <h4 id="process-detail-title" data-i18n="process_detail_title_1">Submit Application</h4>
+          <p id="process-detail-desc" data-i18n="process_detail_desc_1">Complete the online application form with your biography, professional milestones, and proposed conversation topics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Production Quality Standards Section -->
+  <section class="production-standards" id="standards-section" style="background: rgba(255,255,255,0.01); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
+    <div class="container guest-profile-grid scroll-reveal">
+      <div class="guest-profile-content">
+        <span class="section-subtitle" data-i18n="standards_subtitle" id="standards-sec-subtitle">Quality Assurance</span>
+        <h2 class="section-title" data-i18n="standards_title" id="standards-sec-title" style="margin-bottom: 1.5rem; text-align: left;">High Production Standards</h2>
+        <p style="color: var(--text-secondary);" data-i18n="standards_desc" id="standards-sec-desc">We ensure every conversation is captured and distributed with maximum professional quality:</p>
+      </div>
+      
+      <ul class="guest-criteria-list" style="grid-template-columns: 1fr;">
+        <li class="guest-criteria-item" data-i18n="standards_item_1" id="standards-item-1">Multi-camera high-definition studio recording</li>
+        <li class="guest-criteria-item" data-i18n="standards_item_2" id="standards-item-2">Professional audio capture and cinematic studio lighting</li>
+        <li class="guest-criteria-item" data-i18n="standards_item_3" id="standards-item-3">Pre-interview editorial preparation and scripting</li>
+        <li class="guest-criteria-item" data-i18n="standards_item_4" id="standards-item-4">Professional post-production video and audio editing</li>
+        <li class="guest-criteria-item" data-i18n="standards_item_5" id="standards-item-5">Social media promotional video clips and assets</li>
+        <li class="guest-criteria-item" data-i18n="standards_item_6" id="standards-item-6">Digital distribution across major global streaming platforms</li>
+      </ul>
+    </div>
+  </section>
+
+
+
+  <!-- CTA Box linking to standalone apply.html -->
+  <section class="apply-cta-section" id="apply-cta-section">
+    <div class="cta-glow-orb"></div>
+    <div class="container scroll-reveal">
+      <div class="cta-card-wrapper">
+        <h2><span data-i18n="hero_title_2">They deserve a conversation</span></h2>
+        <p class="cta-desc" data-i18n="hero_desc">If you believe your story, expertise, or experience can add value to our audience, we would love to hear from you. Complete the guest application form below, and our editorial team will review your submission.</p>
+        <a href="apply.html" class="cta-btn" data-i18n="hero_cta" id="cta-bottom-btn">Apply to Be a Guest</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-info">
+          <a href="index.html" class="logo-wrapper" style="margin-bottom: 0.5rem;" id="footer-logo-link">
+            <span class="brand-text" style="font-size: 1.2rem;" id="footer-logo-text" data-i18n="brand_logo_text">Between The Lines</span>
+          </a>
+          <p style="max-width: 380px; font-size: 0.85rem;" data-i18n="shows_desc">Our podcasts are carefully curated to ensure that every conversation delivers value, insight, inspiration, and meaningful discussion for our audience across the Middle East and beyond.</p>
+        </div>
+        
+        <!-- Social Connections column -->
+        <div class="footer-socials">
+          <!-- English Podcast Socials -->
+          <div class="social-group" id="footer-social-btl">
+            <span class="social-group-title">Between The Lines</span>
+            <div class="social-links">
+              <a href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank" class="social-link" aria-label="Between The Lines YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+              <a href="https://instagram.com/betweenthelinesbyrania" target="_blank" class="social-link" aria-label="Between The Lines Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+            </div>
+          </div>
+          
+          <!-- Arabic Podcast Socials -->
+          <div class="social-group" id="footer-social-nos">
+            <span class="social-group-title">نقطة ع السطر</span>
+            <div class="social-links">
+              <a href="https://www.youtube.com/@No2ta3alsater" target="_blank" class="social-link" aria-label="No2ta 3al Sater YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+              <a href="https://www.instagram.com/notaassater" target="_blank" class="social-link" aria-label="No2ta 3al Sater Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Giant Brand Text Footer Banner -->
+      <div class="footer-brand-title" data-i18n="brand_logo_text">Between The Lines</div>
+      
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <span data-i18n="copyright" id="footer-copyright-text">© 2026 The Next Chapter LLC. All rights reserved.</span>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="#" style="color: var(--text-muted); text-decoration: none; transition: var(--transition-fast);" data-i18n="links_privacy" id="privacy-link">Privacy Policy</a>
+          <a href="#" style="color: var(--text-muted); text-decoration: none; transition: var(--transition-fast);" data-i18n="links_terms" id="terms-link">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky Bottom Audio Player -->
+  <div id="sonaar-player" class="sticky-player-bar">
+    <div class="player-container">
+      <div class="player-left">
+        <div class="player-track-info">
+          <span class="player-track-title" id="player-track-title" data-i18n="player_track_title">No2ta 3al Sater - Season 1 Episode 1 (Teaser)</span>
+          <span class="player-track-artist" id="player-track-artist" data-i18n="player_track_artist">Hosted by Rania Barghout</span>
+        </div>
+        <div class="player-visualizer" id="player-visualizer">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      
+      <div class="player-center">
+        <button class="player-control-btn play-btn" id="player-play-btn" aria-label="Play / Pause">
+          <span class="play-icon" id="player-play-icon">
+            <svg class="play-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <svg class="pause-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          </span>
+        </button>
+        <span class="player-time" id="player-time-display">00:00 / 01:30</span>
+        <div class="player-progress-container" id="player-progress-container">
+          <div class="player-progress-bar" id="player-progress-bar"></div>
+        </div>
+      </div>
+      
+      <div class="player-right">
+        <button class="player-control-btn volume-btn" id="player-volume-btn" aria-label="Mute / Unmute">
+          <span class="volume-icon" id="player-volume-icon">
+            <svg class="volume-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            <svg class="mute-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+          </span>
+        </button>
+        <button class="player-control-btn collapse-btn" id="player-collapse-btn" aria-label="Collapse Player">
+          <span class="collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Expand Handle Button -->
+  <button class="player-expand-btn" id="player-expand-btn" style="display: none;" aria-label="Expand Player">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mic"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v1a7 7 0 0 1-14 0v-1"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+    <span data-i18n="player_listen_latest">Listen to Latest Episode</span>
+    <svg class="play-mini" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+  </button>
+
+  <!-- Scripts Connection -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js?v=6"></script>
+
+  <script>
+    (function(){
+      function apply(t){
+        document.documentElement.setAttribute('data-theme', t);
+        try { localStorage.setItem('tnc-theme', t); } catch(e){}
+        var lbl = document.getElementById('theme-toggle-label');
+        if (lbl) lbl.textContent = (t === 'dark') ? 'Light mode' : 'Dark mode';
+      }
+      apply(localStorage.getItem('tnc-theme') || 'dark');
+      var btn = document.getElementById('theme-toggle-btn');
+      if (btn) btn.addEventListener('click', function(){
+        var cur = document.documentElement.getAttribute('data-theme');
+        apply(cur === 'dark' ? 'light' : 'dark');
+      });
+    })();
+  </script>
+</body>
+</html>
