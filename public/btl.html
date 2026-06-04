@@ -74,13 +74,12 @@
       </div>
     </div>
 
-    <!-- Theme toggle -->
+    <!-- Theme toggle (segmented, matches language switcher) -->
     <div class="theme-toggle-row">
-      <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle light/dark theme">
-        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <span id="theme-toggle-label">Light mode</span>
-      </button>
+      <div class="lang-switch" role="group" aria-label="Theme selector">
+        <button class="lang-btn" data-theme-set="light" id="theme-btn-light">Light</button>
+        <button class="lang-btn" data-theme-set="dark" id="theme-btn-dark">Dark</button>
+      </div>
     </div>
 
     <!-- Parent brand link -->
@@ -639,14 +638,13 @@
       function apply(t){
         document.documentElement.setAttribute('data-theme', t);
         try { localStorage.setItem('btl-theme', t); } catch(e){}
-        var lbl = document.getElementById('theme-toggle-label');
-        if (lbl) lbl.textContent = (t === 'dark') ? 'Light mode' : 'Dark mode';
+        document.querySelectorAll('[data-theme-set]').forEach(function(b){
+          b.classList.toggle('active', b.getAttribute('data-theme-set') === t);
+        });
       }
       apply(localStorage.getItem('btl-theme') || 'dark');
-      var btn = document.getElementById('theme-toggle-btn');
-      if (btn) btn.addEventListener('click', function(){
-        var cur = document.documentElement.getAttribute('data-theme');
-        apply(cur === 'dark' ? 'light' : 'dark');
+      document.querySelectorAll('[data-theme-set]').forEach(function(b){
+        b.addEventListener('click', function(){ apply(b.getAttribute('data-theme-set')); });
       });
     })();
   </script>
