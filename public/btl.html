@@ -638,14 +638,13 @@
       function apply(t){
         document.documentElement.setAttribute('data-theme', t);
         try { localStorage.setItem('btl-theme', t); } catch(e){}
-        var lbl = document.getElementById('theme-toggle-label');
-        if (lbl) lbl.textContent = (t === 'dark') ? 'Light mode' : 'Dark mode';
+        document.querySelectorAll('[data-theme-set]').forEach(function(b){
+          b.classList.toggle('active', b.getAttribute('data-theme-set') === t);
+        });
       }
       apply(localStorage.getItem('btl-theme') || 'dark');
-      var btn = document.getElementById('theme-toggle-btn');
-      if (btn) btn.addEventListener('click', function(){
-        var cur = document.documentElement.getAttribute('data-theme');
-        apply(cur === 'dark' ? 'light' : 'dark');
+      document.querySelectorAll('[data-theme-set]').forEach(function(b){
+        b.addEventListener('click', function(){ apply(b.getAttribute('data-theme-set')); });
       });
     })();
   </script>
