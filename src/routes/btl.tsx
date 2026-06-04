@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/btl")({
   head: () => ({
@@ -12,28 +13,17 @@ export const Route = createFileRoute("/btl")({
       { property: "og:title", content: "Between the Lines — The Next Chapter" },
       {
         property: "og:description",
-        content:
-          "Bold podcasts by Rania Barghout from The Next Chapter.",
+        content: "Bold podcasts by Rania Barghout from The Next Chapter.",
       },
     ],
   }),
-  component: BtlPage,
+  component: BtlRedirect,
 });
 
-function BtlPage() {
-  const search =
-    typeof window !== "undefined" ? window.location.search : "";
-  return (
-    <iframe
-      src={`/btl/index.html${search}`}
-      title="Between the Lines"
-      style={{
-        position: "fixed",
-        inset: 0,
-        width: "100vw",
-        height: "100vh",
-        border: "none",
-      }}
-    />
-  );
+function BtlRedirect() {
+  useEffect(() => {
+    const search = window.location.search || "";
+    window.location.replace(`/btl/index.html${search}`);
+  }, []);
+  return null;
 }
