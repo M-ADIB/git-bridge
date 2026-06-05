@@ -75,6 +75,8 @@ body.lang-transitioning {
 /* --- Language (RTL) Class --- */
 body.rtl {
   font-family: var(--font-ar-body);
+  direction: rtl;
+  text-align: right;
 }
 
 /* --- Scrollbar Styling --- */
@@ -3208,3 +3210,27 @@ body.rtl .form-select {
 }
 .parent-brand-chip img { height: 18px; width: auto; }
 :root[data-theme="dark"] .parent-brand-chip img { filter: invert(1) brightness(1.05); }
+
+/* --- RTL Layout Overrides & Additions --- */
+#who-sec-title,
+#standards-sec-title {
+  text-align: left;
+}
+body.rtl #who-sec-title,
+body.rtl #standards-sec-title {
+  text-align: right;
+}
+
+body.rtl .phone-input-container {
+  flex-direction: row-reverse;
+}
+body.rtl #phone-prefix,
+body.rtl #sponsor-phone-prefix {
+  border-right: 1px solid var(--border-glass) !important;
+  border-left: none !important;
+  border-radius: 0 12px 12px 0 !important;
+}
+body.rtl #form-phone-number,
+body.rtl #form-sponsor-phone-number {
+  border-radius: 12px 0 0 12px !important;
+}

@@ -700,8 +700,22 @@ document.addEventListener('DOMContentLoaded', () => {
     heroVideo.load();
   }
 
-  // Sync page default LTR
-  setLanguage('en');
+  // Detect language from URL search parameters or fallback to 'en'
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlLang = urlParams.get('lang');
+  const defaultLang = (urlLang === 'ar' || urlLang === 'en') ? urlLang : 'en';
+  
+  setLanguage(defaultLang);
+  
+  // Sync the language toggle buttons in the drawer
+  const langBtns = document.querySelectorAll('.lang-btn');
+  langBtns.forEach(btn => {
+    if (btn.getAttribute('data-lang') === defaultLang) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
 
   // Load dynamic content from Supabase
   loadLatestEpisode();
@@ -746,7 +760,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }));
   
   // Bind Language Switches (Updated with premium Transition Delay)
-  const langBtns = document.querySelectorAll('.lang-btn');
   langBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       const selectedLang = e.target.getAttribute('data-lang');
@@ -1548,6 +1561,16 @@ function setLanguage(lang) {
     document.body.classList.add('rtl');
   } else {
     document.body.classList.remove('rtl');
+  }
+
+  // Dynamic host photo swapping based on language
+  const aboutImg = document.getElementById('about-rania-img');
+  if (aboutImg) {
+    if (lang === 'ar') {
+      aboutImg.src = 'assets/rania_no2ta_promo.png';
+    } else {
+      aboutImg.src = 'assets/rania_btl_promo.jpg';
+    }
   }
   
   // Title is translated dynamically via data-i18n query loop
