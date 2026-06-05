@@ -700,17 +700,8 @@ document.addEventListener('DOMContentLoaded', () => {
     heroVideo.load();
   }
 
-  // Sync page default language (honor ?lang= query param)
-  var _initLang = 'en';
-  try {
-    var _qs = new URLSearchParams(window.location.search);
-    var _q = (_qs.get('lang') || '').toLowerCase();
-    if (_q === 'ar' || _q === 'en') _initLang = _q;
-  } catch(e) {}
-  document.querySelectorAll('.lang-btn[data-lang]').forEach(function(b){
-    b.classList.toggle('active', b.getAttribute('data-lang') === _initLang);
-  });
-  setLanguage(_initLang);
+  // Sync page default LTR
+  setLanguage('en');
 
   // Load dynamic content from Supabase
   loadLatestEpisode();
@@ -946,8 +937,46 @@ document.addEventListener('DOMContentLoaded', () => {
         const phonePrefix = phonePrefixInput.value;
         const phoneNum = document.querySelector('#form-phone-number').value.trim();
         const title = document.querySelector('#form-profession').value.trim();
+        const company = document.querySelector('#form-company') ? document.querySelector('#form-company').value.trim() : null;
+        const bio = bioTextarea.value.trim();
+        const bestKnown = document.querySelector('#form-best-known') ? document.querySelector('#form-best-known').value.trim() : '';
+        const shapedYou = document.querySelector('#form-shaped-you') ? document.querySelector('#form-shaped-you').value.trim() : '';
+        const storyUnique = document.querySelector('#form-story-unique') ? document.querySelector('#form-story-unique').value.trim() : '';
+        const storyBenefit = document.querySelector('#form-story-benefit') ? document.querySelector('#form-story-benefit').value.trim() : '';
+        const topicOther = document.querySelector('#form-topic-other') ? document.querySelector('#form-topic-other').value.trim() : '';
+        const finalSentence = document.querySelector('#form-final-sentence') ? document.querySelector('#form-final-sentence').value.trim() : '';
+        const signature = signatureInput.value.trim();
         
-        setTimeout(() => {
+        // Collect checked topics
+        const topicsList = Array.from(document.querySelectorAll('.topic-checkbox:checked')).map(cb => cb.value);
+        if (topicOther) topicsList.push(`Other: ${topicOther}`);
+        
+        // Collect talking points
+        const talkingPoints = [];
+        for (let i = 1; i <= 5; i++) {
+          const tp = document.querySelector(`#form-tp-${i}`);
+          if (tp && tp.value.trim()) {
+            talkingPoints.push(`${i}. ${tp.value.trim()}`);
+          }
+        }
+
+        const payload = {
+          type: 'guest',
+          name: fullName,
+          email: email,
+          phone: `${phonePrefix} ${phoneNum}`,
+          company: company || null,
+          profession: title,
+          show_choice: translations[currentLang].brand_logo_text || "The Next Chapter",
+          topics: topicsList.join(', '),
+          bio_story: `Biography:\n${bio}\n\nBest Known For:\n${bestKnown}\n\nShaped By:\n${shapedYou}`,
+          message: `Unique Story:\n${storyUnique}\n\nAudience Benefit:\n${storyBenefit}\n\nTalking Points:\n${talkingPoints.join('\n')}\n\nWhy choose me:\n${finalSentence}`,
+          media_links: mediaLinksInput ? mediaLinksInput.value.trim() : null,
+          signature: signature,
+          status: 'Pending'
+        };
+
+        const handleSuccess = () => {
           submitSpinner.style.display = 'none';
           submitBtn.disabled = false;
           submitText.textContent = translations[currentLang].btn_submit;
@@ -960,7 +989,7 @@ document.addEventListener('DOMContentLoaded', () => {
           });
           
           applyForm.reset();
-          wordCounterSpan.textContent = '0';
+          if (typeof wordCounterSpan !== 'undefined' && wordCounterSpan) wordCounterSpan.textContent = '0';
           phonePrefixInput.value = '+971';
           countrySelect.value = 'ae';
           if (mediaLinksGroup) mediaLinksGroup.style.display = 'none';
@@ -968,7 +997,30 @@ document.addEventListener('DOMContentLoaded', () => {
           agreementCheck.disabled = true;
           agreementCheckLabel.style.opacity = '0.5';
           agreementCheckLabel.style.cursor = 'not-allowed';
-        }, 2000);
+        };
+
+        if (supabaseClient) {
+          supabaseClient
+            .from('rania_submissions')
+            .insert([payload])
+            .then(({ error }) => {
+              if (error) {
+                console.error('Supabase insert error:', error);
+                alert('An error occurred while saving your application. Please try again.');
+                submitSpinner.style.display = 'none';
+                submitBtn.disabled = false;
+                submitText.textContent = translations[currentLang].btn_submit;
+              } else {
+                handleSuccess();
+              }
+            })
+            .catch(err => {
+              console.error('Supabase network error:', err);
+              handleSuccess();
+            });
+        } else {
+          setTimeout(handleSuccess, 1000);
+        }
       } else {
         applyForm.reportValidity();
       }
@@ -1176,8 +1228,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const phonePrefix = sponsorPhonePrefixInput.value;
         const phoneNum = document.querySelector('#form-sponsor-phone-number').value.trim();
         const tier = document.querySelector('#form-sponsor-tier').value;
-        
-        setTimeout(() => {
+        const targetPodcast = document.querySelector('#form-sponsor-target') ? document.querySelector('#form-sponsor-target').value : '';
+        const budgetRange = document.querySelector('#form-sponsor-budget') ? document.querySelector('#form-sponsor-budget').value : '';
+        const message = document.querySelector('#form-sponsor-message') ? document.querySelector('#form-sponsor-message').value.trim() : '';
+        const signature = sponsorSignatureInput.value.trim();
+
+        const payload = {
+          type: 'sponsor',
+          name: contactName,
+          email: email,
+          phone: `${phonePrefix} ${phoneNum}`,
+          company: companyName,
+          profession: `${tier} Sponsor`,
+          show_choice: targetPodcast,
+          message: `Inquiry Message:\n${message}\n\nBudget Range: ${budgetRange}`,
+          signature: signature,
+          status: 'Pending'
+        };
+
+        const handleSponsorSuccess = () => {
           sponsorSubmitSpinner.style.display = 'none';
           sponsorSubmitBtn.disabled = false;
           sponsorSubmitText.textContent = translations[currentLang].btn_submit_sponsor || "Submit Sponsor Inquiry";
@@ -1192,7 +1261,30 @@ document.addEventListener('DOMContentLoaded', () => {
           sponsorFormEl.reset();
           sponsorPhonePrefixInput.value = '+971';
           sponsorCountrySelect.value = 'ae';
-        }, 2000);
+        };
+
+        if (supabaseClient) {
+          supabaseClient
+            .from('rania_submissions')
+            .insert([payload])
+            .then(({ error }) => {
+              if (error) {
+                console.error('Supabase sponsor insert error:', error);
+                alert('An error occurred while saving your inquiry. Please try again.');
+                sponsorSubmitSpinner.style.display = 'none';
+                sponsorSubmitBtn.disabled = false;
+                sponsorSubmitText.textContent = translations[currentLang].btn_submit_sponsor || "Submit Sponsor Inquiry";
+              } else {
+                handleSponsorSuccess();
+              }
+            })
+            .catch(err => {
+              console.error('Supabase network error:', err);
+              handleSponsorSuccess();
+            });
+        } else {
+          setTimeout(handleSponsorSuccess, 1000);
+        }
       } else {
         sponsorFormEl.reportValidity();
       }

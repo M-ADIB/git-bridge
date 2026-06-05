@@ -8,6 +8,11 @@ let currentSpotlightMediaType = 'youtube'; // 'youtube' or 'audio'
 let selectedAudioFile = null;
 let currentSpotlightData = null;
 let existingAudioUrl = null;
+let allSubmissions = [];
+let activeTypeFilter = 'all';
+let activeStatusFilter = 'all';
+let activeSearchQuery = '';
+let selectedSubmission = null;
 
 // --- DOM Elements ---
 const typeYoutubeBtn = document.getElementById('type-youtube-btn');
@@ -479,6 +484,368 @@ async function deleteTickerEpisode(id) {
   }
 }
 
+// --- Submissions Inbox Functions ---
+
+async function updateSubmissionsBadgeCount() {
+  if (!supabaseClient) return;
+  try {
+    const { count, error } = await supabaseClient
+      .from('rania_submissions')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'Pending');
+      
+    if (error) throw error;
+    
+    const badgeEl = document.getElementById('submissions-badge');
+    if (badgeEl) {
+      if (count > 0) {
+        badgeEl.textContent = count;
+        badgeEl.style.display = 'inline-flex';
+      } else {
+        badgeEl.style.display = 'none';
+      }
+    }
+  } catch (err) {
+    console.error('Error updating badge count:', err);
+  }
+}
+
+async function loadSubmissionsList() {
+  if (!supabaseClient) return;
+  
+  const tbody = document.getElementById('submissions-list-tbody');
+  if (tbody) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Loading submissions...</td></tr>';
+  }
+  
+  try {
+    const { data, error } = await supabaseClient
+      .from('rania_submissions')
+      .select('*')
+      .order('created_at', { ascending: false });
+      
+    if (error) throw error;
+    
+    allSubmissions = data || [];
+    renderSubmissions();
+  } catch (err) {
+    console.error('Error loading submissions:', err);
+    showToast('Failed to load submissions from database.', 'error');
+    if (tbody) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:var(--accent-crimson);">Failed to load data.</td></tr>';
+    }
+  }
+}
+
+function renderSubmissions() {
+  const tbody = document.getElementById('submissions-list-tbody');
+  const emptyPlaceholder = document.getElementById('submissions-empty-placeholder');
+  if (!tbody) return;
+  
+  tbody.innerHTML = '';
+  
+  // Filter submissions
+  const filtered = allSubmissions.filter(sub => {
+    // Type filter
+    if (activeTypeFilter !== 'all' && sub.type !== activeTypeFilter) return false;
+    
+    // Status filter
+    if (activeStatusFilter !== 'all' && sub.status !== activeStatusFilter) return false;
+    
+    // Search filter
+    if (activeSearchQuery) {
+      const q = activeSearchQuery.toLowerCase();
+      const name = (sub.name || '').toLowerCase();
+      const email = (sub.email || '').toLowerCase();
+      const company = (sub.company || '').toLowerCase();
+      const profession = (sub.profession || '').toLowerCase();
+      const topics = (sub.topics || '').toLowerCase();
+      const message = (sub.message || '').toLowerCase();
+      
+      const match = name.includes(q) || 
+                    email.includes(q) || 
+                    company.includes(q) || 
+                    profession.includes(q) || 
+                    topics.includes(q) || 
+                    message.includes(q);
+                    
+      if (!match) return false;
+    }
+    
+    return true;
+  });
+  
+  if (filtered.length === 0) {
+    if (emptyPlaceholder) emptyPlaceholder.style.display = 'flex';
+    return;
+  }
+  
+  if (emptyPlaceholder) emptyPlaceholder.style.display = 'none';
+  
+  filtered.forEach(sub => {
+    const tr = document.createElement('tr');
+    tr.id = `sub-row-${sub.id}`;
+    
+    // Format date
+    let dateStr = 'N/A';
+    if (sub.created_at) {
+      const d = new Date(sub.created_at);
+      dateStr = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    
+    // Type badge
+    const typeBadge = sub.type === 'guest' 
+      ? '<span class="type-badge badge-type-guest">Guest</span>' 
+      : '<span class="type-badge badge-type-sponsor">Sponsor</span>';
+      
+    // Status badge
+    const statusClass = sub.status ? sub.status.toLowerCase() : 'pending';
+    const statusBadge = `<span class="status-badge badge-${statusClass}">${sub.status || 'Pending'}</span>`;
+    
+    // Name / Company details
+    const nameSection = sub.type === 'guest'
+      ? `<div style="font-weight:600;">${sub.name || 'Anonymous'}</div><div style="font-size:0.75rem; color:var(--text-secondary);">${sub.profession || ''}</div>`
+      : `<div style="font-weight:600;">${sub.name || 'Anonymous'}</div><div style="font-size:0.75rem; color:var(--accent-indigo); font-weight:500;">${sub.company || 'No Company'}</div>`;
+
+    // Show or tier details
+    const showOrTier = sub.type === 'guest'
+      ? `<div style="font-size:0.8rem; font-weight:500;">${sub.show_choice || 'Any Show'}</div>`
+      : `<div style="font-size:0.8rem; font-weight:600; color:var(--accent-teal);">${sub.profession || 'Sponsorship'}</div><div style="font-size:0.7rem; color:var(--text-secondary);">${sub.show_choice || ''}</div>`;
+
+    tr.innerHTML = `
+      <td>${typeBadge}</td>
+      <td>${nameSection}</td>
+      <td>
+        <div>${sub.email || ''}</div>
+        <div style="font-size:0.75rem; color:var(--text-secondary);">${sub.phone || ''}</div>
+      </td>
+      <td>${showOrTier}</td>
+      <td>${dateStr}</td>
+      <td>${statusBadge}</td>
+      <td>
+        <button class="tbl-action-btn view" data-id="${sub.id}" title="View Details">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+        </button>
+        <button class="tbl-action-btn delete" data-id="${sub.id}" title="Delete Submission">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-4v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+        </button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+  
+  // Wire list buttons
+  tbody.querySelectorAll('.tbl-action-btn.view').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.getAttribute('data-id'));
+      const sub = allSubmissions.find(s => s.id === id);
+      if (sub) openSubmissionDetail(sub);
+    });
+  });
+  
+  tbody.querySelectorAll('.tbl-action-btn.delete').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = parseInt(btn.getAttribute('data-id'));
+      if (confirm('Are you sure you want to permanently delete this submission?')) {
+        await deleteSubmission(id);
+      }
+    });
+  });
+}
+
+function openSubmissionDetail(submission) {
+  selectedSubmission = submission;
+  const overlay = document.getElementById('submission-modal-overlay');
+  const detailsContent = document.getElementById('modal-details-content');
+  if (!overlay || !detailsContent) return;
+  
+  // Format Date
+  let dateStr = 'N/A';
+  if (submission.created_at) {
+    const d = new Date(submission.created_at);
+    dateStr = d.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
+  }
+  
+  let dynamicDetailsHTML = '';
+  
+  if (submission.type === 'guest') {
+    dynamicDetailsHTML = `
+      <div class="detail-section-title">Personal & Contact Info</div>
+      <div class="detail-grid">
+        <div class="detail-field">
+          <span class="detail-label">Full Name</span>
+          <span class="detail-value">${submission.name || 'N/A'}</span>
+        </div>
+        <div class="detail-field">
+          <span class="detail-label">Email Address</span>
+          <span class="detail-value">${submission.email || 'N/A'}</span>
+        </div>
+        <div class="detail-field">
+          <span class="detail-label">Phone Number</span>
+          <span class="detail-value">${submission.phone || 'N/A'}</span>
+        </div>
+        <div class="detail-field">
+          <span class="detail-label">Profession / Title</span>
+          <span class="detail-value">${submission.profession || 'N/A'}</span>
+        </div>
+        ${submission.company ? `
+        <div class="detail-field">
+          <span class="detail-label">Company / Organization</span>
+          <span class="detail-value">${submission.company}</span>
+        </div>` : ''}
+        <div class="detail-field">
+          <span class="detail-label">Target Show Choice</span>
+          <span class="detail-value">${submission.show_choice || 'N/A'}</span>
+        </div>
+      </div>
+      
+      <div class="detail-section-title">Topics & Interview Scope</div>
+      <div class="detail-grid">
+        <div class="detail-field full-width">
+          <span class="detail-label">Selected Topics</span>
+          <span class="detail-value">${submission.topics || 'None selected'}</span>
+        </div>
+        <div class="detail-field full-width">
+          <span class="detail-label">Biography & Context</span>
+          <span class="detail-value">${submission.bio_story || 'N/A'}</span>
+        </div>
+      </div>
+      
+      <div class="detail-section-title">Unique Story Details</div>
+      <div class="detail-grid">
+        <div class="detail-field full-width">
+          <span class="detail-label">Pitch details & Audience benefits</span>
+          <span class="detail-value">${submission.message || 'N/A'}</span>
+        </div>
+        ${submission.media_links ? `
+        <div class="detail-field full-width">
+          <span class="detail-label">Media & Social Links</span>
+          <span class="detail-value">${submission.media_links}</span>
+        </div>` : ''}
+      </div>
+      
+      <div class="detail-section-title">Declaration & Signature</div>
+      <div class="detail-grid">
+        <div class="detail-field">
+          <span class="detail-label">Date Submitted</span>
+          <span class="detail-value">${dateStr}</span>
+        </div>
+        <div class="detail-field">
+          <span class="detail-label">Digital Signature</span>
+          <span class="detail-value signature-font">${submission.signature || 'N/A'}</span>
+        </div>
+      </div>
+    `;
+  } else {
+    // Sponsor details
+    dynamicDetailsHTML = `
+      <div class="detail-section-title">Sponsor Organization & Contact</div>
+      <div class="detail-grid">
+        <div class="detail-field">
+          <span class="detail-label">Contact Name</span>
+          <span class="detail-value">${submission.name || 'N/A'}</span>
+        </div>
+        <div class="detail-field">
+          <span class="detail-label">Company Name</span>
+          <span class="detail-value">${submission.company || 'N/A'}</span>
+        </div>
+        <div class="detail-field">
+          <span class="detail-label">Email Address</span>
+          <span class="detail-value">${submission.email || 'N/A'}</span>
+        </div>
+        <div class="detail-field">
+          <span class="detail-label">Phone Number</span>
+          <span class="detail-value">${submission.phone || 'N/A'}</span>
+        </div>
+        <div class="detail-field">
+          <span class="detail-label">Sponsorship Tier</span>
+          <span class="detail-value">${submission.profession || 'N/A'}</span>
+        </div>
+        <div class="detail-field">
+          <span class="detail-label">Target Show Choice</span>
+          <span class="detail-value">${submission.show_choice || 'N/A'}</span>
+        </div>
+      </div>
+      
+      <div class="detail-section-title">Inquiry message & Budget details</div>
+      <div class="detail-grid">
+        <div class="detail-field full-width">
+          <span class="detail-label">Message Details</span>
+          <span class="detail-value">${submission.message || 'N/A'}</span>
+        </div>
+      </div>
+      
+      <div class="detail-section-title">Declaration & Signature</div>
+      <div class="detail-grid">
+        <div class="detail-field">
+          <span class="detail-label">Date Submitted</span>
+          <span class="detail-value">${dateStr}</span>
+        </div>
+        <div class="detail-field">
+          <span class="detail-label">Digital Signature</span>
+          <span class="detail-value signature-font">${submission.signature || 'N/A'}</span>
+        </div>
+      </div>
+    `;
+  }
+  
+  detailsContent.innerHTML = dynamicDetailsHTML;
+  overlay.classList.add('active');
+}
+
+function closeSubmissionDetail() {
+  const overlay = document.getElementById('submission-modal-overlay');
+  if (overlay) overlay.classList.remove('active');
+  selectedSubmission = null;
+}
+
+async function updateSubmissionStatus(id, newStatus) {
+  if (!supabaseClient) return;
+  try {
+    const { error } = await supabaseClient
+      .from('rania_submissions')
+      .update({ status: newStatus })
+      .eq('id', id);
+      
+    if (error) throw error;
+    
+    // Update local state
+    const sub = allSubmissions.find(s => s.id === id);
+    if (sub) sub.status = newStatus;
+    
+    showToast(`Submission status updated to ${newStatus}.`);
+    closeSubmissionDetail();
+    renderSubmissions();
+    await updateSubmissionsBadgeCount();
+  } catch (err) {
+    console.error('Error updating status:', err);
+    showToast('Failed to update submission status.', 'error');
+  }
+}
+
+async function deleteSubmission(id) {
+  if (!supabaseClient) return;
+  try {
+    const { error } = await supabaseClient
+      .from('rania_submissions')
+      .delete()
+      .eq('id', id);
+      
+    if (error) throw error;
+    
+    // Update local state
+    allSubmissions = allSubmissions.filter(s => s.id !== id);
+    
+    showToast('Submission deleted successfully.');
+    closeSubmissionDetail();
+    renderSubmissions();
+    await updateSubmissionsBadgeCount();
+  } catch (err) {
+    console.error('Error deleting submission:', err);
+    showToast('Failed to delete submission.', 'error');
+  }
+}
+
 // --- Event Listeners Setup ---
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -608,6 +975,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const cmsPanel = document.getElementById('tab-cms');
         if (cmsPanel) cmsPanel.classList.add('active');
         friendlyName = 'Spotlight & Ticker CMS';
+      } else if (tabName === 'members') {
+        const membersPanel = document.getElementById('tab-members');
+        if (membersPanel) membersPanel.classList.add('active');
+        friendlyName = 'Guest & Sponsor Submissions';
+        loadSubmissionsList();
       } else {
         const teaserPanel = document.getElementById('tab-teaser');
         if (teaserPanel) teaserPanel.classList.add('active');
@@ -638,7 +1010,81 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
+  // --- Submissions Inbox Event Bindings ---
+  
+  const searchInput = document.getElementById('submissions-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      activeSearchQuery = e.target.value;
+      renderSubmissions();
+    });
+  }
+  
+  // Filter Type Buttons
+  const typeFilterBtns = document.querySelectorAll('[data-filter-type]');
+  typeFilterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      typeFilterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeTypeFilter = btn.getAttribute('data-filter-type');
+      renderSubmissions();
+    });
+  });
+  
+  // Filter Status Buttons
+  const statusFilterBtns = document.querySelectorAll('[data-filter-status]');
+  statusFilterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      statusFilterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeStatusFilter = btn.getAttribute('data-filter-status');
+      renderSubmissions();
+    });
+  });
+  
+  // Modal close buttons
+  const modalCloseBtn = document.getElementById('modal-close-btn');
+  const modalOverlay = document.getElementById('submission-modal-overlay');
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener('click', closeSubmissionDetail);
+  }
+  if (modalOverlay) {
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeSubmissionDetail();
+    });
+  }
+  
+  // Modal actions
+  const btnApprove = document.getElementById('modal-btn-approve');
+  const btnReject = document.getElementById('modal-btn-reject');
+  const btnPending = document.getElementById('modal-btn-pending');
+  const btnDelete = document.getElementById('modal-btn-delete');
+  
+  if (btnApprove) {
+    btnApprove.addEventListener('click', () => {
+      if (selectedSubmission) updateSubmissionStatus(selectedSubmission.id, 'Approved');
+    });
+  }
+  if (btnReject) {
+    btnReject.addEventListener('click', () => {
+      if (selectedSubmission) updateSubmissionStatus(selectedSubmission.id, 'Rejected');
+    });
+  }
+  if (btnPending) {
+    btnPending.addEventListener('click', () => {
+      if (selectedSubmission) updateSubmissionStatus(selectedSubmission.id, 'Pending');
+    });
+  }
+  if (btnDelete) {
+    btnDelete.addEventListener('click', () => {
+      if (selectedSubmission && confirm('Are you sure you want to permanently delete this submission?')) {
+        deleteSubmission(selectedSubmission.id);
+      }
+    });
+  }
+  
   // Initial database load calls
   loadSpotlightData();
   loadTickerList();
+  updateSubmissionsBadgeCount();
 });
