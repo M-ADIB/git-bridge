@@ -960,6 +960,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const finalSentence = document.querySelector('#form-final-sentence') ? document.querySelector('#form-final-sentence').value.trim() : '';
         const signature = signatureInput.value.trim();
         
+        // Extract new/missing fields
+        const prefName = document.querySelector('#form-pref-name') ? document.querySelector('#form-pref-name').value.trim() : '';
+        const country = document.querySelector('#form-country') ? document.querySelector('#form-country').value.trim() : '';
+        const website = document.querySelector('#form-website') ? document.querySelector('#form-website').value.trim() : '';
+        const linkedin = document.querySelector('#form-linkedin') ? document.querySelector('#form-linkedin').value.trim() : '';
+        const instagram = document.querySelector('#form-insta') ? document.querySelector('#form-insta').value.trim() : '';
+        const socialOther = document.querySelector('#form-social-other') ? document.querySelector('#form-social-other').value.trim() : '';
+        const takeaway = document.querySelector('#form-takeaway') ? document.querySelector('#form-takeaway').value.trim() : '';
+        const prevMediaVal = document.querySelector('input[name="prevmedia"]:checked') ? document.querySelector('input[name="prevmedia"]:checked').value : 'no';
+        
         // Collect checked topics
         const topicsList = Array.from(document.querySelectorAll('.topic-checkbox:checked')).map(cb => cb.value);
         if (topicOther) topicsList.push(`Other: ${topicOther}`);
@@ -973,6 +983,28 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
 
+        // Format bio_story to include preferred name and country
+        let bioStoryVal = '';
+        if (prefName) bioStoryVal += `Preferred Screen Name: ${prefName}\n`;
+        if (country) bioStoryVal += `Country: ${country}\n`;
+        if (bioStoryVal) bioStoryVal += `\n`;
+        bioStoryVal += `Biography:\n${bio}\n\nBest Known For:\n${bestKnown}\n\nShaped By:\n${shapedYou}`;
+
+        // Format message to include takeaway and previous media appearance flag
+        let messageVal = `Unique Story:\n${storyUnique}\n\nAudience Benefit:\n${storyBenefit}\n\nTalking Points:\n${talkingPoints.join('\n')}\n\nWhy choose me:\n${finalSentence}`;
+        if (takeaway) messageVal += `\n\nCore Takeaway Message:\n${takeaway}`;
+        messageVal += `\n\nPrevious Media Appearances: ${prevMediaVal.toUpperCase()}`;
+
+        // Format media_links to pack all link inputs together
+        const allLinks = [];
+        if (website) allLinks.push(`Website: ${website}`);
+        if (linkedin) allLinks.push(`LinkedIn: ${linkedin}`);
+        if (instagram) allLinks.push(`Instagram: ${instagram}`);
+        if (socialOther) allLinks.push(`Other Socials: ${socialOther}`);
+        const prevMediaLinks = mediaLinksInput ? mediaLinksInput.value.trim() : '';
+        if (prevMediaLinks) allLinks.push(`Previous Media Links: ${prevMediaLinks}`);
+        const mediaLinksValue = allLinks.length > 0 ? allLinks.join('\n') : null;
+
         const payload = {
           type: 'guest',
           name: fullName,
@@ -982,9 +1014,9 @@ document.addEventListener('DOMContentLoaded', () => {
           profession: title,
           show_choice: translations[currentLang].brand_logo_text || "The Next Chapter",
           topics: topicsList.join(', '),
-          bio_story: `Biography:\n${bio}\n\nBest Known For:\n${bestKnown}\n\nShaped By:\n${shapedYou}`,
-          message: `Unique Story:\n${storyUnique}\n\nAudience Benefit:\n${storyBenefit}\n\nTalking Points:\n${talkingPoints.join('\n')}\n\nWhy choose me:\n${finalSentence}`,
-          media_links: mediaLinksInput ? mediaLinksInput.value.trim() : null,
+          bio_story: bioStoryVal,
+          message: messageVal,
+          media_links: mediaLinksValue,
           signature: signature,
           status: 'Pending'
         };
@@ -1243,7 +1275,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const tier = document.querySelector('#form-sponsor-tier').value;
         const targetPodcast = document.querySelector('#form-sponsor-target') ? document.querySelector('#form-sponsor-target').value : '';
         const budgetRange = document.querySelector('#form-sponsor-budget') ? document.querySelector('#form-sponsor-budget').value : '';
-        const message = document.querySelector('#form-sponsor-message') ? document.querySelector('#form-sponsor-message').value.trim() : '';
+        const sponsorGoals = document.querySelector('#form-sponsor-goals') ? document.querySelector('#form-sponsor-goals').value.trim() : '';
+        const sponsorWebsite = document.querySelector('#form-sponsor-website') ? document.querySelector('#form-sponsor-website').value.trim() : '';
         const signature = sponsorSignatureInput.value.trim();
 
         const payload = {
@@ -1254,7 +1287,8 @@ document.addEventListener('DOMContentLoaded', () => {
           company: companyName,
           profession: `${tier} Sponsor`,
           show_choice: targetPodcast,
-          message: `Inquiry Message:\n${message}\n\nBudget Range: ${budgetRange}`,
+          message: `Sponsorship Goals:\n${sponsorGoals}\n\nBudget Range: ${budgetRange}`,
+          media_links: sponsorWebsite || null,
           signature: signature,
           status: 'Pending'
         };

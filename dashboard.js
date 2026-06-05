@@ -940,6 +940,11 @@ function openSubmissionDetail(submission) {
           <span class="detail-label">Target Show Choice</span>
           <span class="detail-value">${submission.show_choice || 'N/A'}</span>
         </div>
+        ${submission.media_links ? `
+        <div class="detail-field">
+          <span class="detail-label">Company Website</span>
+          <span class="detail-value"><a href="${submission.media_links.startsWith('http') ? submission.media_links : 'https://' + submission.media_links}" target="_blank" style="color: var(--accent-teal); text-decoration: underline; word-break: break-all;">${submission.media_links}</a></span>
+        </div>` : ''}
       </div>
       
       <div class="detail-section-title">Inquiry message & Budget details</div>
