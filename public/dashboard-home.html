@@ -74,10 +74,10 @@
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
-      background-color: #04060f;
+      background-color: #060608;
       background-image: 
-        radial-gradient(circle at 50% 20%, transparent 30%, rgba(4,6,15,0.98) 75%),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M0 0h80v40H0z' fill='%23060814'/%3E%3Cpath d='M0 20h80M40 0v20M0 20v20M80 20v20' stroke='%23101424' stroke-width='1.2'/%3E%3C/svg%3E");
+        radial-gradient(circle at 50% 30%, transparent 20%, rgba(5,5,7,0.95) 80%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M0 0h80v40H0z' fill='%2308090c'/%3E%3Cpath d='M0 20h80M40 0v20M0 20v20M80 20v20' stroke='%23141720' stroke-width='1.5'/%3E%3C/svg%3E");
     }
 
     .glow-orb {
@@ -374,14 +374,15 @@
 
     /* --- Top Header Navbar --- */
     header.top-nav {
-      height: 70px;
+      min-height: 70px;
+      height: auto;
+      padding: 0.75rem 2rem;
       background: rgba(4, 6, 15, 0.5);
       border-bottom: 1px solid var(--border-glass);
       backdrop-filter: blur(16px);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 2rem;
       position: sticky;
       top: 0;
       z-index: 90;
@@ -498,6 +499,32 @@
     
     .tab-panel.active {
       display: block;
+    }
+
+    /* --- Responsive Dashboard Padding --- */
+    @media (max-width: 768px) {
+      header.top-nav {
+        padding: 0.75rem 1.5rem;
+      }
+      .tab-panel {
+        padding: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      header.top-nav {
+        padding: 0.75rem 1rem;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-start;
+      }
+      .tab-panel {
+        padding: 1rem;
+      }
+      .user-profile {
+        padding-left: 0.5rem;
+        gap: 0.5rem;
+      }
     }
 
     /* --- Dashboard Tab Layout --- */
@@ -1978,10 +2005,7 @@
       <!-- Logo Header -->
       <div class="logo-container">
         <div class="logo-box">
-          <svg viewBox="0 0 50 39" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z" />
-            <path d="M17.4224 27.102L11.4192 36H33.5008L49 13.0271H32.7024L23.2064 27.102H17.4224Z" />
-          </svg>
+          <img src="assets/logo.png" alt="The Next Chapter Logo" style="width: 28px; height: 28px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
         </div>
         <div class="logo-info">
           <span class="logo-title">The Next Chapter</span>
