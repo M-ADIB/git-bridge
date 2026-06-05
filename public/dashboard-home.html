@@ -74,10 +74,10 @@
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
-      background-color: #060608;
+      background-color: #04060f;
       background-image: 
-        radial-gradient(circle at 50% 30%, transparent 20%, rgba(5,5,7,0.95) 80%),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M0 0h80v40H0z' fill='%2308090c'/%3E%3Cpath d='M0 20h80M40 0v20M0 20v20M80 20v20' stroke='%23141720' stroke-width='1.5'/%3E%3C/svg%3E");
+        radial-gradient(circle at 50% 20%, transparent 30%, rgba(4,6,15,0.98) 75%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M0 0h80v40H0z' fill='%23060814'/%3E%3Cpath d='M0 20h80M40 0v20M0 20v20M80 20v20' stroke='%23101424' stroke-width='1.2'/%3E%3C/svg%3E");
     }
 
     .glow-orb {
@@ -1984,8 +1984,8 @@
           </svg>
         </div>
         <div class="logo-info">
-          <span class="logo-title">Rania Barghout</span>
-          <span class="logo-subtitle">Pro Host Plan</span>
+          <span class="logo-title">The Next Chapter</span>
+          <span class="logo-subtitle">Show Control Center</span>
         </div>
       </div>
       
@@ -1996,48 +1996,47 @@
           <span class="nav-option-title">Dashboard</span>
         </button>
         
+        <button class="nav-option-btn" data-tab="members">
+          <svg class="opt-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <span class="nav-option-title">Submissions Inbox</span>
+          <span class="nav-badge" id="submissions-badge" style="display: none;">0</span>
+        </button>
+
         <button class="nav-option-btn" data-tab="cms">
           <svg class="opt-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-          <span class="nav-option-title">Spotlight & Ticker CMS</span>
+          <span class="nav-option-title">Episode Manager</span>
         </button>
         
         <button class="nav-option-btn" data-tab="sales">
           <svg class="opt-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-          <span class="nav-option-title">Sales Tracking</span>
-          <span class="nav-badge">3</span>
+          <span class="nav-option-title">Sponsorship Hub</span>
         </button>
         
         <button class="nav-option-btn" data-tab="products">
-          <svg class="opt-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-          <span class="nav-option-title">Products</span>
+          <svg class="opt-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          <span class="nav-option-title">Production Tiers</span>
         </button>
         
         <button class="nav-option-btn" data-tab="tags">
           <svg class="opt-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-          <span class="nav-option-title">Tags Manager</span>
+          <span class="nav-option-title">Show Taxonomy</span>
         </button>
         
         <button class="nav-option-btn" data-tab="analytics">
           <svg class="opt-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-          <span class="nav-option-title">Analytics</span>
-        </button>
-        
-        <button class="nav-option-btn" data-tab="members">
-          <svg class="opt-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-          <span class="nav-option-title">Submissions</span>
-          <span class="nav-badge" id="submissions-badge" style="display: none;">0</span>
+          <span class="nav-option-title">Show Statistics</span>
         </button>
         
         <div class="sidebar-section-title">Settings</div>
         
         <button class="nav-option-btn" data-tab="settings">
           <svg class="opt-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-          <span class="nav-option-title">System Settings</span>
+          <span class="nav-option-title">Platform Settings</span>
         </button>
         
         <button class="nav-option-btn" data-tab="help">
           <svg class="opt-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-          <span class="nav-option-title">Help & Support</span>
+          <span class="nav-option-title">Developer Support</span>
         </button>
       </div>
       
@@ -2101,48 +2100,45 @@
           <div class="stat-card revenue-card">
             <div class="stat-header">
               <div class="stat-icon-wrapper blue">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
               </div>
-              <span class="stat-trend">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                12%
+              <span class="stat-trend" style="color:var(--accent-teal);">
+                Live
               </span>
             </div>
-            <span class="stat-label">Total Revenue</span>
-            <div class="stat-value">$24,567</div>
-            <span class="stat-subtext">+$2,450 from last month</span>
+            <span class="stat-label">Guest Applications</span>
+            <div class="stat-value" id="dashboard-guest-count">--</div>
+            <span class="stat-subtext">Total guest inquiries received</span>
           </div>
           
           <!-- Stat 2 -->
           <div class="stat-card users-card">
             <div class="stat-header">
               <div class="stat-icon-wrapper green">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
               </div>
-              <span class="stat-trend">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                5%
+              <span class="stat-trend" style="color:var(--accent-emerald);">
+                Partners
               </span>
             </div>
-            <span class="stat-label">Active Users</span>
-            <div class="stat-value">1,234</div>
-            <span class="stat-subtext">+115 new registrations this week</span>
+            <span class="stat-label">Sponsorship Inquiries</span>
+            <div class="stat-value" id="dashboard-sponsor-count">--</div>
+            <span class="stat-subtext">Total brand sponsorship requests</span>
           </div>
           
           <!-- Stat 3 -->
           <div class="stat-card orders-card">
             <div class="stat-header">
               <div class="stat-icon-wrapper purple">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
               </div>
-              <span class="stat-trend">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                8%
+              <span class="stat-trend" style="color:var(--accent-orange);">
+                Pending
               </span>
             </div>
-            <span class="stat-label">Broadcast Orders</span>
-            <div class="stat-value">456</div>
-            <span class="stat-subtext">+34 tickets purchased today</span>
+            <span class="stat-label">Pending Review</span>
+            <div class="stat-value" id="dashboard-pending-count">--</div>
+            <span class="stat-subtext">Applications awaiting action</span>
           </div>
           
           <!-- Stat 4 -->
@@ -2172,67 +2168,12 @@
               <a href="#" class="card-link" onclick="event.preventDefault();">View all activity</a>
             </div>
             
-            <div class="activity-list">
-              
-              <div class="activity-item">
-                <div class="activity-indicator green">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                </div>
-                <div class="activity-details">
-                  <span class="activity-title">New sponsorship transaction</span>
-                  <span class="activity-desc">Order #9876 confirmed for Rania Live</span>
-                </div>
-                <span class="activity-time">2 min ago</span>
-              </div>
-              
-              <div class="activity-item">
-                <div class="activity-indicator blue">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
-                </div>
-                <div class="activity-details">
-                  <span class="activity-title">VIP Guest registration</span>
-                  <span class="activity-desc">Applied to register for next week's broadcast</span>
-                </div>
-                <span class="activity-time">15 min ago</span>
-              </div>
-              
-              <div class="activity-item">
-                <div class="activity-indicator purple">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline></svg>
-                </div>
-                <div class="activity-details">
-                  <span class="activity-title">Spotlight card edited</span>
-                  <span class="activity-desc">Admin updated the landing page Spotlight episode</span>
-                </div>
-                <span class="activity-time">1 hour ago</span>
-              </div>
-              
-              <div class="activity-item">
-                <div class="activity-indicator orange">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
-                </div>
-                <div class="activity-details">
-                  <span class="activity-title">System sync completed</span>
-                  <span class="activity-desc">Ticker marquee synchronised with Supabase</span>
-                </div>
-                <span class="activity-time">3 hours ago</span>
-              </div>
-              
-              <div class="activity-item">
-                <div class="activity-indicator red">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
-                </div>
-                <div class="activity-details">
-                  <span class="activity-title">Notification alert sent</span>
-                  <span class="activity-desc">Auto-email dispatch complete for registered guests</span>
-                </div>
-                <span class="activity-time">5 hours ago</span>
-              </div>
-              
+            <div class="activity-list" id="dashboard-recent-activity-list">
+              <div style="padding: 1.5rem; text-align: center; color: var(--text-muted);">Loading show activity...</div>
             </div>
           </div>
           
-          <!-- Right Column: Quick Stats & Top Products -->
+          <!-- Right Column: Quick Stats & Participation Overview -->
           <div class="space-containers" style="display:flex; flex-direction:column; gap:1.5rem;">
             
             <!-- Quick Progress Stats -->
@@ -2276,27 +2217,23 @@
               </div>
             </div>
             
-            <!-- Top Broadcast Topics/Products -->
+            <!-- Participation Overview -->
             <div class="panel-card">
               <div class="card-title-bar">
-                <h3>Top Broadcast Items</h3>
+                <h3>Participation Overview</h3>
               </div>
               <div class="top-products-list">
                 <div class="top-product-item">
-                  <span class="product-name-info">EP 12 - Between The Lines</span>
-                  <span class="product-rev">$1,890</span>
+                  <span class="product-name-info">Between The Lines Submissions</span>
+                  <span class="product-rev" id="stats-btl-count">--</span>
                 </div>
                 <div class="top-product-item">
-                  <span class="product-name-info">Show Sponsorship Standard</span>
-                  <span class="product-rev">$1,200</span>
+                  <span class="product-name-info">No2ta 3al Sater Submissions</span>
+                  <span class="product-rev" id="stats-nos-count">--</span>
                 </div>
                 <div class="top-product-item">
-                  <span class="product-name-info">Live Q&A Ticket Access</span>
-                  <span class="product-rev">$980</span>
-                </div>
-                <div class="top-product-item">
-                  <span class="product-name-info">BTL Premium VIP Badge</span>
-                  <span class="product-rev">$750</span>
+                  <span class="product-name-info">Approved Guest Spotlights</span>
+                  <span class="product-rev" id="stats-selected-count">--</span>
                 </div>
               </div>
             </div>
@@ -2313,7 +2250,7 @@
       <div class="tab-panel" id="tab-cms">
         
         <div class="dashboard-title-group">
-          <h2>Spotlight & Ticker CMS</h2>
+          <h2>Episode Manager</h2>
           <p>Wired to your live database. Changes publish immediately to the landing page.</p>
         </div>
         
@@ -2495,7 +2432,7 @@
       <!-- ========================================== -->
       <div class="tab-panel" id="tab-members">
         <div class="dashboard-title-group">
-          <h2>Guest & Sponsor Submissions</h2>
+          <h2>Submissions Inbox</h2>
           <p>Review, approve, and manage inquiries from your guests and sponsors.</p>
         </div>
 

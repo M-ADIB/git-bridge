@@ -456,6 +456,8 @@ async function addTickerEpisode() {
     showToast('Episode added to ticker marquee successfully!');
     tickerForm.reset();
     await loadTickerList();
+    await loadDashboardMetrics();
+    await loadRecentShowActivity();
   } catch (err) {
     console.error('Error adding ticker episode:', err);
     showToast(err.message || 'Error occurred while adding ticker episode.', 'error');
@@ -478,9 +480,182 @@ async function deleteTickerEpisode(id) {
     
     showToast('Episode removed from ticker.');
     await loadTickerList();
+    await loadDashboardMetrics();
+    await loadRecentShowActivity();
   } catch (err) {
     console.error('Error deleting ticker episode:', err);
     showToast('Failed to delete ticker episode.', 'error');
+  }
+}
+
+// --- Helper for Time Ago ---
+function formatTimeAgo(date) {
+  const seconds = Math.floor((new Date() - date) / 1000);
+  if (seconds < 0) return 'just now';
+  
+  let interval = Math.floor(seconds / 31536000);
+  if (interval >= 1) return interval + ' year' + (interval > 1 ? 's' : '') + ' ago';
+  interval = Math.floor(seconds / 2592000);
+  if (interval >= 1) return interval + ' month' + (interval > 1 ? 's' : '') + ' ago';
+  interval = Math.floor(seconds / 86400);
+  if (interval >= 1) return interval + ' day' + (interval > 1 ? 's' : '') + ' ago';
+  interval = Math.floor(seconds / 3600);
+  if (interval >= 1) return interval + ' hour' + (interval > 1 ? 's' : '') + ' ago';
+  interval = Math.floor(seconds / 60);
+  if (interval >= 1) return interval + ' min' + (interval > 1 ? 's' : '') + ' ago';
+  return 'just now';
+}
+
+// --- Load Dashboard Metrics ---
+async function loadDashboardMetrics() {
+  if (!supabaseClient) return;
+  try {
+    const { data: subs, error } = await supabaseClient
+      .from('rania_submissions')
+      .select('type, status, show_choice');
+      
+    if (error) throw error;
+    
+    let guestCount = 0;
+    let sponsorCount = 0;
+    let pendingCount = 0;
+    let btlCount = 0;
+    let nosCount = 0;
+    let selectedCount = 0;
+    
+    if (subs) {
+      subs.forEach(sub => {
+        if (sub.type === 'guest') {
+          guestCount++;
+        } else if (sub.type === 'sponsor') {
+          sponsorCount++;
+        }
+        
+        if (sub.status === 'Pending') {
+          pendingCount++;
+        } else if (sub.status === 'Approved') {
+          selectedCount++;
+        }
+        
+        const show = (sub.show_choice || '').toLowerCase();
+        if (show === 'between the lines' || show === 'btl' || show === 'both') {
+          btlCount++;
+        }
+        if (show === 'نقطة ع السطر' || show === 'nos' || show === 'both') {
+          nosCount++;
+        }
+      });
+    }
+    
+    const guestCountEl = document.getElementById('dashboard-guest-count');
+    const sponsorCountEl = document.getElementById('dashboard-sponsor-count');
+    const pendingCountEl = document.getElementById('dashboard-pending-count');
+    
+    const btlCountEl = document.getElementById('stats-btl-count');
+    const nosCountEl = document.getElementById('stats-nos-count');
+    const selectedCountEl = document.getElementById('stats-selected-count');
+    
+    if (guestCountEl) guestCountEl.textContent = guestCount;
+    if (sponsorCountEl) sponsorCountEl.textContent = sponsorCount;
+    if (pendingCountEl) pendingCountEl.textContent = pendingCount;
+    
+    if (btlCountEl) btlCountEl.textContent = btlCount;
+    if (nosCountEl) nosCountEl.textContent = nosCount;
+    if (selectedCountEl) selectedCountEl.textContent = selectedCount;
+    
+  } catch (err) {
+    console.error('Error loading dashboard metrics:', err);
+  }
+}
+
+// --- Load Recent Show Activity ---
+async function loadRecentShowActivity() {
+  const container = document.getElementById('dashboard-recent-activity-list');
+  if (!container || !supabaseClient) return;
+  
+  try {
+    const { data: recentSubs, error: subsError } = await supabaseClient
+      .from('rania_submissions')
+      .select('id, created_at, type, name, company, status')
+      .order('created_at', { ascending: false })
+      .limit(3);
+      
+    const { data: recentEps, error: epsError } = await supabaseClient
+      .from('rania_episodes')
+      .select('id, created_at, title_en, youtube_url')
+      .order('created_at', { ascending: false })
+      .limit(2);
+      
+    let activities = [];
+
+    if (recentSubs) {
+      recentSubs.forEach(sub => {
+        activities.push({
+          time: new Date(sub.created_at),
+          type: 'submission',
+          category: sub.type,
+          title: sub.type === 'guest' ? 'Guest Application' : 'Sponsor Inquiry',
+          desc: sub.type === 'guest' 
+            ? `${sub.name || 'A guest'} applied to join the show`
+            : `${sub.company || 'A brand'} submitted a sponsorship inquiry`,
+          status: sub.status
+        });
+      });
+    }
+
+    if (recentEps) {
+      recentEps.forEach(ep => {
+        activities.push({
+          time: ep.created_at ? new Date(ep.created_at) : new Date(),
+          type: 'episode',
+          category: 'episode',
+          title: 'Episode Added to Ticker',
+          desc: `"${ep.title_en || 'Untitled'}" was added to show marquee`
+        });
+      });
+    }
+
+    activities.sort((a, b) => b.time - a.time);
+
+    container.innerHTML = '';
+    
+    if (activities.length === 0) {
+      container.innerHTML = '<div style="padding:1.5rem; text-align:center; color:var(--text-muted);">No recent activity.</div>';
+      return;
+    }
+
+    activities.forEach(act => {
+      let colorClass = 'blue';
+      let iconSvg = '';
+      
+      if (act.category === 'sponsor') {
+        colorClass = 'green';
+        iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>`;
+      } else if (act.category === 'guest') {
+        colorClass = 'blue';
+        iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>`;
+      } else {
+        colorClass = 'purple';
+        iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline></svg>`;
+      }
+
+      const item = document.createElement('div');
+      item.className = 'activity-item';
+      item.innerHTML = `
+        <div class="activity-indicator ${colorClass}">
+          ${iconSvg}
+        </div>
+        <div class="activity-details">
+          <span class="activity-title">${act.title}</span>
+          <span class="activity-desc">${act.desc}</span>
+        </div>
+        <span class="activity-time">${formatTimeAgo(act.time)}</span>
+      `;
+      container.appendChild(item);
+    });
+
+  } catch (err) {
+    console.error('Error loading recent activities:', err);
   }
 }
 
@@ -817,6 +992,8 @@ async function updateSubmissionStatus(id, newStatus) {
     closeSubmissionDetail();
     renderSubmissions();
     await updateSubmissionsBadgeCount();
+    await loadDashboardMetrics();
+    await loadRecentShowActivity();
   } catch (err) {
     console.error('Error updating status:', err);
     showToast('Failed to update submission status.', 'error');
@@ -840,6 +1017,8 @@ async function deleteSubmission(id) {
     closeSubmissionDetail();
     renderSubmissions();
     await updateSubmissionsBadgeCount();
+    await loadDashboardMetrics();
+    await loadRecentShowActivity();
   } catch (err) {
     console.error('Error deleting submission:', err);
     showToast('Failed to delete submission.', 'error');
@@ -924,32 +1103,28 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const TEASER_CONTENT = {
     sales: {
-      title: "Sales Tracking & Invoicing",
-      desc: "This is a Preview Feature: Unlock automated guest invoice generation, sponsorship contract tracking, and digital merchandise sales metrics directly inside your dashboard."
+      title: "Sponsorship Hub",
+      desc: "This is a Preview Feature: Unlock sponsor contract tracking, partner ad schedules, and sponsorship packages directly inside your dashboard."
     },
     products: {
-      title: "Products & Merchandise",
-      desc: "This is a Preview Feature: Catalog and manage your physical merchandise, ticket categories, sponsor packages, and digital download assets in one central inventory."
+      title: "Production Tiers",
+      desc: "This is a Preview Feature: Configure production tiers, recording session calendar slots, and media packaging pricing models for guests."
     },
     tags: {
-      title: "Tags & Categories",
-      desc: "This is a Preview Feature: Organise your show episodes, guest taxonomy, search categories, and social media channels to dynamically filter content on your website."
+      title: "Show Taxonomy",
+      desc: "This is a Preview Feature: Organise your show episodes, guest taxonomy, guest topics, and platform categories to dynamically filter content on your website."
     },
     analytics: {
-      title: "Advanced Show Analytics",
-      desc: "This is a Preview Feature: Gain deep-dive insights on unique audience page views, user engagement duration, geographical locations of listeners, and source link tracking."
-    },
-    members: {
-      title: "VIP Members & Guests",
-      desc: "This is a Preview Feature: Access your VIP listener database, guest list RSVP records, attendee profile directories, and customized newsletter subscriptions."
+      title: "Show Statistics",
+      desc: "This is a Preview Feature: Gain deep-dive insights on unique audience page views, listener engagement duration, geographical locations, and episode play counts."
     },
     settings: {
-      title: "System Control Settings",
-      desc: "This is a Preview Feature: Customize global SEO meta keywords, connect payment integrations (Stripe, Paypal), adjust site localization languages, and configure domain routing options."
+      title: "Platform Settings",
+      desc: "This is a Preview Feature: Customize global SEO meta keywords, adjust site localization languages, and configure domain routing options."
     },
     help: {
-      title: "Premium Developer Support",
-      desc: "This is a Preview Feature: Get 24/7 direct access to dedicated developers at The Clips Agency, schedule training sessions, and submit support tickets."
+      title: "Developer Support",
+      desc: "This is a Preview Feature: Get 24/7 direct access to dedicated developers, schedule platform training, and submit maintenance tickets."
     }
   };
   
@@ -971,14 +1146,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const dashboardPanel = document.getElementById('tab-dashboard');
         if (dashboardPanel) dashboardPanel.classList.add('active');
         friendlyName = 'Dashboard';
+        loadDashboardMetrics();
+        loadRecentShowActivity();
       } else if (tabName === 'cms') {
         const cmsPanel = document.getElementById('tab-cms');
         if (cmsPanel) cmsPanel.classList.add('active');
-        friendlyName = 'Spotlight & Ticker CMS';
+        friendlyName = 'Episode Manager';
       } else if (tabName === 'members') {
         const membersPanel = document.getElementById('tab-members');
         if (membersPanel) membersPanel.classList.add('active');
-        friendlyName = 'Guest & Sponsor Submissions';
+        friendlyName = 'Submissions Inbox';
         loadSubmissionsList();
       } else {
         const teaserPanel = document.getElementById('tab-teaser');
@@ -1087,4 +1264,6 @@ document.addEventListener('DOMContentLoaded', () => {
   loadSpotlightData();
   loadTickerList();
   updateSubmissionsBadgeCount();
+  loadDashboardMetrics();
+  loadRecentShowActivity();
 });
