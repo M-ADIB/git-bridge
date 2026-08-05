@@ -1030,15 +1030,129 @@ async function deleteSubmission(id) {
   }
 }
 
+// --- Admin Authentication ---
+//
+// The panel writes to tables whose RLS (the database rule deciding which rows
+// each visitor may read or write) requires a signed-in admin. Without a
+// session every query silently comes back empty, so the gate is not only a
+// lock — it is what makes the dashboard work at all.
+
+/** Reveal the panel and stop showing the sign-in card. */
+function unlockPanel(session) {
+  document.body.classList.add('authed');
+  const emailEl = document.getElementById('user-email');
+  if (emailEl && session?.user?.email) emailEl.textContent = session.user.email;
+}
+
+/** Swap the "checking your session" spinner for the sign-in form. */
+function showSignInForm(message) {
+  const checking = document.getElementById('auth-checking');
+  const form = document.getElementById('auth-form');
+  if (checking) checking.hidden = true;
+  if (form) form.hidden = false;
+  if (message) {
+    const err = document.getElementById('auth-error');
+    if (err) { err.textContent = message; err.hidden = false; }
+  }
+}
+
+function setSignInBusy(busy) {
+  const btn = document.getElementById('auth-submit-btn');
+  const spinner = document.getElementById('auth-submit-spinner');
+  const label = document.getElementById('auth-submit-text');
+  if (btn) btn.disabled = busy;
+  if (spinner) spinner.hidden = !busy;
+  if (label) label.textContent = busy ? 'Signing in…' : 'Sign In';
+}
+
+async function initAuth() {
+  const form = document.getElementById('auth-form');
+  const errorEl = document.getElementById('auth-error');
+  const signoutBtn = document.getElementById('signout-btn');
+
+  // Without the SDK there is no way to sign in at all — say so plainly rather
+  // than leaving the spinner turning forever.
+  if (!supabaseClient) {
+    showSignInForm('Could not reach the sign-in service. Check your connection and reload.');
+    if (form) form.querySelectorAll('input, button').forEach((el) => { el.disabled = true; });
+    return false;
+  }
+
+  let session = null;
+  try {
+    const { data } = await supabaseClient.auth.getSession();
+    session = data?.session || null;
+  } catch (err) {
+    console.error('Session lookup failed:', err);
+  }
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (errorEl) errorEl.hidden = true;
+      setSignInBusy(true);
+
+      const email = document.getElementById('auth-email').value.trim();
+      const password = document.getElementById('auth-password').value;
+
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      setSignInBusy(false);
+
+      if (error) {
+        // Deliberately vague: naming which half was wrong tells an attacker
+        // whether the address is a real account.
+        if (errorEl) {
+          errorEl.textContent = 'That email and password combination is not recognised.';
+          errorEl.hidden = false;
+        }
+        document.getElementById('auth-password').value = '';
+        return;
+      }
+
+      unlockPanel(data.session);
+      bootDashboard();
+    });
+  }
+
+  if (signoutBtn) {
+    signoutBtn.addEventListener('click', async () => {
+      await supabaseClient.auth.signOut();
+      // Reload rather than un-hide the gate: it clears every fetched row from
+      // the page, so nothing from the session is left on screen.
+      window.location.reload();
+    });
+  }
+
+  if (session) {
+    unlockPanel(session);
+    return true;
+  }
+
+  showSignInForm();
+  return false;
+}
+
+/** Everything that touches the database. Only runs once signed in. */
+function bootDashboard() {
+  loadSpotlightData();
+  loadTickerList();
+  updateSubmissionsBadgeCount();
+  loadDashboardMetrics();
+  loadRecentShowActivity();
+}
+
 // --- Event Listeners Setup ---
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Ahead of the SDK check so the sign-in card still renders a usable message
+  // when Supabase fails to load.
+  const signedIn = await initAuth();
+
   if (!supabaseClient) {
     console.error('Supabase SDK not loaded.');
-    showToast('Supabase SDK could not be loaded. Check internet or credentials.', 'error');
     return;
   }
-  
+
   // Media Type buttons
   typeYoutubeBtn.addEventListener('click', () => selectMediaType('youtube'));
   typeAudioBtn.addEventListener('click', () => selectMediaType('audio'));
@@ -1265,10 +1379,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
-  // Initial database load calls
-  loadSpotlightData();
-  loadTickerList();
-  updateSubmissionsBadgeCount();
-  loadDashboardMetrics();
-  loadRecentShowActivity();
+  // Initial database load calls. Skipped when there is no session — every
+  // query would come back empty under RLS anyway, and firing them would paint
+  // the panel with zeroes behind the sign-in card. The sign-in handler calls
+  // bootDashboard() itself once the session exists.
+  if (signedIn) bootDashboard();
 });

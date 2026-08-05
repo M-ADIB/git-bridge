@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Control Center | No2ta 3al Sater & Between The Lines</title>
-  
+  <title>Control Panel | The Next Chapter</title>
+
+  <!-- Admin-only page: keep it out of search results. This is presentation
+       only — the real protection is the Supabase Auth gate plus RLS. -->
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
   <!-- Google Fonts Cairo & Inter & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2004,9 +2009,261 @@
       color: #fff;
       box-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
     }
+
+    /* ==================================================================
+       ADMIN SIGN-IN GATE
+       The panel is hidden until Supabase confirms an admin session. This
+       is the visible half of the lock; the enforcing half is RLS on the
+       database, so hiding the UI is never the only thing standing
+       between a visitor and the data.
+       ================================================================== */
+    .auth-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    /* Both directions matter: the panel stays hidden until authed, and the
+       gate disappears once it is. */
+    body.authed .auth-gate { display: none; }
+    body:not(.authed) .app-wrapper { display: none; }
+
+    .auth-gate [hidden] { display: none !important; }
+
+    .auth-card {
+      width: 100%;
+      max-width: 420px;
+      padding: 44px 34px;
+      border-radius: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+      text-align: center;
+    }
+
+    .auth-logo {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+    }
+
+    .auth-logo img { width: 38px; height: 38px; object-fit: contain; }
+
+    .auth-title {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .auth-sub {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+
+    .auth-form { text-align: left; }
+
+    .auth-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .auth-input {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: var(--transition-fast);
+    }
+
+    .auth-input::placeholder { color: var(--text-muted); }
+
+    .auth-input:focus {
+      outline: none;
+      border-color: var(--accent-cobalt);
+      box-shadow: 0 0 15px var(--accent-cobalt-glow);
+    }
+
+    .auth-error {
+      font-size: 0.82rem;
+      color: #ff6b6b;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .auth-submit {
+      width: 100%;
+      padding: 1.1rem;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-indigo) 0%, var(--accent-cobalt) 100%);
+      color: #fff;
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 8px 30px rgba(76, 96, 255, 0.35);
+      transition: var(--transition-smooth);
+    }
+
+    .auth-submit:hover:not(:disabled) { transform: translateY(-2px); }
+    .auth-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .auth-checking {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      padding: 10px 0;
+    }
+
+    .auth-spinner {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      border-top-color: #fff;
+      animation: authSpin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes authSpin { to { transform: rotate(360deg); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .auth-spinner { animation-duration: 2s; }
+      .auth-submit:hover:not(:disabled) { transform: none; }
+    }
+
+    /* --- Header sign-out + back-to-site --- */
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.1rem;
+      border-radius: 30px;
+      background: linear-gradient(135deg, var(--accent-indigo) 0%, var(--accent-cobalt) 100%);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: 0 6px 20px rgba(76, 96, 255, 0.3);
+      transition: var(--transition-fast);
+    }
+
+    .nav-cta:hover { transform: translateY(-1px); }
+    .nav-cta svg { width: 15px; height: 15px; }
+
+    .signout-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-glass);
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .signout-btn:hover {
+      color: var(--accent-crimson);
+      border-color: rgba(244, 63, 94, 0.4);
+    }
+
+    .signout-btn svg { width: 15px; height: 15px; }
+
+    /* The header is already tight on a phone; the icon alone still reads. */
+    @media (max-width: 900px) {
+      .nav-cta span, .signout-btn span { display: none; }
+      .nav-cta, .signout-btn { padding: 0.55rem 0.7rem; }
+      .nav-actions { gap: 0.6rem; }
+    }
+
+    /* Below 480px the header stacks, and the row of actions was running past
+       the right edge — which put Sign Out off-screen, with no way to reach it.
+       Let the row wrap and drop the name/email text (the avatar still says who
+       is signed in, and the panel is single-user anyway). */
+    @media (max-width: 480px) {
+      .nav-actions {
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .user-info { display: none; }
+      .user-profile { padding-left: 0.6rem; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- ============================== -->
+  <!-- ADMIN SIGN-IN GATE             -->
+  <!-- ============================== -->
+  <div class="auth-gate" id="auth-gate">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <img src="assets/logo.png" alt="The Next Chapter">
+      </div>
+      <h1 class="auth-title">Admin Sign In</h1>
+      <p class="auth-sub">The Next Chapter &middot; Control Panel</p>
+
+      <div class="auth-checking" id="auth-checking">
+        <span class="auth-spinner"></span>
+        <span>Checking your session&hellip;</span>
+      </div>
+
+      <form class="auth-form" id="auth-form" hidden>
+        <label class="auth-label" for="auth-email">Email</label>
+        <input class="auth-input" type="email" id="auth-email" name="email"
+               autocomplete="username" required placeholder="you@thenextchapter.vip">
+
+        <label class="auth-label" for="auth-password">Password</label>
+        <input class="auth-input" type="password" id="auth-password" name="password"
+               autocomplete="current-password" required placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+
+        <p class="auth-error" id="auth-error" hidden></p>
+
+        <button class="auth-submit" type="submit" id="auth-submit-btn">
+          <span class="auth-spinner" id="auth-submit-spinner" hidden></span>
+          <span id="auth-submit-text">Sign In</span>
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- Background Animated Glowing Orbs -->
   <div class="glow-container">
@@ -2111,7 +2368,13 @@
         
         <!-- Top Nav Right Actions -->
         <div class="nav-actions">
-          
+
+          <!-- Back to the public site -->
+          <a class="nav-cta" href="index.html" title="View the live site">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            <span>View Site</span>
+          </a>
+
           <!-- Alerts bell -->
           <button class="nav-icon-btn" title="Notifications">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
@@ -2123,10 +2386,16 @@
             <div class="user-avatar">RB</div>
             <div class="user-info">
               <span class="user-name">Rania Barghout</span>
-              <span class="user-role">Administrator</span>
+              <!-- Filled in with the signed-in address once the session is known. -->
+              <span class="user-role" id="user-email">Administrator</span>
             </div>
           </div>
-          
+
+          <button class="signout-btn" id="signout-btn" title="Sign out">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            <span>Sign Out</span>
+          </button>
+
         </div>
         
       </header>
@@ -2589,7 +2858,26 @@
 
   <!-- Supabase CDN and Admin Code Connections -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="dashboard.js?v=3"></script>
+  <script src="dashboard.js?v=8"></script>
+
+  <script>
+    /* Failsafe for the sign-in gate. The form starts hidden and dashboard.js
+       reveals it once it knows whether there is a session. If that script or
+       the Supabase CDN never loads, the visitor would otherwise be stuck on a
+       spinner with no way in — so after 8s, show the form and say why. */
+    setTimeout(function () {
+      var form = document.getElementById('auth-form');
+      if (!form || !form.hidden || document.body.classList.contains('authed')) return;
+      form.hidden = false;
+      var checking = document.getElementById('auth-checking');
+      if (checking) checking.hidden = true;
+      var err = document.getElementById('auth-error');
+      if (err) {
+        err.textContent = 'Could not reach the sign-in service. Check your connection and reload.';
+        err.hidden = false;
+      }
+    }, 8000);
+  </script>
 
   <script>
     /* Mobile off-canvas sidebar (isolated; does not alter data flows) */
