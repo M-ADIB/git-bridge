@@ -17,6 +17,11 @@
   <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
+  <script>
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      document.body.classList.add('light-theme');
+    }
+  </script>
 
   <!-- Background Animated Glowing Orbs -->
   <div class="glow-container">
@@ -39,14 +44,21 @@
           <li><a class="nav-link" href="index.html#about" data-i18n="nav_about" id="nav-lnk-about">About Rania</a></li>
           <li><a class="nav-link" href="index.html#shows" data-i18n="nav_shows" id="nav-lnk-shows">The Podcasts</a></li>
           <li><a class="nav-link" href="index.html#process" data-i18n="nav_process" id="nav-lnk-process">Selection Process</a></li>
+          <li><a class="nav-link" href="book-call.html" data-i18n="nav_book" id="nav-lnk-book">Book a Call</a></li>
           <li><a class="nav-cta" href="apply.html" data-i18n="nav_apply" id="nav-lnk-apply">Apply Now</a></li>
         </ul>
       </nav>
       
-      <!-- Hamburger Toggle Button -->
-      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-drawer">
-        ☰
-      </button>
+      <!-- Hamburger Toggle Button & Theme Toggle -->
+      <div class="header-actions">
+        <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Theme">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-drawer">
+          ☰
+        </button>
+      </div>
     </div>
   </header>
 
@@ -58,6 +70,7 @@
         <li><a class="nav-link" href="index.html#about" data-i18n="nav_about" id="mob-lnk-about">About Rania</a></li>
         <li><a class="nav-link" href="index.html#shows" data-i18n="nav_shows" id="mob-lnk-shows">The Podcasts</a></li>
         <li><a class="nav-link" href="index.html#process" data-i18n="nav_process" id="mob-lnk-process">Selection Process</a></li>
+        <li><a class="nav-link" href="book-call.html" data-i18n="nav_book" id="mob-lnk-book">Book a Call</a></li>
         <li><a class="nav-link" href="apply.html" data-i18n="nav_apply" style="color: var(--accent-teal); font-weight: 700;" id="mob-lnk-apply">Apply Now</a></li>
       </ul>
     </nav>
@@ -67,6 +80,20 @@
       <div class="lang-switch" role="group" aria-label="Language selector">
         <button class="lang-btn active" data-lang="en" id="lang-btn-en">ENG</button>
         <button class="lang-btn ar-lang" data-lang="ar" id="lang-btn-ar">العربية</button>
+      </div>
+      
+      <!-- Theme Switch inside Hamburger -->
+      <div class="theme-toggle-container-drawer">
+        <div class="theme-switch-drawer" role="group" aria-label="Theme selector">
+          <button class="theme-btn-drawer active" id="theme-btn-dark-drawer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <span data-i18n="theme_dark">Dark</span>
+          </button>
+          <button class="theme-btn-drawer" id="theme-btn-light-drawer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <span data-i18n="theme_light">Light</span>
+          </button>
+        </div>
       </div>
     </div>
   </aside>
@@ -410,7 +437,7 @@
               </div>
               <div class="form-group">
                 <label for="form-sig-date" class="form-label"><span data-i18n="lbl_sig_date">Date</span></label>
-                <input type="date" id="form-sig-date" name="sigdate" required class="form-input" value="2026-06-02">
+                <input type="date" id="form-sig-date" name="sigdate" required class="form-input">
                 <span class="field-error-msg" data-i18n="err_sig_date" id="sig-date-error">Date is required.</span>
               </div>
             </div>
@@ -565,6 +592,6 @@
 
   <!-- Scripts Connection -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>

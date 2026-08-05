@@ -308,14 +308,19 @@ async function saveSpotlightConfig() {
       updated_at: new Date()
     };
     
-    // Write update query
-    const { error: updateError } = await supabaseClient
+    // Write update query. .select() is required so we can tell an actual
+    // write apart from one the database silently refused (expired session).
+    const { data: updatedRows, error: updateError } = await supabaseClient
       .from('rania_latest_episode')
       .update(payload)
-      .eq('id', 1);
-      
+      .eq('id', 1)
+      .select();
+
     if (updateError) throw updateError;
-    
+    if (!updatedRows || updatedRows.length === 0) {
+      throw new Error('Nothing was saved — your session may have expired. Please sign out and back in.');
+    }
+
     showToast('Spotlight episode updated successfully!');
     
     // Hide progress bar slowly
@@ -369,10 +374,10 @@ async function loadTickerList() {
       
       const thumbUrl = videoId 
         ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`
-        : 'assets/rania_hero.png';
+        : 'assets/rania_hero.jpg';
         
       row.innerHTML = `
-        <img src="${thumbUrl}" class="db-thumb" alt="Thumbnail" onerror="this.src='assets/rania_hero.png';">
+        <img src="${thumbUrl}" class="db-thumb" alt="Thumbnail" onerror="this.src='assets/rania_hero.jpg';">
         <div class="db-info">
           <div class="db-title">${episode.title_en || 'Untitled Episode'}</div>
           <div style="font-size:0.75rem; color:var(--text-secondary);">${episode.title_ar || ''}</div>
@@ -464,30 +469,185 @@ async function deleteTickerEpisode(id) {
   if (!supabaseClient) return;
   
   try {
-    const { error } = await supabaseClient
+    // .select() lets us detect a delete the database refused rather than
+    // reporting success on a row that is still there.
+    const { data: deletedRows, error } = await supabaseClient
       .from('rania_episodes')
       .delete()
-      .eq('id', id);
-      
+      .eq('id', id)
+      .select();
+
     if (error) throw error;
-    
+    if (!deletedRows || deletedRows.length === 0) {
+      throw new Error('Nothing was deleted — your session may have expired. Please sign out and back in.');
+    }
+
     showToast('Episode removed from ticker.');
     await loadTickerList();
   } catch (err) {
     console.error('Error deleting ticker episode:', err);
-    showToast('Failed to delete ticker episode.', 'error');
+    showToast(err.message || 'Failed to delete ticker episode.', 'error');
   }
+}
+
+// --- Authentication Gate ---
+// The panel stays hidden until Supabase confirms a signed-in admin.
+// Write access is enforced by database policies too, so this gate is the
+// front door, not the lock.
+
+let dashboardBooted = false;
+
+function bootDashboard(session) {
+  const emailLabel = document.getElementById('user-email-label');
+  if (emailLabel && session && session.user) {
+    emailLabel.textContent = session.user.email;
+  }
+
+  document.body.classList.add('authed');
+
+  // Only load data once, even if the auth state fires again (token refresh).
+  if (dashboardBooted) return;
+  dashboardBooted = true;
+
+  loadSpotlightData();
+  loadTickerList();
+}
+
+function showLoginForm(message) {
+  document.body.classList.remove('authed');
+
+  const checking = document.getElementById('auth-checking');
+  const form = document.getElementById('auth-form');
+  const errorEl = document.getElementById('auth-error');
+
+  if (checking) checking.hidden = true;
+  if (form) form.hidden = false;
+
+  if (errorEl) {
+    if (message) {
+      errorEl.textContent = message;
+      errorEl.hidden = false;
+    } else {
+      errorEl.hidden = true;
+    }
+  }
+}
+
+async function initAuth() {
+  const form = document.getElementById('auth-form');
+  const emailInput = document.getElementById('auth-email');
+  const passwordInput = document.getElementById('auth-password');
+  const submitBtn = document.getElementById('auth-submit-btn');
+  const submitSpinner = document.getElementById('auth-submit-spinner');
+  const submitText = document.getElementById('auth-submit-text');
+  const signoutBtn = document.getElementById('signout-btn');
+
+  // Sign in
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      if (submitSpinner) submitSpinner.hidden = false;
+      if (submitText) submitText.textContent = 'Signing in…';
+
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: emailInput.value.trim(),
+        password: passwordInput.value
+      });
+
+      submitBtn.disabled = false;
+      if (submitSpinner) submitSpinner.hidden = true;
+      if (submitText) submitText.textContent = 'Sign In';
+
+      if (error) {
+        console.error('Sign-in failed:', error);
+        showLoginForm(
+          error.message === 'Invalid login credentials'
+            ? 'That email and password combination is not recognised.'
+            : (error.message || 'Sign-in failed. Please try again.')
+        );
+        passwordInput.value = '';
+        return;
+      }
+
+      passwordInput.value = '';
+      bootDashboard(data.session);
+    });
+  }
+
+  // Sign out
+  if (signoutBtn) {
+    signoutBtn.addEventListener('click', async () => {
+      await supabaseClient.auth.signOut();
+      // Full reload clears any content already rendered on screen.
+      window.location.reload();
+    });
+  }
+
+  // Resume an existing session if there is one
+  let session = null;
+  try {
+    const { data } = await supabaseClient.auth.getSession();
+    session = data ? data.session : null;
+  } catch (err) {
+    console.error('Could not read auth session:', err);
+  }
+
+  if (session) {
+    bootDashboard(session);
+  } else {
+    showLoginForm();
+  }
+
+  // If the session ends (expired or revoked), lock the panel again.
+  supabaseClient.auth.onAuthStateChange((event) => {
+    if (event === 'SIGNED_OUT') {
+      document.body.classList.remove('authed');
+    }
+  });
+}
+
+// --- Theme ---
+
+/**
+ * Light/dark switching, mirroring the public site's controller in app.js. The
+ * same `theme` localStorage key is used on purpose, so whichever theme is
+ * picked on the site is the one the control panel opens in, and vice versa.
+ */
+function initTheme() {
+  const setTheme = (theme) => {
+    document.body.classList.toggle('light-theme', theme === 'light');
+    localStorage.setItem('theme', theme);
+  };
+
+  const saved = localStorage.getItem('theme');
+  setTheme(saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
+
+  document.querySelectorAll('.theme-toggle-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      setTheme(document.body.classList.contains('light-theme') ? 'dark' : 'light');
+    });
+  });
 }
 
 // --- Event Listeners Setup ---
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Ahead of the Supabase check so the sign-in screen is themed and switchable
+  // even when the SDK fails to load.
+  initTheme();
+
   if (!supabaseClient) {
     console.error('Supabase SDK not loaded.');
-    showToast('Supabase SDK could not be loaded. Check internet or credentials.', 'error');
+    showLoginForm('Could not reach the login service. Check your internet connection and reload the page.');
     return;
   }
-  
+
   // Media Type buttons
   typeYoutubeBtn.addEventListener('click', () => selectMediaType('youtube'));
   typeAudioBtn.addEventListener('click', () => selectMediaType('audio'));
@@ -549,7 +709,36 @@ document.addEventListener('DOMContentLoaded', () => {
       appSidebar.classList.toggle('collapsed');
     });
   }
-  
+
+  // --- Mobile Sidebar Drawer ---
+  // Below 900px the sidebar is off-screen and slides in over the content, so it
+  // does not eat two thirds of a phone screen.
+  const mobileToggle = document.getElementById('sidebar-toggle-mobile');
+  const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+  const setDrawer = (open) => {
+    appSidebar.classList.toggle('open', open);
+    sidebarOverlay.classList.toggle('visible', open);
+    mobileToggle.setAttribute('aria-expanded', String(open));
+  };
+
+  if (mobileToggle && appSidebar && sidebarOverlay) {
+    mobileToggle.addEventListener('click', () => setDrawer(!appSidebar.classList.contains('open')));
+    sidebarOverlay.addEventListener('click', () => setDrawer(false));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setDrawer(false);
+    });
+    // Picking a section should reveal it, not leave the drawer covering it.
+    appSidebar.querySelectorAll('.nav-option-btn').forEach((btn) => {
+      btn.addEventListener('click', () => setDrawer(false));
+    });
+    // Widening past the breakpoint leaves a stale overlay behind otherwise.
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) setDrawer(false);
+    });
+  }
+
+
   // --- Tab Swapping & Teaser Logic ---
   const navOptionButtons = document.querySelectorAll('.nav-option-btn');
   const tabPanels = document.querySelectorAll('.tab-panel');
@@ -638,7 +827,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
-  // Initial database load calls
-  loadSpotlightData();
-  loadTickerList();
+  // Check the session first — the database load happens inside bootDashboard()
+  // once an admin is signed in.
+  initAuth();
 });

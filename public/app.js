@@ -219,7 +219,35 @@ const translations = {
     
     btn_submit: "Submit Guest Application",
     btn_submitting: "Submitting Application...",
-    
+
+    nav_book: "Book a Call",
+    home_page_title: "The Next Chapter | Podcasts by Rania Barghout",
+    book_page_title: "Book a Call | The Next Chapter LLC",
+    book_badge: "Discovery Call",
+    book_title: "Book a Call with Rania",
+    book_desc: "Share a few details below so we can prepare for the conversation. Once submitted, you will be taken directly to the calendar to choose the time that suits you best.",
+    sec_book_details: "1. Your Details",
+    sec_book_call: "2. About the Call",
+    lbl_book_company_opt: "Company / Organisation (optional)",
+    lbl_book_topic: "What is the call about?",
+    book_topic_placeholder: "Select a topic...",
+    book_topic_coaching: "Executive Communication Coaching",
+    book_topic_media: "Media & Podcast Collaboration",
+    book_topic_partnership: "Partnership & Sponsorship",
+    book_topic_speaking: "Speaking Engagement",
+    book_topic_other: "Other",
+    err_book_topic: "Please select a topic for the call.",
+    lbl_book_message: "Tell us more about what you would like to discuss",
+    ph_book_message: "Briefly describe what you would like to cover during the call...",
+    err_book_message: "Please tell us a little about the purpose of the call (at least 20 characters).",
+    book_note: "Next step: you will choose your preferred date and time on our secure booking calendar.",
+    btn_book_submit: "Continue to Calendar",
+    btn_book_submitting: "One Moment...",
+    err_submit_failed: "Something went wrong while submitting. Please check your internet connection and try again.",
+    book_modal_title: "Details Received!",
+    book_modal_desc: "Thank you! We are now taking you to Rania's calendar to pick the time that works best for you.",
+    book_modal_btn: "Open the Calendar",
+
     contribution_title: "Production Contribution",
     contribution_desc_1: "Following editorial approval, selected guests will receive a secure payment link to complete their Production Contribution.",
     contribution_desc_2: "Please note that payment is requested only after acceptance by our editorial team. This contribution supports studio operations, crew, post-production editing, and promotional assets.",
@@ -256,7 +284,9 @@ const translations = {
     latest_ep_loading_title: "Loading Featured Episode...",
     latest_ep_loading_desc: "Connecting to the database to fetch the latest episode.",
     btn_play_audio: "Play Audio Episode",
-    btn_pause_audio: "Pause Audio"
+    btn_pause_audio: "Pause Audio",
+    theme_dark: "Dark",
+    theme_light: "Light"
   },
   
   ar: {
@@ -474,7 +504,35 @@ const translations = {
     
     btn_submit: "إرسال طلب الاستضافة",
     btn_submitting: "جاري إرسال الطلب...",
-    
+
+    nav_book: "احجزي مكالمة",
+    home_page_title: "The Next Chapter | بودكاست رانيا برغوت",
+    book_page_title: "احجزي مكالمة | The Next Chapter",
+    book_badge: "مكالمة تعارف",
+    book_title: "احجزي مكالمة مع رانيا",
+    book_desc: "شاركينا بعض التفاصيل أدناه حتى نستعد للمحادثة بشكل أفضل. بعد الإرسال، سيتم نقلك مباشرة إلى التقويم لاختيار الوقت الأنسب لك.",
+    sec_book_details: "١. بياناتك الشخصية",
+    sec_book_call: "٢. عن المكالمة",
+    lbl_book_company_opt: "الشركة / المؤسسة (اختياري)",
+    lbl_book_topic: "ما هو موضوع المكالمة؟",
+    book_topic_placeholder: "اختاري الموضوع...",
+    book_topic_coaching: "التدريب على مهارات التواصل التنفيذي",
+    book_topic_media: "تعاون إعلامي أو بودكاست",
+    book_topic_partnership: "شراكة أو رعاية",
+    book_topic_speaking: "مشاركة كمتحدثة",
+    book_topic_other: "موضوع آخر",
+    err_book_topic: "يرجى اختيار موضوع المكالمة.",
+    lbl_book_message: "أخبرينا المزيد عما تودين مناقشته",
+    ph_book_message: "صفي باختصار ما تودين تناوله خلال المكالمة...",
+    err_book_message: "يرجى كتابة نبذة قصيرة عن هدف المكالمة (٢٠ حرفاً على الأقل).",
+    book_note: "الخطوة التالية: ستختارين التاريخ والوقت المفضل عبر تقويم الحجز الآمن.",
+    btn_book_submit: "المتابعة إلى التقويم",
+    btn_book_submitting: "لحظة من فضلك...",
+    err_submit_failed: "حدث خطأ أثناء الإرسال. يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.",
+    book_modal_title: "تم استلام بياناتك!",
+    book_modal_desc: "شكراً لك! سيتم نقلك الآن إلى تقويم رانيا لاختيار الوقت الأنسب لك.",
+    book_modal_btn: "فتح التقويم",
+
     contribution_title: "المساهمة الإنتاجية والتغطية التشغيلية للبودكاست",
     contribution_desc_1: "بعد مراجعة الطلب والموافقة المبدئية عليه من قبل الفريق التحريري وتأكيد الاستضافة، سيتم إرسال رابط دفع آمن لإتمام إجراءات المساهمة الإنتاجية للضيف.",
     contribution_desc_2: "يرجى العلم أن الرسوم تطلب فقط بعد القبول الرسمي من قبل لجنة الإعداد والخط التحريري للبرنامج. تساهم هذه الرسوم في دعم تكاليف فريق الإعداد، طاقم التصوير، الاستوديو الفني، هندسة الصوت، عمليات المونتاج وتصميم المقتطفات الترويجية لشبكات التواصل الاجتماعي.",
@@ -492,7 +550,7 @@ const translations = {
     modal_summary_email: "البريد الإلكتروني",
     modal_summary_phone: "رقم الهاتف",
     modal_summary_profession: "المسمى الوظيفي / التخصص",
-    modal_btn_close: "إإغلاق البوابة",
+    modal_btn_close: "إغلاق البوابة",
     
     quote_1_text: "«تخلق رانيا بيئة تشعر فيها بالأمان للتعبير عن حقيقتك ومشاركة نقاط تحولك وإلهام الآخرين.»",
     quote_1_author: "— رائدة أعمال إعلامية، الإمارات",
@@ -511,7 +569,9 @@ const translations = {
     latest_ep_loading_title: "جاري تحميل الحلقة المميزة...",
     latest_ep_loading_desc: "جاري الاتصال بقاعدة البيانات لجلب الحلقة الأخيرة.",
     btn_play_audio: "تشغيل الحلقة الصوتية",
-    btn_pause_audio: "إيقاف مؤقت"
+    btn_pause_audio: "إيقاف مؤقت",
+    theme_dark: "داكن",
+    theme_light: "فاتح"
   }
 };
 
@@ -537,14 +597,75 @@ let playPodcast = null;
 
 // --- Initialize App Controls ---
 document.addEventListener('DOMContentLoaded', () => {
-  // Lazy load hero background video
+  // --- Theme Controller Logic ---
+  const getPreferredTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) return savedTheme;
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  };
+
+  const setTheme = (theme) => {
+    if (theme === 'light') {
+      document.body.classList.add('light-theme');
+    } else {
+      document.body.classList.remove('light-theme');
+    }
+    localStorage.setItem('theme', theme);
+    updateThemeUI(theme);
+  };
+
+  const updateThemeUI = (theme) => {
+    const darkBtnDrawer = document.getElementById('theme-btn-dark-drawer');
+    const lightBtnDrawer = document.getElementById('theme-btn-light-drawer');
+    
+    if (darkBtnDrawer && lightBtnDrawer) {
+      if (theme === 'light') {
+        lightBtnDrawer.classList.add('active');
+        darkBtnDrawer.classList.remove('active');
+      } else {
+        darkBtnDrawer.classList.add('active');
+        lightBtnDrawer.classList.remove('active');
+      }
+    }
+  };
+
+  // Initialize Theme on page load
+  const initialTheme = getPreferredTheme();
+  setTheme(initialTheme);
+
+  // Bind Theme Toggle in Header
+  const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
+  themeToggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    });
+  });
+
+  // Bind Theme Buttons in Mobile Drawer
+  const darkBtnDrawer = document.getElementById('theme-btn-dark-drawer');
+  const lightBtnDrawer = document.getElementById('theme-btn-light-drawer');
+  if (darkBtnDrawer) {
+    darkBtnDrawer.addEventListener('click', () => setTheme('dark'));
+  }
+  if (lightBtnDrawer) {
+    lightBtnDrawer.addEventListener('click', () => setTheme('light'));
+  }
+
+  // Lazy load hero background video on desktop/tablet only, after full page load to avoid blocking render
   const heroVideo = document.getElementById('hero-video');
-  if (heroVideo) {
-    const source = document.createElement('source');
-    source.src = 'assets/hero_video.mp4';
-    source.type = 'video/mp4';
-    heroVideo.appendChild(source);
-    heroVideo.load();
+  if (heroVideo && window.innerWidth > 768) {
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const source = document.createElement('source');
+        source.src = 'assets/hero_video.mp4';
+        source.type = 'video/mp4';
+        heroVideo.appendChild(source);
+        heroVideo.load();
+        heroVideo.play().catch(err => console.log("Video auto-play blocked or failed", err));
+      }, 500);
+    });
   }
 
   // Sync page default LTR
@@ -728,6 +849,12 @@ document.addEventListener('DOMContentLoaded', () => {
     signatureInput.addEventListener('input', verifySignature);
     fullNameInput.addEventListener('input', verifySignature);
   }
+
+  // Default the signature date to today
+  const sigDateInput = document.querySelector('#form-sig-date');
+  if (sigDateInput && !sigDateInput.value) {
+    sigDateInput.value = new Date().toISOString().split('T')[0];
+  }
   
   // Form submission validation interception
   const applyForm = document.querySelector('#apply-form');
@@ -778,41 +905,176 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = true;
         submitText.textContent = translations[currentLang].btn_submitting;
         submitSpinner.style.display = 'inline-block';
-        
+
+        const val = (sel) => {
+          const el = document.querySelector(sel);
+          return el ? el.value.trim() : '';
+        };
+
         const fullName = fullNameInput.value.trim();
-        const email = document.querySelector('#form-email').value.trim();
+        const email = val('#form-email');
         const phonePrefix = phonePrefixInput.value;
-        const phoneNum = document.querySelector('#form-phone-number').value.trim();
-        const title = document.querySelector('#form-profession').value.trim();
-        
-        setTimeout(() => {
+        const phoneNum = val('#form-phone-number');
+        const title = val('#form-profession');
+
+        const topics = Array.from(document.querySelectorAll('.topic-checkbox:checked')).map(cb => cb.value);
+        const otherTopic = val('#form-topic-other');
+        if (otherTopic) topics.push(`Other: ${otherTopic}`);
+
+        const talkingPoints = ['#form-tp-1', '#form-tp-2', '#form-tp-3', '#form-tp-4', '#form-tp-5']
+          .map(val).filter(Boolean).map((tp, i) => `${i + 1}. ${tp}`).join('\n');
+
+        const payload = {
+          type: 'guest_application',
+          name: fullName,
+          email: email,
+          phone: `${phonePrefix} ${phoneNum}`,
+          company: val('#form-company'),
+          profession: title,
+          topics: topics.join(', '),
+          bio_story: [
+            val('#form-pref-name') && `Preferred name: ${val('#form-pref-name')}`,
+            val('#form-country') && `Country: ${val('#form-country')}`,
+            val('#form-website') && `Website: ${val('#form-website')}`,
+            val('#form-linkedin') && `LinkedIn: ${val('#form-linkedin')}`,
+            val('#form-insta') && `Instagram: ${val('#form-insta')}`,
+            val('#form-social-other') && `Other socials: ${val('#form-social-other')}`,
+            `Biography:\n${val('#form-bio')}`,
+            `Best known for:\n${val('#form-best-known')}`,
+            `Shaping experiences:\n${val('#form-shaped-you')}`,
+            `What makes the story unique:\n${val('#form-story-unique')}`,
+            `Audience benefit:\n${val('#form-story-benefit')}`
+          ].filter(Boolean).join('\n\n'),
+          message: [
+            `Talking points:\n${talkingPoints}`,
+            `Key takeaway:\n${val('#form-takeaway')}`,
+            `Why choose me:\n${val('#form-final-sentence')}`
+          ].join('\n\n'),
+          media_links: val('#form-media-links'),
+          signature: `${val('#form-sig-name')} — ${val('#form-sig-date')}`,
+          status: 'new'
+        };
+
+        const finishSubmitUI = () => {
           submitSpinner.style.display = 'none';
           submitBtn.disabled = false;
           submitText.textContent = translations[currentLang].btn_submit;
-          
-          showSuccessModal({
-            name: fullName,
-            email: email,
-            phone: `${phonePrefix} ${phoneNum}`,
-            profession: title
+        };
+
+        const submitPromise = supabaseClient
+          ? supabaseClient.from('rania_submissions').insert([payload])
+          : Promise.resolve({ error: new Error('Supabase client not loaded') });
+
+        Promise.resolve(submitPromise)
+          .catch((err) => ({ error: err }))
+          .then(({ error }) => {
+            finishSubmitUI();
+
+            if (error) {
+              console.error('Application submit failed:', error);
+              alert(translations[currentLang].err_submit_failed);
+              return;
+            }
+
+            showSuccessModal({
+              name: fullName,
+              email: email,
+              phone: `${phonePrefix} ${phoneNum}`,
+              profession: title
+            });
+
+            applyForm.reset();
+            wordCounterSpan.textContent = '0';
+            phonePrefixInput.value = '+971';
+            countrySelect.value = 'ae';
+            if (mediaLinksGroup) mediaLinksGroup.style.display = 'none';
+
+            agreementCheck.disabled = true;
+            agreementCheckLabel.style.opacity = '0.5';
+            agreementCheckLabel.style.cursor = 'not-allowed';
           });
-          
-          applyForm.reset();
-          wordCounterSpan.textContent = '0';
-          phonePrefixInput.value = '+971';
-          countrySelect.value = 'ae';
-          if (mediaLinksGroup) mediaLinksGroup.style.display = 'none';
-          
-          agreementCheck.disabled = true;
-          agreementCheckLabel.style.opacity = '0.5';
-          agreementCheckLabel.style.cursor = 'not-allowed';
-        }, 2000);
       } else {
         applyForm.reportValidity();
       }
     });
   }
   
+  // --- Book a Call form (book-call.html) ---
+  const bookForm = document.querySelector('#book-form');
+  if (bookForm) {
+    const bookSubmitBtn = document.querySelector('#book-submit-btn');
+    const bookSubmitText = document.querySelector('#book-submit-btn-text');
+    const bookSubmitSpinner = document.querySelector('#book-submit-spinner');
+    const bookModalOverlay = document.querySelector('#book-modal-overlay');
+    const bookCalendlyBtn = document.querySelector('#book-calendly-btn');
+    const CALENDLY_URL = 'https://calendly.com/rania-thenextchapter/30min';
+
+    // Build the Calendly link with name/email prefilled into the booking form
+    const buildCalendlyUrl = () => {
+      const params = new URLSearchParams();
+      const name = document.querySelector('#book-fullname').value.trim();
+      const email = document.querySelector('#book-email').value.trim();
+      if (name) params.set('name', name);
+      if (email) params.set('email', email);
+      const query = params.toString();
+      return query ? `${CALENDLY_URL}?${query}` : CALENDLY_URL;
+    };
+
+    bookForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      if (!bookForm.checkValidity()) {
+        bookForm.reportValidity();
+        return;
+      }
+
+      bookSubmitBtn.disabled = true;
+      bookSubmitText.textContent = translations[currentLang].btn_book_submitting;
+      bookSubmitSpinner.style.display = 'inline-block';
+
+      const calendlyUrl = buildCalendlyUrl();
+      if (bookCalendlyBtn) bookCalendlyBtn.href = calendlyUrl;
+      if (bookModalOverlay) bookModalOverlay.classList.add('open');
+
+      // Log the request so there is a record even if the visitor
+      // drops off before completing the Calendly booking
+      const topicSelect = document.querySelector('#book-topic');
+      const payload = {
+        type: 'call_request',
+        name: document.querySelector('#book-fullname').value.trim(),
+        email: document.querySelector('#book-email').value.trim(),
+        phone: `${document.querySelector('#phone-prefix').value} ${document.querySelector('#form-phone-number').value.trim()}`,
+        company: document.querySelector('#book-company').value.trim(),
+        topics: topicSelect.options[topicSelect.selectedIndex].text,
+        message: document.querySelector('#book-message').value.trim(),
+        status: 'new'
+      };
+
+      const startedAt = Date.now();
+      let redirected = false;
+      const goToCalendly = () => {
+        if (redirected) return;
+        redirected = true;
+        window.location.href = calendlyUrl;
+      };
+
+      const insertPromise = supabaseClient
+        ? supabaseClient.from('rania_submissions').insert([payload])
+        : Promise.resolve({});
+
+      // Redirect once the record is saved (min 2.2s so the modal is readable);
+      // the modal button and the 6s fallback cover slow or failed saves
+      Promise.resolve(insertPromise)
+        .catch((err) => ({ error: err }))
+        .then(({ error } = {}) => {
+          if (error) console.error('Call request save failed:', error);
+          setTimeout(goToCalendly, Math.max(0, 2200 - (Date.now() - startedAt)));
+        });
+
+      setTimeout(goToCalendly, 6000);
+    });
+  }
+
   // Sync aria-invalid attributes for accessibility
   const syncAria = (el) => {
     if (el.setAttribute) {
@@ -1179,7 +1441,10 @@ function setLanguage(lang) {
     document.body.classList.remove('rtl');
   }
   
-  document.title = translations[lang].page_title;
+  // Use the page's own title key when it has one (falls back to the shared key)
+  const titleEl = document.querySelector('title[data-i18n]');
+  const titleKey = titleEl ? titleEl.getAttribute('data-i18n') : 'page_title';
+  document.title = translations[lang][titleKey] || translations[lang].page_title;
   
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
@@ -1343,7 +1608,7 @@ function renderLatestEpisode(data) {
   } else if (data.type === 'audio') {
     // Show Audio player card in visualContainer
     visualContainer.innerHTML = `
-      <div class="latest-ep-card-loading" style="background:url('assets/rania_hero.png') no-repeat center center; background-size:cover; border-radius:20px;">
+      <div class="latest-ep-card-loading" style="background:url('assets/rania_hero.jpg') no-repeat center center; background-size:cover; border-radius:20px;">
         <div class="latest-ep-overlay" style="background:rgba(4,6,15,0.75); width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
           <div class="latest-ep-audio-player-card" style="max-width:85%; background:rgba(13,20,43,0.85); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(10px); padding: 1.5rem; border-radius:16px;">
             <div class="latest-ep-audio-row" style="display:flex; align-items:center; gap:1.25rem;">
@@ -1425,7 +1690,7 @@ function renderLatestEpisode(data) {
 function renderLatestEpisodeFallback() {
   const data = {
     type: 'youtube',
-    youtube_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    youtube_url: 'https://www.youtube.com/watch?v=2UzmY_Ek-Lw',
     title_en: 'Welcome to Between The Lines',
     title_ar: 'مرحباً بكم في نقطة ع السطر',
     description_en: 'This is the official guest registration and podcast showcase portal for Between The Lines and No2ta 3al Sater, hosted by Rania Barghout.',

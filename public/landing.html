@@ -7,7 +7,7 @@
   
   
   <!-- SEO Meta Tags -->
-  <title data-i18n="page_title">The Next Chapter | Podcasts by Rania Barghout</title>
+  <title data-i18n="home_page_title">The Next Chapter | Podcasts by Rania Barghout</title>
   <meta name="description" content="Register as a guest on Rania Barghout's visual podcasts: No2ta 3al Sater & Between The Lines. Share your inspiring story and expertise with the Arab world.">
   <meta name="keywords" content="Rania Barghout, No2ta 3al Sater, Between The Lines, The Next Chapter, Podcast Guest, Dubai Media, Leadership Arabic Podcast">
   <meta name="author" content="The Next Chapter LLC">
@@ -19,6 +19,11 @@
   <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
+  <script>
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      document.body.classList.add('light-theme');
+    }
+  </script>
 
   <!-- Background Animated Glowing Orbs -->
   <div class="glow-container">
@@ -41,14 +46,21 @@
           <li><a class="nav-link" href="#about" data-i18n="nav_about" id="nav-lnk-about">About Rania</a></li>
           <li><a class="nav-link" href="#shows" data-i18n="nav_shows" id="nav-lnk-shows">The Podcasts</a></li>
           <li><a class="nav-link" href="#process" data-i18n="nav_process" id="nav-lnk-process">Selection Process</a></li>
+          <li><a class="nav-link" href="book-call.html" data-i18n="nav_book" id="nav-lnk-book">Book a Call</a></li>
           <li><a class="nav-cta" href="apply.html" data-i18n="nav_apply" id="nav-lnk-apply">Apply Now</a></li>
         </ul>
       </nav>
       
-      <!-- Hamburger Toggle Button -->
-      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-drawer">
-        ☰
-      </button>
+      <!-- Hamburger Toggle Button & Theme Toggle -->
+      <div class="header-actions">
+        <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Theme">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-drawer">
+          ☰
+        </button>
+      </div>
     </div>
   </header>
 
@@ -60,6 +72,7 @@
         <li><a class="nav-link" href="#about" data-i18n="nav_about" id="mob-lnk-about">About Rania</a></li>
         <li><a class="nav-link" href="#shows" data-i18n="nav_shows" id="mob-lnk-shows">The Podcasts</a></li>
         <li><a class="nav-link" href="#process" data-i18n="nav_process" id="mob-lnk-process">Selection Process</a></li>
+        <li><a class="nav-link" href="book-call.html" data-i18n="nav_book" id="mob-lnk-book">Book a Call</a></li>
         <li><a class="nav-link" href="apply.html" data-i18n="nav_apply" style="color: var(--accent-teal); font-weight: 700;" id="mob-lnk-apply">Apply Now</a></li>
       </ul>
     </nav>
@@ -69,6 +82,20 @@
       <div class="lang-switch" role="group" aria-label="Language selector">
         <button class="lang-btn active" data-lang="en" id="lang-btn-en">ENG</button>
         <button class="lang-btn ar-lang" data-lang="ar" id="lang-btn-ar">العربية</button>
+      </div>
+
+      <!-- Theme Switch inside Hamburger -->
+      <div class="theme-toggle-container-drawer">
+        <div class="theme-switch-drawer" role="group" aria-label="Theme selector">
+          <button class="theme-btn-drawer active" id="theme-btn-dark-drawer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <span data-i18n="theme_dark">Dark</span>
+          </button>
+          <button class="theme-btn-drawer" id="theme-btn-light-drawer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <span data-i18n="theme_light">Light</span>
+          </button>
+        </div>
       </div>
     </div>
   </aside>
@@ -302,7 +329,7 @@
         <div class="about-glow-orb"></div>
         <div class="about-card-stack" id="about-stack-container">
           <div class="about-photo-card" id="about-rania-card">
-            <img src="assets/rania_hero.png" alt="Rania Barghout" class="about-photo-img" id="about-rania-img">
+            <img src="assets/rania_hero.jpg" alt="Rania Barghout" class="about-photo-img" id="about-rania-img">
           </div>
         </div>
       </div>
@@ -357,7 +384,7 @@
           <!-- Episode Card 1 -->
           <a class="episode-card" id="ep-card-1" href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank">
             <div class="episode-image-container">
-              <img src="assets/podcast_eps/Screenshot%202026-06-02%20at%2014.24.44.png" alt="Episode Cover 1" class="episode-img" loading="lazy">
+              <img src="assets/podcast_eps/ep1.jpg" alt="Episode Cover 1" class="episode-img" loading="lazy">
               <div class="episode-overlay">
                 <span class="play-indicator-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
@@ -368,7 +395,7 @@
           <!-- Episode Card 2 -->
           <a class="episode-card" id="ep-card-2" href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank">
             <div class="episode-image-container">
-              <img src="assets/podcast_eps/Screenshot%202026-06-02%20at%2014.25.37.png" alt="Episode Cover 2" class="episode-img" loading="lazy">
+              <img src="assets/podcast_eps/ep2.jpg" alt="Episode Cover 2" class="episode-img" loading="lazy">
               <div class="episode-overlay">
                 <span class="play-indicator-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
@@ -379,7 +406,7 @@
           <!-- Episode Card 3 -->
           <a class="episode-card" id="ep-card-3" href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank">
             <div class="episode-image-container">
-              <img src="assets/podcast_eps/Screenshot%202026-06-02%20at%2014.25.44.png" alt="Episode Cover 3" class="episode-img" loading="lazy">
+              <img src="assets/podcast_eps/ep3.jpg" alt="Episode Cover 3" class="episode-img" loading="lazy">
               <div class="episode-overlay">
                 <span class="play-indicator-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
@@ -390,7 +417,7 @@
           <!-- Episode Card 4 -->
           <a class="episode-card" id="ep-card-4" href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank">
             <div class="episode-image-container">
-              <img src="assets/podcast_eps/Screenshot%202026-06-02%20at%2014.25.52.png" alt="Episode Cover 4" class="episode-img" loading="lazy">
+              <img src="assets/podcast_eps/ep4.jpg" alt="Episode Cover 4" class="episode-img" loading="lazy">
               <div class="episode-overlay">
                 <span class="play-indicator-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
@@ -401,7 +428,7 @@
           <!-- Episode Card 5 -->
           <a class="episode-card" id="ep-card-5" href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank">
             <div class="episode-image-container">
-              <img src="assets/podcast_eps/Screenshot%202026-06-02%20at%2014.26.01.png" alt="Episode Cover 5" class="episode-img" loading="lazy">
+              <img src="assets/podcast_eps/ep5.jpg" alt="Episode Cover 5" class="episode-img" loading="lazy">
               <div class="episode-overlay">
                 <span class="play-indicator-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
@@ -412,7 +439,7 @@
           <!-- Episode Card 6 -->
           <a class="episode-card" id="ep-card-6" href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank">
             <div class="episode-image-container">
-              <img src="assets/podcast_eps/Screenshot%202026-06-02%20at%2014.26.07.png" alt="Episode Cover 6" class="episode-img" loading="lazy">
+              <img src="assets/podcast_eps/ep6.jpg" alt="Episode Cover 6" class="episode-img" loading="lazy">
               <div class="episode-overlay">
                 <span class="play-indicator-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
@@ -423,7 +450,7 @@
           <!-- Episode Card 7 -->
           <a class="episode-card" id="ep-card-7" href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank">
             <div class="episode-image-container">
-              <img src="assets/podcast_eps/Screenshot%202026-06-02%20at%2014.26.14.png" alt="Episode Cover 7" class="episode-img" loading="lazy">
+              <img src="assets/podcast_eps/ep7.jpg" alt="Episode Cover 7" class="episode-img" loading="lazy">
               <div class="episode-overlay">
                 <span class="play-indicator-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
@@ -434,7 +461,7 @@
           <!-- Episode Card 8 -->
           <a class="episode-card" id="ep-card-8" href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank">
             <div class="episode-image-container">
-              <img src="assets/podcast_eps/Screenshot%202026-06-02%20at%2014.26.21.png" alt="Episode Cover 8" class="episode-img" loading="lazy">
+              <img src="assets/podcast_eps/ep8.jpg" alt="Episode Cover 8" class="episode-img" loading="lazy">
               <div class="episode-overlay">
                 <span class="play-indicator-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
@@ -445,7 +472,7 @@
           <!-- Episode Card 9 -->
           <a class="episode-card" id="ep-card-9" href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank">
             <div class="episode-image-container">
-              <img src="assets/podcast_eps/Screenshot%202026-06-02%20at%2014.26.28.png" alt="Episode Cover 9" class="episode-img" loading="lazy">
+              <img src="assets/podcast_eps/ep9.jpg" alt="Episode Cover 9" class="episode-img" loading="lazy">
               <div class="episode-overlay">
                 <span class="play-indicator-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
@@ -456,7 +483,7 @@
           <!-- Episode Card 10 -->
           <a class="episode-card" id="ep-card-10" href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank">
             <div class="episode-image-container">
-              <img src="assets/podcast_eps/Screenshot%202026-06-02%20at%2014.26.33.png" alt="Episode Cover 10" class="episode-img" loading="lazy">
+              <img src="assets/podcast_eps/ep10.jpg" alt="Episode Cover 10" class="episode-img" loading="lazy">
               <div class="episode-overlay">
                 <span class="play-indicator-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
@@ -467,7 +494,7 @@
           <!-- Episode Card 11 -->
           <a class="episode-card" id="ep-card-11" href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank">
             <div class="episode-image-container">
-              <img src="assets/podcast_eps/Screenshot%202026-06-02%20at%2014.26.38.png" alt="Episode Cover 11" class="episode-img" loading="lazy">
+              <img src="assets/podcast_eps/ep11.jpg" alt="Episode Cover 11" class="episode-img" loading="lazy">
               <div class="episode-overlay">
                 <span class="play-indicator-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
@@ -590,6 +617,6 @@
 
   <!-- Scripts Connection -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>

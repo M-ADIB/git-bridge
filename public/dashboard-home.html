@@ -3,43 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Control Center | No2ta 3al Sater & Between The Lines</title>
-  
+  <title>Control Panel | The Next Chapter</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Same favicon as the public site, so the tab matches. -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
   <!-- Google Fonts Cairo & Inter & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
-    /* --- CSS Variables & Design Tokens --- */
+    /* --- CSS Variables & Design Tokens ---
+       These mirror the public site's tokens in public/style.css one-for-one so
+       the control panel and the landing page stay visually identical. If a
+       colour changes on the site, change it here too. */
     :root {
+      /* Colors */
       --bg-deep: #04060f;
-      --bg-sidebar: rgba(10, 15, 33, 0.7);
-      --bg-card: rgba(13, 20, 43, 0.4);
-      --bg-card-hover: rgba(20, 31, 66, 0.55);
+      --bg-card: rgba(13, 20, 43, 0.35);
+      --bg-card-hover: rgba(20, 31, 66, 0.5);
       --border-glass: rgba(255, 255, 255, 0.06);
       --border-glass-active: rgba(76, 96, 255, 0.35);
-      
+
       --accent-cobalt: #4c60ff;
-      --accent-cobalt-glow: rgba(76, 96, 255, 0.4);
+      --accent-cobalt-glow: rgba(76, 96, 255, 0.5);
       --accent-teal: #00f2fe;
-      --accent-teal-glow: rgba(0, 242, 254, 0.3);
+      --accent-teal-glow: rgba(0, 242, 254, 0.2);
       --accent-indigo: #6366f1;
-      --accent-crimson: #f43f5e;
-      --accent-emerald: #10b981;
       --accent-orange: #ff6b00;
-      
+      --accent-purple: #8a2be2;
+
       --text-primary: #f8fafc;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
-      
-      --font-head: 'Outfit', sans-serif;
-      --font-body: 'Inter', sans-serif;
-      --font-ar: 'Cairo', sans-serif;
-      
-      --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      --text-error: #ff4d4d;
+      --text-success: #10b981;
+
+      /* Layout & surfaces (site tokens) */
+      --bg-body-gradient: radial-gradient(circle at 50% 30%, transparent 20%, rgba(5,5,7,0.95) 80%);
+      --bg-body-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M0 0h80v40H0z' fill='%2308090c'/%3E%3Cpath d='M0 20h80M40 0v20M0 20v20M80 20v20' stroke='%23141720' stroke-width='1.5'/%3E%3C/svg%3E");
+      --bg-header: rgba(4, 6, 15, 0.7);
+      --brand-logo-text-color: #ffffff;
+      --bg-input: rgba(255, 255, 255, 0.02);
+      --border-input: rgba(255, 255, 255, 0.08);
+
+      /* Fonts (site names, plus the short aliases this file already uses) */
+      --font-en-head: 'Outfit', sans-serif;
+      --font-en-body: 'Inter', sans-serif;
+      --font-ar-head: 'Cairo', sans-serif;
+      --font-head: var(--font-en-head);
+      --font-body: var(--font-en-body);
+      --font-ar: var(--font-ar-head);
+
+      --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       --transition-fast: all 0.2s ease;
+
+      /* --- Control-panel only, not on the public site --- */
+      --bg-sidebar: rgba(10, 15, 33, 0.7);
+      --accent-crimson: #f43f5e;
+      --accent-emerald: #10b981;
       --shadow-neon: 0 0 20px rgba(76, 96, 255, 0.15);
+
+      /* Neutral fills. Themed so nothing is a hardcoded white wash that
+         disappears against the light theme's cream background. */
+      --surface-1: rgba(255, 255, 255, 0.02);
+      --surface-2: rgba(255, 255, 255, 0.04);
+      --surface-3: rgba(255, 255, 255, 0.06);
+      --hairline: rgba(255, 255, 255, 0.04);
+      --bg-well: rgba(4, 6, 15, 0.5);
+      --bg-toast: rgba(13, 20, 43, 0.95);
+      --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.15);
+      --shadow-card-hover: 0 10px 32px rgba(0, 0, 0, 0.25);
+    }
+
+    /* --- Light Theme (same palette and same `light-theme` class the site uses,
+           so the choice carries across from the public site) --- */
+    body.light-theme {
+      --bg-deep: #EAE3DA;
+      --bg-body-gradient: radial-gradient(circle at 50% 30%, rgba(244, 239, 234, 0.3) 20%, rgba(234, 227, 219, 0.95) 80%);
+      --bg-body-image: none;
+
+      --bg-header: rgba(244, 239, 234, 0.75);
+      --bg-sidebar: rgba(244, 239, 234, 0.75);
+      --brand-logo-text-color: #2B2724;
+
+      --bg-card: rgba(255, 255, 255, 0.65);
+      --bg-card-hover: rgba(255, 255, 255, 0.85);
+      --border-glass: rgba(43, 39, 36, 0.08);
+      --border-glass-active: rgba(76, 96, 255, 0.4);
+
+      --text-primary: #2B2724;
+      --text-secondary: #5A544F;
+      --text-muted: #8B8077;
+
+      --bg-input: rgba(255, 255, 255, 0.8);
+      --border-input: rgba(43, 39, 36, 0.15);
+
+      /* Readable accents on the cream background */
+      --accent-cobalt: #2B40E6;
+      --accent-cobalt-glow: rgba(43, 64, 230, 0.2);
+      --accent-teal: #008790;
+      --accent-teal-glow: rgba(0, 135, 144, 0.15);
+      --accent-indigo: #4F46E5;
+
+      /* Darkened so small text in these colours stays legible on cream. */
+      --accent-emerald: #047857;
+      --accent-crimson: #be123c;
+      --accent-orange: #c25000;
+
+      --surface-1: rgba(43, 39, 36, 0.03);
+      --surface-2: rgba(43, 39, 36, 0.06);
+      --surface-3: rgba(43, 39, 36, 0.09);
+      --hairline: rgba(43, 39, 36, 0.08);
+      --bg-well: rgba(43, 39, 36, 0.04);
+      --bg-toast: rgba(250, 247, 243, 0.97);
+      --shadow-card: 0 6px 24px rgba(43, 39, 36, 0.08);
+      --shadow-card-hover: 0 10px 32px rgba(43, 39, 36, 0.14);
     }
 
     /* --- Base Reset & Scrollbar --- */
@@ -49,23 +130,26 @@
       padding: 0;
     }
     
+    /* Colour and background live on <body>, not <html>: the `light-theme` class
+       sits on body, so anything resolving a token on html would keep the dark
+       value and every element would inherit it. body's background propagates to
+       the page canvas on its own. */
     html {
       scroll-behavior: smooth;
-      background-color: var(--bg-deep);
-      color: var(--text-primary);
       font-family: var(--font-body);
     }
-    
+
     body {
       min-height: 100vh;
-      background-color: #060608;
-      background-image: 
-        radial-gradient(circle at 50% 30%, transparent 20%, rgba(5,5,7,0.95) 80%),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M0 0h80v40H0z' fill='%2308090c'/%3E%3Cpath d='M0 20h80M40 0v20M0 20v20M80 20v20' stroke='%23141720' stroke-width='1.5'/%3E%3C/svg%3E");
+      line-height: 1.6;
+      color: var(--text-primary);
+      background-color: var(--bg-deep);
+      background-image: var(--bg-body-gradient), var(--bg-body-image);
       background-attachment: fixed;
       display: flex;
       overflow-x: hidden;
       position: relative;
+      transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* --- Backdrop Glow Orbs --- */
@@ -116,6 +200,12 @@
       animation-duration: 18s;
       animation-delay: -2s;
     }
+
+    /* On the public site the light theme reads as clean warm cream, because
+       opaque content sections sit over these orbs. Nothing covers them here,
+       so dial them back directly or the page turns a muddy purple. */
+    body.light-theme .glow-orb { opacity: 0.06; }
+    body.light-theme .glow-orb-3 { opacity: 0.04; }
 
     @keyframes floatOrb {
       0% {
@@ -180,27 +270,27 @@
       margin-bottom: 1.5rem;
       overflow: hidden;
       white-space: nowrap;
+      text-decoration: none;
     }
     
+    /* Same brand mark and framing the public site's header uses. */
     .logo-box {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--accent-cobalt), var(--accent-indigo));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(76, 96, 255, 0.3);
+      width: 44px;
+      height: 44px;
+      border-radius: 6px;
+      border: 1px solid var(--border-glass);
+      overflow: hidden;
       flex-shrink: 0;
       transition: var(--transition-smooth);
     }
-    
-    .logo-box svg {
-      width: 22px;
-      height: 22px;
-      fill: #fff;
+
+    .logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
-    
+
     .logo-info {
       display: flex;
       flex-direction: column;
@@ -215,10 +305,11 @@
     
     .logo-title {
       font-family: var(--font-head);
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       font-weight: 800;
-      letter-spacing: -0.2px;
-      color: #fff;
+      letter-spacing: -0.5px;
+      color: var(--brand-logo-text-color);
+      transition: color 0.3s ease;
     }
     
     .logo-subtitle {
@@ -258,13 +349,13 @@
     }
     
     .nav-option-btn:hover {
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--surface-2);
       color: var(--text-primary);
     }
     
     .nav-option-btn.active {
       background: linear-gradient(90deg, rgba(76, 96, 255, 0.15) 0%, rgba(99, 102, 241, 0.04) 100%);
-      color: #fff;
+      color: var(--text-primary);
       border-left: 3px solid var(--accent-teal);
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
@@ -346,7 +437,7 @@
     
     .toggle-sidebar-btn:hover {
       color: var(--text-primary);
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--surface-1);
     }
     
     .toggle-sidebar-btn svg {
@@ -375,9 +466,10 @@
     /* --- Top Header Navbar --- */
     header.top-nav {
       height: 70px;
-      background: rgba(4, 6, 15, 0.5);
+      background: var(--bg-header);
       border-bottom: 1px solid var(--border-glass);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -417,7 +509,7 @@
       width: 38px;
       height: 38px;
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--surface-1);
       border: 1px solid var(--border-glass);
       color: var(--text-secondary);
       cursor: pointer;
@@ -430,8 +522,8 @@
     
     .nav-icon-btn:hover {
       color: var(--text-primary);
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.12);
+      background: var(--surface-2);
+      border-color: var(--border-glass-active);
     }
     
     .nav-icon-btn svg {
@@ -532,7 +624,7 @@
       border-radius: 16px;
       padding: 1.5rem;
       backdrop-filter: blur(20px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      box-shadow: var(--shadow-card);
       transition: var(--transition-smooth);
       position: relative;
       overflow: hidden;
@@ -557,8 +649,8 @@
     .stat-card:hover {
       transform: translateY(-2px);
       background: var(--bg-card-hover);
-      border-color: rgba(255, 255, 255, 0.12);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+      border-color: var(--border-glass-active);
+      box-shadow: var(--shadow-card-hover);
     }
     
     .stat-header {
@@ -613,7 +705,7 @@
       font-family: var(--font-head);
       font-size: 1.75rem;
       font-weight: 800;
-      color: #fff;
+      color: var(--text-primary);
       margin: 0.25rem 0;
     }
     
@@ -631,19 +723,23 @@
     }
     
     @media (max-width: 968px) {
+      /* minmax(0, ...) rather than plain 1fr: a bare 1fr track refuses to
+         shrink below its content's min-content width, so long activity rows
+         push the card off the right edge of a phone screen. */
       .content-subgrid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
       }
     }
     
     /* Card Component */
     .panel-card {
+      min-width: 0;
       background: var(--bg-card);
       border: 1px solid var(--border-glass);
       border-radius: 16px;
       padding: 1.5rem;
       backdrop-filter: blur(20px);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+      box-shadow: var(--shadow-card);
     }
     
     .card-title-bar {
@@ -657,7 +753,7 @@
       font-family: var(--font-head);
       font-size: 1.15rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--text-primary);
     }
     
     .card-link {
@@ -686,15 +782,15 @@
       gap: 1rem;
       padding: 0.75rem;
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.01);
-      border: 1px solid rgba(255, 255, 255, 0.02);
+      background: var(--surface-1);
+      border: 1px solid var(--hairline);
       transition: var(--transition-fast);
       cursor: pointer;
     }
     
     .activity-item:hover {
-      background: rgba(255, 255, 255, 0.03);
-      border-color: rgba(255, 255, 255, 0.06);
+      background: var(--surface-2);
+      border-color: var(--border-glass);
     }
     
     .activity-indicator {
@@ -732,6 +828,9 @@
     }
     
     .activity-desc {
+      /* text-overflow only applies to a block box; as an inline span the text
+         just ran past the card edge instead of truncating. */
+      display: block;
       font-size: 0.75rem;
       color: var(--text-secondary);
       white-space: nowrap;
@@ -770,7 +869,7 @@
     
     .progress-bar-track {
       height: 6px;
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--surface-2);
       border: 1px solid var(--border-glass);
       border-radius: 3px;
       overflow: hidden;
@@ -796,7 +895,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 0.5rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--hairline);
       font-size: 0.85rem;
     }
     
@@ -831,7 +930,7 @@
       padding: 3rem 2rem;
       text-align: center;
       backdrop-filter: blur(20px);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      box-shadow: var(--shadow-card-hover);
       position: relative;
       overflow: hidden;
       animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -871,7 +970,7 @@
       font-family: var(--font-head);
       font-size: 1.6rem;
       font-weight: 800;
-      color: #fff;
+      color: var(--text-primary);
       letter-spacing: -0.2px;
       margin-bottom: 0.75rem;
     }
@@ -917,18 +1016,19 @@
     
     @media (max-width: 968px) {
       .dashboard-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
       }
     }
     
     /* Existing Spotlight/Marquee card style resets */
     .cms-card {
+      min-width: 0;
       background: var(--bg-card);
       border: 1px solid var(--border-glass);
       border-radius: 16px;
       padding: 2rem;
       backdrop-filter: blur(20px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      box-shadow: var(--shadow-card-hover);
       transition: var(--transition-smooth);
       position: relative;
       overflow: hidden;
@@ -1006,8 +1106,8 @@
     input[type="number"],
     textarea {
       width: 100%;
-      background: rgba(4, 6, 15, 0.6);
-      border: 1px solid var(--border-glass);
+      background: var(--bg-input);
+      border: 1px solid var(--border-input);
       border-radius: 8px;
       padding: 0.75rem 1rem;
       color: var(--text-primary);
@@ -1021,8 +1121,8 @@
     input[type="number"]:focus,
     textarea:focus {
       border-color: var(--accent-cobalt);
-      box-shadow: 0 0 10px rgba(76, 96, 255, 0.15);
-      background: rgba(4, 6, 15, 0.8);
+      box-shadow: 0 0 15px var(--accent-cobalt-glow);
+      background: var(--bg-input);
     }
     
     textarea {
@@ -1038,7 +1138,7 @@
 
     .type-selector {
       display: flex;
-      background: rgba(4, 6, 15, 0.6);
+      background: var(--bg-well);
       padding: 4px;
       border-radius: 10px;
       border: 1px solid var(--border-glass);
@@ -1087,7 +1187,7 @@
       border-radius: 12px;
       padding: 2rem 1.5rem;
       text-align: center;
-      background: rgba(4, 6, 15, 0.3);
+      background: var(--bg-well);
       cursor: pointer;
       transition: var(--transition-fast);
       position: relative;
@@ -1174,7 +1274,7 @@
     .progress-container {
       display: none;
       margin-top: 1.25rem;
-      background: rgba(4, 6, 15, 0.8);
+      background: var(--bg-well);
       border: 1px solid var(--border-glass);
       border-radius: 8px;
       padding: 0.75rem 1rem;
@@ -1191,7 +1291,7 @@
     
     .progress-bar-bg {
       height: 8px;
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--surface-2);
       border-radius: 4px;
       overflow: hidden;
     }
@@ -1277,7 +1377,7 @@
     }
     
     .preview-mockup {
-      background: rgba(6, 9, 21, 0.6);
+      background: var(--bg-well);
       border: 1px solid var(--border-glass);
       border-radius: 12px;
       padding: 1rem;
@@ -1290,7 +1390,7 @@
       width: 120px;
       height: 68px;
       border-radius: 6px;
-      background: rgba(255,255,255,0.02);
+      background: var(--surface-1);
       border: 1px solid var(--border-glass);
       display: flex;
       align-items: center;
@@ -1323,7 +1423,7 @@
     .preview-title {
       font-weight: 600;
       font-size: 0.9rem;
-      color: #fff;
+      color: var(--text-primary);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1344,7 +1444,7 @@
       overflow-y: auto;
       border: 1px solid var(--border-glass);
       border-radius: 10px;
-      background: rgba(4, 6, 15, 0.4);
+      background: var(--bg-well);
       padding: 0.5rem;
     }
     
@@ -1372,7 +1472,7 @@
       gap: 1rem;
       padding: 0.75rem;
       border-radius: 8px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--hairline);
       transition: var(--transition-fast);
     }
     
@@ -1381,7 +1481,7 @@
     }
     
     .db-episode-row:hover {
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--surface-1);
     }
     
     .db-thumb {
@@ -1389,7 +1489,7 @@
       height: 45px;
       border-radius: 4px;
       object-fit: cover;
-      background: #000;
+      background: var(--bg-well);
       border: 1px solid var(--border-glass);
       flex-shrink: 0;
     }
@@ -1454,12 +1554,12 @@
     }
     
     .toast {
-      background: rgba(13, 20, 43, 0.95);
+      background: var(--bg-toast);
       border: 1px solid var(--border-glass);
       backdrop-filter: blur(10px);
       padding: 1rem 1.25rem;
       border-radius: 10px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      box-shadow: var(--shadow-card-hover);
       display: flex;
       align-items: center;
       gap: 0.75rem;
@@ -1521,9 +1621,406 @@
       from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* --- Admin Login Gate --- */
+    /* Transparent on purpose: the body gradient and the drifting glow orbs
+       behind it are the same backdrop the public site uses. */
+    .auth-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: transparent;
+    }
+
+    /* The panel stays hidden until a valid session is confirmed. */
+    body:not(.authed) .app-wrapper { display: none; }
+    body.authed .auth-gate { display: none; }
+
+    .auth-card {
+      width: 100%;
+      max-width: 420px;
+      padding: 44px 34px;
+      border-radius: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: var(--shadow-card-hover);
+      text-align: center;
+      animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .auth-logo {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-glass);
+    }
+    .auth-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .auth-title {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      margin: 0 0 6px;
+    }
+
+    .auth-sub {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 0 0 28px;
+      letter-spacing: 0.02em;
+    }
+
+    /* The gate toggles elements with the [hidden] attribute, which the
+       display rules below would otherwise override. */
+    .auth-gate [hidden] { display: none !important; }
+
+    .auth-checking {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      padding: 12px 0;
+    }
+
+    .auth-form { text-align: left; }
+
+    .auth-label {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 7px;
+      letter-spacing: 0.03em;
+    }
+
+    /* Matches .form-input on the public site. */
+    .auth-input {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border-input);
+      background: var(--bg-input);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: var(--transition-fast);
+    }
+    .auth-input::placeholder { color: var(--text-muted); font-size: 0.9rem; }
+    .auth-input:focus {
+      outline: none;
+      border-color: var(--accent-cobalt);
+      box-shadow: 0 0 15px var(--accent-cobalt-glow);
+    }
+
+    .auth-error {
+      margin: -8px 0 16px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(244, 63, 94, 0.1);
+      border: 1px solid rgba(244, 63, 94, 0.25);
+      color: var(--text-error);
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    /* Matches .btn-primary on the public site. */
+    .auth-submit {
+      width: 100%;
+      padding: 1.1rem;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-indigo) 0%, var(--accent-cobalt) 100%);
+      color: #fff;
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      box-shadow: 0 8px 30px rgba(76, 96, 255, 0.35);
+      transition: var(--transition-smooth);
+    }
+    .auth-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(76, 96, 255, 0.5);
+      filter: brightness(1.1);
+    }
+    .auth-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* Theme switch on the sign-in screen, since there's no header there yet. */
+    .auth-theme-toggle {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+    }
+
+    .auth-spinner {
+      width: 15px;
+      height: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .signout-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 13px;
+      margin-left: 10px;
+      border-radius: 9px;
+      border: 1px solid var(--border-glass);
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    .signout-btn:hover {
+      color: var(--accent-crimson);
+      border-color: rgba(244, 63, 94, 0.35);
+      background: rgba(244, 63, 94, 0.08);
+    }
+    .signout-btn svg { width: 15px; height: 15px; }
+
+    /* --- Shared header controls, copied from the public site --- */
+
+    /* .theme-toggle-btn in public/style.css */
+    .theme-toggle-btn {
+      background: none;
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+      cursor: pointer;
+      padding: 0.55rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: var(--transition-fast);
+      outline: none;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--surface-2);
+      color: var(--accent-teal);
+      border-color: var(--accent-teal-glow);
+    }
+
+    body.light-theme .theme-toggle-btn:hover {
+      color: var(--accent-cobalt);
+      border-color: var(--accent-cobalt-glow);
+    }
+
+    .theme-toggle-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2;
+      transition: transform 0.3s ease;
+    }
+
+    .theme-toggle-btn:hover svg { transform: rotate(15deg); }
+    body.light-theme .theme-toggle-btn .sun-icon { display: none; }
+    body:not(.light-theme) .theme-toggle-btn .moon-icon { display: none; }
+
+    /* .nav-cta in public/style.css */
+    .nav-cta {
+      background: linear-gradient(135deg, var(--accent-indigo) 0%, var(--accent-cobalt) 100%);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.25rem;
+      border-radius: 30px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(76, 96, 255, 0.3);
+      transition: var(--transition-smooth);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-shrink: 0;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(76, 96, 255, 0.5);
+      filter: brightness(1.1);
+    }
+
+    .nav-cta svg { width: 15px; height: 15px; }
+
+    /* The top bar runs out of room once the sidebar and breadcrumb are in
+       place, so shed the wordier bits before anything overflows off-screen. */
+    @media (max-width: 1100px) {
+      .nav-cta span { display: none; }
+      .nav-cta { padding: 0.6rem 0.85rem; }
+    }
+
+    @media (max-width: 900px) {
+      header.top-nav { gap: 10px; padding: 0 1rem; }
+      .nav-actions { flex-shrink: 0; gap: 0.6rem; }
+      /* Keeps the breadcrumb next to the hamburger instead of letting
+         space-between centre it between the two edges. */
+      .breadcrumb { min-width: 0; overflow: hidden; margin-right: auto; }
+      .user-info { display: none; }
+      .signout-btn span { display: none; }
+      .signout-btn { padding: 8px 10px; margin-left: 0; }
+      .user-profile { padding-left: 0.6rem; }
+    }
+
+    /* --- Mobile sidebar drawer ---
+       A 260px sidebar swallows two thirds of a phone screen, so below 900px it
+       slides in over the content instead, the same way the public site's
+       hamburger drawer does. */
+    .sidebar-toggle-mobile {
+      display: none;
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: var(--surface-1);
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.75rem;
+      transition: var(--transition-fast);
+    }
+    .sidebar-toggle-mobile:hover { background: var(--surface-2); }
+    .sidebar-toggle-mobile svg { width: 20px; height: 20px; }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 150;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar-toggle-mobile { display: flex; }
+
+      aside.sidebar,
+      aside.sidebar.collapsed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 264px;
+        height: 100vh;
+        transform: translateX(-100%);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 200;
+      }
+
+      aside.sidebar.open { transform: translateX(0); box-shadow: var(--shadow-card-hover); }
+
+      /* Never show the desktop icon-only rail here — the drawer is either
+         fully open or fully off-screen. */
+      aside.sidebar.collapsed .logo-info,
+      aside.sidebar.collapsed .nav-option-title,
+      aside.sidebar.collapsed .sidebar-section-title,
+      aside.sidebar.collapsed .nav-badge {
+        opacity: 1;
+        width: auto;
+        pointer-events: auto;
+      }
+      aside.sidebar.collapsed .nav-option-btn svg.opt-icon { margin-right: 0.85rem; }
+
+      .toggle-sidebar-btn { display: none; }
+
+      .sidebar-overlay.visible { display: block; opacity: 1; }
+
+      .tab-panel { padding: 1.25rem 1rem; }
+      .dashboard-title-group h2 { font-size: 1.4rem; }
+    }
+
+    /* On a phone the header can't hold the breadcrumb as well — and the panel
+       heading directly below already says which section you're in. */
+    @media (max-width: 620px) {
+      .breadcrumb { display: none; }
+      .sidebar-toggle-mobile { margin-right: auto; }
+      .nav-icon-btn { display: none; }
+    }
   </style>
 </head>
 <body>
+  <script>
+    // Applied before paint so the panel never flashes the wrong theme. Reads the
+    // same localStorage key the public site writes, so the choice carries over.
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      document.body.classList.add('light-theme');
+    }
+  </script>
+
+  <!-- ============================== -->
+  <!-- ADMIN LOGIN GATE               -->
+  <!-- ============================== -->
+  <div class="auth-gate" id="auth-gate">
+    <button class="theme-toggle-btn auth-theme-toggle" aria-label="Toggle Theme">
+      <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </button>
+
+    <div class="auth-card">
+      <div class="auth-logo">
+        <img src="assets/logo.png" alt="The Next Chapter">
+      </div>
+      <h1 class="auth-title">Admin Sign In</h1>
+      <p class="auth-sub">The Next Chapter &middot; Control Panel</p>
+
+      <div class="auth-checking" id="auth-checking">
+        <span class="auth-spinner"></span>
+        <span>Checking your session&hellip;</span>
+      </div>
+
+      <form class="auth-form" id="auth-form" hidden>
+        <label class="auth-label" for="auth-email">Email</label>
+        <input class="auth-input" type="email" id="auth-email" name="email"
+               autocomplete="username" required placeholder="you@thenextchapter.vip">
+
+        <label class="auth-label" for="auth-password">Password</label>
+        <input class="auth-input" type="password" id="auth-password" name="password"
+               autocomplete="current-password" required placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+
+        <p class="auth-error" id="auth-error" hidden></p>
+
+        <button class="auth-submit" type="submit" id="auth-submit-btn">
+          <span class="auth-spinner" id="auth-submit-spinner" hidden></span>
+          <span id="auth-submit-text">Sign In</span>
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- Background Animated Glowing Orbs -->
   <div class="glow-container">
@@ -1533,23 +2030,23 @@
   </div>
 
   <div class="app-wrapper">
-    
+
+    <!-- Dims the page behind the sidebar drawer on narrow screens -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
     <!-- Sidebar Navigation -->
     <aside class="sidebar" id="app-sidebar">
       
       <!-- Logo Header -->
-      <div class="logo-container">
+      <a class="logo-container" href="index.html" title="Back to the site">
         <div class="logo-box">
-          <svg viewBox="0 0 50 39" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z" />
-            <path d="M17.4224 27.102L11.4192 36H33.5008L49 13.0271H32.7024L23.2064 27.102H17.4224Z" />
-          </svg>
+          <img src="assets/logo.png" alt="The Next Chapter">
         </div>
         <div class="logo-info">
-          <span class="logo-title">Rania Barghout</span>
-          <span class="logo-subtitle">Pro Host Plan</span>
+          <span class="logo-title">The Next Chapter</span>
+          <span class="logo-subtitle">Control Panel</span>
         </div>
-      </div>
+      </a>
       
       <!-- Navigation Menu Options -->
       <div class="nav-options">
@@ -1617,6 +2114,11 @@
       <!-- Top Navbar Navigation -->
       <header class="top-nav">
         
+        <!-- Opens the sidebar as a drawer on narrow screens -->
+        <button class="sidebar-toggle-mobile" id="sidebar-toggle-mobile" aria-label="Open menu" aria-expanded="false" aria-controls="app-sidebar">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+
         <!-- Breadcrumbs path -->
         <div class="breadcrumb">
           <span>App Control</span>
@@ -1626,7 +2128,19 @@
         
         <!-- Top Nav Right Actions -->
         <div class="nav-actions">
-          
+
+          <!-- Back to the public site -->
+          <a class="nav-cta" href="index.html" title="View the live site">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            <span>View Site</span>
+          </a>
+
+          <!-- Light / dark theme, shared with the public site -->
+          <button class="theme-toggle-btn" aria-label="Toggle Theme">
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+
           <!-- Alerts bell -->
           <button class="nav-icon-btn" title="Notifications">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
@@ -1638,10 +2152,16 @@
             <div class="user-avatar">RB</div>
             <div class="user-info">
               <span class="user-name">Rania Barghout</span>
-              <span class="user-role">Administrator</span>
+              <span class="user-role" id="user-email-label">Administrator</span>
             </div>
           </div>
-          
+
+          <!-- Sign Out -->
+          <button class="signout-btn" id="signout-btn" title="Sign out">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            <span>Sign Out</span>
+          </button>
+
         </div>
         
       </header>
@@ -2086,6 +2606,28 @@
 
   <!-- Supabase CDN and Admin Code Connections -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/dashboard.js?v=3"></script>
+  <!-- Relative, not "/dashboard.js": the absolute path only resolves when the
+       page is served from the domain root, so it 404s when the file is opened
+       directly or served from a subfolder. -->
+  <script src="dashboard.js?v=7"></script>
+
+  <script>
+    // Failsafe. The sign-in form starts hidden and dashboard.js reveals it once
+    // it knows whether there is a session. If that script or the Supabase CDN
+    // never loads, the visitor is left staring at a spinner forever with no way
+    // to sign in — so after 8 seconds, show the form and say what went wrong.
+    setTimeout(function () {
+      var form = document.getElementById('auth-form');
+      var checking = document.getElementById('auth-checking');
+      if (!form || !form.hidden) return;
+      form.hidden = false;
+      if (checking) checking.hidden = true;
+      var err = document.getElementById('auth-error');
+      if (err) {
+        err.textContent = 'Could not reach the sign-in service. Check your connection and reload.';
+        err.hidden = false;
+      }
+    }, 8000);
+  </script>
 </body>
 </html>
