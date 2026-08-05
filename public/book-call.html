@@ -3,259 +3,540 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>document.documentElement.classList.add('js');</script>
 
-  <!-- SEO Meta Tags -->
-  <title data-i18n="book_page_title">Book a Call | The Next Chapter LLC</title>
+  <title>Book a Call | The Next Chapter</title>
   <meta name="description" content="Book a 30-minute call with Rania Barghout. Share a few details and choose the time that suits you best on the booking calendar.">
-  <meta name="keywords" content="Rania Barghout, Book a Call, Discovery Call, The Next Chapter LLC, Dubai">
-  <meta name="author" content="The Next Chapter LLC">
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/assets/logo.png">
-  
-  <!-- Fonts (scoped; replaces former @import in style.css) -->
+  <meta name="author" content="The Next Chapter">
+  <link rel="canonical" href="https://thenextchapter.vip/book-call.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Next Chapter">
+  <meta property="og:title" content="Book a Call | The Next Chapter">
+  <meta property="og:description" content="Book a 30-minute call with Rania Barghout.">
+  <meta property="og:url" content="https://thenextchapter.vip/book-call.html">
+
+  <link rel="icon" type="image/png" href="/__l5e/assets-v1/cdf34ebd-b5c4-424a-a6a2-67d703618b7e/tnc_logo.png">
+
+  <script>
+    // Pre-paint: theme + js gate (avoid FOUC / blank-screen)
+    document.documentElement.classList.add('js');
+    (function(){
+      try {
+        var t = localStorage.getItem('tnc-theme') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch(e) {}
+    })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="/style.css?v=9">
+  <style>
+    :root {
+      --bg: #faf8f3;
+      --bg-elev: #ffffff;
+      --bg-card: #ffffff;
+      --fg: #211b14;
+      --fg-muted: #6b6258;
+      --border: rgba(34,26,18,0.12);
+      --rule: rgba(184,134,46,0.55);
+      --accent: #b8862e;
+      --accent-soft: rgba(184,134,46,0.12);
+      --error: #b3261e;
+      --shadow: 0 30px 80px -32px rgba(60,40,12,0.28);
+      --ease-out-expo: cubic-bezier(.16,1,.3,1);
+      --ease-out-quart: cubic-bezier(.25,1,.5,1);
+    }
+    :root[data-theme="dark"] {
+      --bg: #0c0a07;
+      --bg-elev: #15110b;
+      --bg-card: #16120c;
+      --fg: #f3ece0;
+      --fg-muted: #a89c8a;
+      --border: rgba(255,245,225,0.12);
+      --rule: rgba(212,168,76,0.6);
+      --accent: #d4a84c;
+      --accent-soft: rgba(212,168,76,0.12);
+      --error: #ff8a80;
+      --shadow: 0 30px 80px -30px rgba(0,0,0,0.7);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.65;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .5;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    }
+    header, main, footer { position: relative; z-index: 1; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; line-height: 1.12; letter-spacing: -0.01em; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--accent); color: #fff; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.6rem; }
+
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    :focus:not(:focus-visible) { outline: none; }
+    .skip-link { position: fixed; top: .5rem; inset-inline-start: .5rem; z-index: 200; padding: .6rem 1rem; background: var(--accent); color: #fff; font-weight: 700; border-radius: 8px; transform: translateY(-160%); transition: transform .2s; }
+    .skip-link:focus { transform: translateY(0); }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: color-mix(in oklab, var(--bg) 86%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-row { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 0; gap: 1rem; }
+    .brand { display: inline-flex; align-items: baseline; gap: .5rem; font-family: 'Cormorant Garamond', serif; }
+    .brand .brand-mark { font-size: 1.45rem; font-weight: 600; letter-spacing: .01em; color: var(--fg); }
+    .nav-desktop { display: none; gap: 2rem; align-items: center; }
+    @media (min-width: 920px) { .nav-desktop { display: flex; } .hamburger { display: none; } }
+    .nav-desktop a { font-size: 0.86rem; letter-spacing: .04em; color: var(--fg-muted); position: relative; padding: .2rem 0; transition: color 0.25s; }
+    .nav-desktop a::after { content: ''; position: absolute; left: 50%; bottom: -2px; width: 0; height: 1px; background: var(--accent); transform: translateX(-50%); transition: width .4s var(--ease-out-expo); }
+    .nav-desktop a:hover { color: var(--fg); }
+    .nav-desktop a:hover::after { width: 100%; }
+    .nav-desktop a.nav-book { color: #fff; background: var(--accent); padding: .55rem 1.25rem; border-radius: 999px; font-weight: 600; transition: filter .2s, transform .25s var(--ease-out-quart); }
+    .nav-desktop a.nav-book:hover { filter: brightness(1.06); transform: translateY(-1px); }
+    .nav-desktop a.nav-book::after { display: none; }
+    .hamburger { background: none; border: none; color: var(--fg); font-size: 1.6rem; cursor: pointer; padding: 0.25rem 0.5rem; line-height: 1; }
+
+    /* Drawer */
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 60; }
+    .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+    .drawer { position: fixed; top: 0; right: 0; height: 100vh; width: min(330px, 86vw); background: var(--bg-elev); border-left: 1px solid var(--border); transform: translateX(100%); transition: transform 0.35s var(--ease-out-expo); z-index: 70; display: flex; flex-direction: column; padding: 1.6rem; overflow-y: auto; }
+    .drawer.open { transform: translateX(0); }
+    .drawer-close { align-self: flex-end; background: none; border: none; color: var(--fg); font-size: 1.5rem; cursor: pointer; }
+    .drawer nav { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.2rem; }
+    .drawer nav a { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; color: var(--fg); width: fit-content; position: relative; }
+    .drawer nav a::after { content: ''; position: absolute; left: 0; bottom: -1px; width: 100%; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease-out-expo); }
+    .drawer nav a:hover::after, .drawer nav a:focus-visible::after { transform: scaleX(1); }
+    .drawer-foot { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .theme-toggle { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.9rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; color: var(--fg); cursor: pointer; font-size: 0.9rem; font-family: inherit; transition: background 0.2s, border-color .2s; }
+    .theme-toggle:hover { border-color: var(--accent); }
+    .theme-toggle .icon { width: 18px; height: 18px; }
+    :root[data-theme="light"] .icon-moon { display: none; }
+    :root[data-theme="dark"]  .icon-sun  { display: none; }
+
+    /* Page intro */
+    .page-intro { padding: 5rem 0 3rem; text-align: center; position: relative; }
+    .page-intro::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at center 20%, var(--accent-soft), transparent 70%); pointer-events: none; }
+    .page-intro > .container { position: relative; }
+    .intro-eyebrow { font-size: .72rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 1.2rem; }
+    .page-intro h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); margin-bottom: 1.1rem; }
+    .intro-rule { width: min(280px, 55%); height: 2px; background: linear-gradient(90deg, transparent, var(--rule) 20%, var(--accent) 50%, var(--rule) 80%, transparent); margin: 0 auto 1.4rem; }
+    .page-intro p { color: var(--fg-muted); max-width: 560px; margin: 0 auto; text-wrap: balance; }
+
+    /* Form */
+    .form-wrap { padding: 0 0 6.5rem; }
+    .form-card {
+      max-width: 760px; margin: 0 auto; background: var(--bg-card);
+      border: 1px solid var(--border); border-radius: 6px; box-shadow: var(--shadow);
+      padding: clamp(1.6rem, 4vw, 3.2rem);
+    }
+    .form-section-label { display: flex; align-items: baseline; gap: .9rem; margin: 2.4rem 0 1.4rem; }
+    .form-section-label:first-child { margin-top: 0; }
+    .form-section-label .num { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--accent); }
+    .form-section-label h2 { font-size: 1.55rem; }
+    .form-section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); align-self: center; }
+    .form-grid { display: grid; gap: 1.3rem; grid-template-columns: 1fr; }
+    @media (min-width: 700px) { .form-grid { grid-template-columns: 1fr 1fr; } .span-2 { grid-column: span 2; } }
+    .field label { display: block; font-size: .82rem; font-weight: 600; letter-spacing: .03em; margin-bottom: .45rem; }
+    .field label .opt { color: var(--fg-muted); font-weight: 400; }
+    .field input, .field select, .field textarea {
+      width: 100%; padding: .8rem 1rem; font: inherit; font-size: .95rem; color: var(--fg);
+      background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+    .field textarea { min-height: 130px; resize: vertical; }
+    .field select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.4rem; }
+    .phone-row { display: flex; }
+    .phone-row select { width: 92px; flex: none; border-radius: 8px 0 0 8px; border-right: none; padding-right: 1.8rem; background-position: right .6rem center; }
+    .phone-row .prefix { width: 74px; flex: none; text-align: center; border-radius: 0; border-right: none; pointer-events: none; color: var(--fg-muted); }
+    .phone-row input[type="tel"] { border-radius: 0 8px 8px 0; flex: 1; min-width: 0; }
+    .field .err { display: none; font-size: .8rem; color: var(--error); margin-top: .4rem; }
+    .field.invalid .err { display: block; }
+    .field.invalid input, .field.invalid select, .field.invalid textarea { border-color: var(--error); }
+    .form-note { text-align: center; font-size: .85rem; color: var(--fg-muted); margin: 1.8rem 0 1.4rem; }
+    .form-actions { display: flex; justify-content: center; }
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; padding: 0.95rem 2.4rem;
+      background: var(--accent); color: #fff !important; border: none; cursor: pointer; font: inherit;
+      border-radius: 999px; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.02em;
+      box-shadow: 0 12px 30px -12px var(--accent);
+      transition: transform 0.25s var(--ease-out-quart), box-shadow 0.25s, filter 0.2s, opacity .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 40px -14px var(--accent); filter: brightness(1.04); }
+    .btn-primary:disabled { opacity: .65; cursor: default; transform: none; }
+    .spinner { display: none; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Modal */
+    .modal-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(20,14,6,0.55); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; padding: 1.5rem; }
+    .modal-overlay.open { display: flex; }
+    .modal-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow); max-width: 430px; width: 100%; padding: 2.6rem 2.2rem; text-align: center; }
+    .modal-check { width: 62px; height: 62px; margin: 0 auto 1.3rem; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: flex; align-items: center; justify-content: center; }
+    .modal-card h3 { font-size: 1.9rem; margin-bottom: .6rem; }
+    .modal-card p { color: var(--fg-muted); font-size: .95rem; margin-bottom: 1.6rem; }
+
+    /* Footer */
+    footer { padding: 4.5rem 0 2rem; color: var(--fg-muted); font-size: 0.9rem; border-top: 1px solid var(--border); background: var(--bg-elev); }
+    .footer-grid { display: grid; gap: 2.8rem; grid-template-columns: 1fr; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+    @media (min-width: 760px) { .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2rem; } }
+    .footer-mark { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--fg); display: inline-block; margin-bottom: .7rem; }
+    .footer-blurb { max-width: 32ch; font-size: .9rem; line-height: 1.7; }
+    .footer-col h4 { font-family: 'Inter', sans-serif; font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--fg); font-weight: 600; margin-bottom: 1.1rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .65rem; }
+    .footer-col a { color: var(--fg-muted); transition: color .2s; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-social-row { display: flex; align-items: center; gap: .6rem; margin-top: .2rem; }
+    .footer-social-row .show-name { flex: 1; }
+    .social-icon { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid var(--border); border-radius: 50%; color: var(--fg-muted); transition: color .2s, border-color .2s, transform .2s; flex: none; }
+    .social-icon:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+    .social-icon svg { width: 14px; height: 14px; }
+    .footer-bottom { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; padding-top: 1.6rem; font-size: .82rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+      .spinner { animation-duration: .7s !important; }
+    }
+  </style>
 </head>
 <body>
+  <a href="#book-form" class="skip-link">Skip to the form</a>
 
-  <!-- Background Animated Glowing Orbs -->
-  <div class="glow-container">
-    <div class="glow-orb glow-orb-1"></div>
-    <div class="glow-orb glow-orb-2"></div>
-    <div class="glow-orb glow-orb-3"></div>
-  </div>
-
-  <!-- Header Navigation -->
-  <header id="main-header">
-    <div class="container header-container">
-      <a href="/btl.html" class="logo-wrapper" id="header-logo-link">
-        <img src="/assets/logo.png" alt="No2ta 3al Sater Logo" class="logo-img" id="header-logo-img">
-        <span class="brand-text" id="brand-logo-text" data-i18n="brand_logo_text">Between The Lines</span>
+  <header>
+    <div class="container header-row">
+      <a href="/" class="brand" aria-label="The Next Chapter">
+        <span class="brand-mark">The Next Chapter</span>
       </a>
-      
-      <!-- Desktop Navigation Menu -->
-      <nav class="desktop-nav" aria-label="Main Navigation">
-        <ul class="nav-menu">
-          <li><a class="nav-link" href="/btl.html#about" data-i18n="nav_about" id="nav-lnk-about">About Rania</a></li>
-          <li><a class="nav-link" href="/btl.html#shows" data-i18n="nav_shows" id="nav-lnk-shows">The Podcasts</a></li>
-          <li><a class="nav-link" href="/apply.html#process" data-i18n="nav_process" id="nav-lnk-process">Selection Process</a></li>
-          <li><a class="nav-link" href="/book-call.html" style="color: var(--accent-teal); font-weight: 700;" data-i18n="nav_book" id="nav-lnk-book">Book a Call</a></li>
-          <li><a class="nav-cta" href="/apply.html" data-i18n="nav_apply" id="nav-lnk-apply">Apply Now</a></li>
-        </ul>
+      <nav class="nav-desktop" aria-label="Main navigation">
+        <a href="/#about">About</a>
+        <a href="/#services">Services</a>
+        <a href="/#podcasts">Podcasts</a>
+        <a href="/#contact">Contact</a>
+        <a href="/book-call.html" class="nav-book" aria-current="page">Book a Call</a>
+        <button class="theme-toggle" id="theme-toggle-desktop" aria-label="Toggle theme">
+          <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
       </nav>
-      
-      <!-- Hamburger Toggle Button -->
-      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-drawer">
-        ☰
-      </button>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">☰</button>
     </div>
   </header>
 
-  <!-- Mobile Drawer Drawer Menu -->
   <div class="drawer-overlay" id="drawer-overlay"></div>
-  <aside class="mobile-drawer" id="mobile-drawer" aria-label="Mobile Navigation">
-    <nav class="mobile-nav" aria-label="Mobile menu links">
-      <ul class="nav-menu">
-        <li><a class="nav-link" href="/btl.html#about" data-i18n="nav_about" id="mob-lnk-about">About Rania</a></li>
-        <li><a class="nav-link" href="/btl.html#shows" data-i18n="nav_shows" id="mob-lnk-shows">The Podcasts</a></li>
-        <li><a class="nav-link" href="/apply.html#process" data-i18n="nav_process" id="mob-lnk-process">Selection Process</a></li>
-        <li><a class="nav-link" href="/book-call.html" data-i18n="nav_book" style="color: var(--accent-teal); font-weight: 700;" id="mob-lnk-book">Book a Call</a></li>
-        <li><a class="nav-link" href="/apply.html" data-i18n="nav_apply" id="mob-lnk-apply">Apply Now</a></li>
-      </ul>
+  <aside class="drawer" id="drawer" aria-label="Mobile navigation">
+    <button class="drawer-close" id="drawer-close" aria-label="Close menu">✕</button>
+    <nav>
+      <a href="/#about">About</a>
+      <a href="/#services">Services</a>
+      <a href="/#podcasts">Podcasts</a>
+      <a href="/#contact">Contact</a>
+      <a href="/btl.html?lang=en">Between the Lines</a>
+      <a href="/btl.html?lang=ar">No2ta A Al Satr</a>
+      <a href="/book-call.html" style="color: var(--accent); font-weight: 700;">Book a call — احجزي مكالمة</a>
+      <a href="/apply.html">Apply as a guest — قدموا هنا</a>
     </nav>
-    
-    <!-- Bilingual Language Toggle inside Hamburger -->
-    <div class="lang-toggle-container">
-      <div class="lang-switch" role="group" aria-label="Language selector">
-        <button class="lang-btn active" data-lang="en" id="lang-btn-en">ENG</button>
-        <button class="lang-btn ar-lang" data-lang="ar" id="lang-btn-ar">العربية</button>
-      </div>
+    <div class="drawer-foot">
+      <button class="theme-toggle" id="theme-toggle-mobile" aria-label="Toggle theme">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <span id="theme-label">Light mode</span>
+      </button>
     </div>
   </aside>
 
-  <!-- Standalone Book a Call Form Section -->
-  <section class="registration" id="book-call-section" style="padding-top: 140px; min-height: 100vh;">
-    <div class="container">
-      <div class="section-header" style="margin-bottom: 3.5rem;">
-        <span class="section-subtitle" data-i18n="book_badge" id="book-section-subtitle">Discovery Call</span>
-        <h2 class="section-title" data-i18n="book_title" id="book-section-title">Book a Call with Rania</h2>
-        <p style="color: var(--text-secondary); margin-top: 1rem;" data-i18n="book_desc" id="book-section-desc">Share a few details below so we can prepare for the conversation. Once submitted, you will be taken directly to the calendar to choose the time that suits you best.</p>
+  <main id="main">
+    <section class="page-intro">
+      <div class="container">
+        <p class="intro-eyebrow">Work with Rania</p>
+        <h1>Book a call</h1>
+        <div class="intro-rule" aria-hidden="true"></div>
+        <p>Share a few details so we can prepare for the conversation. Once submitted, you'll go straight to the calendar to pick the time that suits you best.</p>
       </div>
+    </section>
 
-      <!-- Book a Call Glass Card -->
-      <div class="form-card" id="book-form-card">
-        <form id="book-form" novalidate>
+    <section class="form-wrap">
+      <div class="container">
+        <div class="form-card">
+          <form id="book-form" novalidate>
 
-          <!-- PART 1: Your Details -->
-          <div class="form-section-header">
-            <h3 data-i18n="sec_book_details">1. Your Details</h3>
-          </div>
-
-          <div class="form-grid">
-            <!-- Full Name -->
-            <div class="form-group" id="grp-book-fullname">
-              <label for="book-fullname" class="form-label">
-                <span data-i18n="lbl_fullname">Full Name</span>
-              </label>
-              <input type="text" id="book-fullname" name="fullname" required autocomplete="name" data-i18n-placeholder="ph_fullname" placeholder="Enter your full name" class="form-input" aria-errormessage="book-err-fullname">
-              <span class="field-error-msg" data-i18n="err_fullname" id="book-err-fullname">Full name is required.</span>
+            <div class="form-section-label">
+              <span class="num">1.</span>
+              <h2>Your details</h2>
             </div>
-
-            <!-- Email Address -->
-            <div class="form-group" id="grp-book-email">
-              <label for="book-email" class="form-label">
-                <span data-i18n="lbl_email">Email Address</span>
-              </label>
-              <input type="email" id="book-email" name="email" required autocomplete="email" data-i18n-placeholder="ph_email" placeholder="e.g., name@domain.com" class="form-input" aria-errormessage="book-err-email">
-              <span class="field-error-msg" data-i18n="err_email" id="book-err-email">Please enter a valid email address.</span>
-            </div>
-
-            <!-- Mobile Number (with UAE/KSA/Intl dropdown) -->
-            <div class="form-group" id="grp-book-mobile">
-              <label for="form-phone-number" class="form-label">
-                <span data-i18n="lbl_mobile">Mobile Number</span>
-              </label>
-              <div class="phone-input-container">
-                <select class="country-select" id="country-select" aria-label="Select Country Code">
-                  <option value="ae" selected>UAE</option>
-                  <option value="sa">KSA</option>
-                  <option value="qa">Qatar</option>
-                  <option value="kw">Kuwait</option>
-                  <option value="uk">UK</option>
-                  <option value="intl">Intl</option>
-                </select>
-                <input type="text" id="phone-prefix" class="form-input" style="width: 80px; text-align: center; border-right: none; border-radius: 12px 0 0 12px; pointer-events: none; background: rgba(255,255,255,0.01);" value="+971" readonly aria-label="Phone Prefix">
-                <input type="tel" id="form-phone-number" name="phone" required pattern="[0-9]{7,12}" data-i18n-placeholder="ph_mobile" placeholder="50 123 4567" class="form-input" style="border-radius: 0 12px 12px 0;" aria-errormessage="book-err-mobile">
+            <div class="form-grid">
+              <div class="field" id="grp-book-fullname">
+                <label for="book-fullname">Full name</label>
+                <input type="text" id="book-fullname" name="fullname" required autocomplete="name" placeholder="Enter your full name">
+                <span class="err">Full name is required.</span>
               </div>
-              <span class="field-error-msg" data-i18n="err_mobile" id="book-err-mobile">Please enter a valid mobile phone number.</span>
+              <div class="field" id="grp-book-email">
+                <label for="book-email">Email address</label>
+                <input type="email" id="book-email" name="email" required autocomplete="email" placeholder="name@domain.com">
+                <span class="err">Please enter a valid email address.</span>
+              </div>
+              <div class="field" id="grp-book-mobile">
+                <label for="form-phone-number">Mobile number</label>
+                <div class="phone-row">
+                  <select id="country-select" aria-label="Select country code">
+                    <option value="ae" selected>UAE</option>
+                    <option value="sa">KSA</option>
+                    <option value="qa">Qatar</option>
+                    <option value="kw">Kuwait</option>
+                    <option value="uk">UK</option>
+                    <option value="intl">Intl</option>
+                  </select>
+                  <input type="text" id="phone-prefix" class="prefix" value="+971" readonly tabindex="-1" aria-label="Phone prefix">
+                  <input type="tel" id="form-phone-number" name="phone" required pattern="[0-9]{7,12}" placeholder="50 123 4567">
+                </div>
+                <span class="err">Please enter a valid mobile number (digits only).</span>
+              </div>
+              <div class="field" id="grp-book-company">
+                <label for="book-company">Company / organisation <span class="opt">(optional)</span></label>
+                <input type="text" id="book-company" name="company" autocomplete="organization" placeholder="Your company name">
+              </div>
             </div>
 
-            <!-- Company / Organisation (Optional) -->
-            <div class="form-group" id="grp-book-company">
-              <label for="book-company" class="form-label">
-                <span data-i18n="lbl_book_company_opt">Company / Organisation (optional)</span>
-              </label>
-              <input type="text" id="book-company" name="company" autocomplete="organization" data-i18n-placeholder="ph_company" placeholder="e.g., The Next Chapter LLC" class="form-input">
+            <div class="form-section-label">
+              <span class="num">2.</span>
+              <h2>About the call</h2>
             </div>
-          </div>
-
-          <!-- PART 2: About the Call -->
-          <div class="form-section-header">
-            <h3 data-i18n="sec_book_call">2. About the Call</h3>
-          </div>
-
-          <div class="form-grid">
-            <!-- Call Topic -->
-            <div class="form-group form-group-full" id="grp-book-topic">
-              <label for="book-topic" class="form-label">
-                <span data-i18n="lbl_book_topic">What is the call about?</span>
-              </label>
-              <select id="book-topic" name="topic" required class="form-input" style="cursor: pointer;" aria-errormessage="book-err-topic">
-                <option value="" selected disabled data-i18n="book_topic_placeholder">Select a topic...</option>
-                <option value="coaching" data-i18n="book_topic_coaching">Executive Communication Coaching</option>
-                <option value="media" data-i18n="book_topic_media">Media & Podcast Collaboration</option>
-                <option value="partnership" data-i18n="book_topic_partnership">Partnership & Sponsorship</option>
-                <option value="speaking" data-i18n="book_topic_speaking">Speaking Engagement</option>
-                <option value="other" data-i18n="book_topic_other">Other</option>
-              </select>
-              <span class="field-error-msg" data-i18n="err_book_topic" id="book-err-topic">Please select a topic for the call.</span>
+            <div class="form-grid">
+              <div class="field span-2" id="grp-book-topic">
+                <label for="book-topic">What is the call about?</label>
+                <select id="book-topic" name="topic" required>
+                  <option value="" selected disabled>Select a topic...</option>
+                  <option value="coaching">Executive Communication Coaching</option>
+                  <option value="media">Media &amp; Podcast Collaboration</option>
+                  <option value="partnership">Partnership &amp; Sponsorship</option>
+                  <option value="speaking">Speaking Engagement</option>
+                  <option value="other">Other</option>
+                </select>
+                <span class="err">Please select a topic for the call.</span>
+              </div>
+              <div class="field span-2" id="grp-book-message">
+                <label for="book-message">What would you like to discuss?</label>
+                <textarea id="book-message" name="message" required minlength="20" placeholder="Briefly describe what you would like to cover during the call..."></textarea>
+                <span class="err">Please tell us a little about the purpose of the call (at least 20 characters).</span>
+              </div>
             </div>
 
-            <!-- Message -->
-            <div class="form-group form-group-full" id="grp-book-message">
-              <label for="book-message" class="form-label">
-                <span data-i18n="lbl_book_message">Tell us more about what you would like to discuss</span>
-              </label>
-              <textarea id="book-message" name="message" required minlength="20" data-i18n-placeholder="ph_book_message" placeholder="Briefly describe what you would like to cover during the call..." class="form-textarea" style="min-height: 120px;" aria-errormessage="book-err-message"></textarea>
-              <span class="field-error-msg" data-i18n="err_book_message" id="book-err-message">Please tell us a little about the purpose of the call (at least 20 characters).</span>
+            <p class="form-note">Next step: choose your preferred date and time on the booking calendar.</p>
+            <div class="form-actions">
+              <button type="submit" class="btn-primary" id="book-submit-btn">
+                <span class="spinner" id="book-submit-spinner"></span>
+                <span id="book-submit-btn-text">Continue to the calendar</span>
+              </button>
             </div>
-          </div>
 
-          <!-- Next Step Note -->
-          <p class="input-hint" data-i18n="book_note" style="text-align: center; margin-top: 1.5rem;">Next step: you will choose your preferred date and time on our secure booking calendar.</p>
-
-          <!-- Submit Button -->
-          <div class="form-submit-wrapper">
-            <button type="submit" class="btn-primary" id="book-submit-btn">
-              <span id="book-submit-spinner" class="spinner"></span>
-              <span id="book-submit-btn-text" data-i18n="btn_book_submit">Continue to Calendar</span>
-            </button>
-          </div>
-
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer>
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-info">
-          <a href="/btl.html" class="logo-wrapper" style="margin-bottom: 0.5rem;" id="footer-logo-link">
-            <span class="brand-text" style="font-size: 1.2rem;" id="footer-logo-text" data-i18n="brand_logo_text">Between The Lines</span>
-          </a>
-          <p style="max-width: 380px; font-size: 0.85rem;" data-i18n="shows_desc">Our podcasts are carefully curated to ensure that every conversation delivers value, insight, inspiration, and meaningful discussion for our audience across the Middle East and beyond.</p>
-          <div class="footer-links-inline" style="display: flex; gap: 1.5rem; margin-top: 0.5rem;">
-            <a href="/apply.html#guest" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: var(--transition-fast);" data-i18n="tab_apply_guest">Apply as Guest</a>
-            <a href="/apply.html#sponsor" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: var(--transition-fast);" data-i18n="tab_become_sponsor">Become a Sponsor</a>
-          </div>
+        <div class="footer-col">
+          <a href="/" class="footer-mark">The Next Chapter</a>
+          <p class="footer-blurb">A media company by Rania Barghout. Podcasts, production, media training, and public speaking development.</p>
         </div>
-        
-        <!-- Social Connections column -->
-        <div class="footer-socials">
-          <!-- English Podcast Socials -->
-          <div class="social-group" id="footer-social-btl">
-            <span class="social-group-title">Between The Lines</span>
-            <div class="social-links">
-              <a href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank" class="social-link" aria-label="Between The Lines YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-              <a href="https://instagram.com/betweenthelinesbyrania" target="_blank" class="social-link" aria-label="Between The Lines Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
-            </div>
-          </div>
-          
-          <!-- Arabic Podcast Socials -->
-          <div class="social-group" id="footer-social-nos">
-            <span class="social-group-title">نقطة ع السطر</span>
-            <div class="social-links">
-              <a href="https://www.youtube.com/@No2ta3alsater" target="_blank" class="social-link" aria-label="No2ta 3al Sater YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-              <a href="https://www.instagram.com/notaassater" target="_blank" class="social-link" aria-label="No2ta 3al Sater Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
-            </div>
-          </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#services">Services</a></li>
+            <li><a href="/#podcasts">Podcasts</a></li>
+            <li><a href="/#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>The shows</h4>
+          <ul>
+            <li class="footer-social-row">
+              <a class="show-name" href="/btl.html?lang=ar">No2ta A Al Satr</a>
+              <a class="social-icon" href="https://www.youtube.com/@No2ta3alsater" target="_blank" rel="noopener" aria-label="No2ta A Al Satr on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+              <a class="social-icon" href="https://www.instagram.com/notaassater" target="_blank" rel="noopener" aria-label="No2ta A Al Satr on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+            </li>
+            <li class="footer-social-row">
+              <a class="show-name" href="/btl.html?lang=en">Between the Lines</a>
+              <a class="social-icon" href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank" rel="noopener" aria-label="Between the Lines on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+              <a class="social-icon" href="https://instagram.com/betweenthelinesbyrania" target="_blank" rel="noopener" aria-label="Between the Lines on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Work with us</h4>
+          <ul>
+            <li><a href="/book-call.html">Book a call</a></li>
+            <li><a href="/apply.html">Apply as a guest</a></li>
+            <li><a href="/apply.html#sponsor">Become a sponsor</a></li>
+            <li><a href="mailto:hello@thenextchapter.vip">hello@thenextchapter.vip</a></li>
+          </ul>
         </div>
       </div>
-      
-      <!-- Giant Brand Text Footer Banner -->
-      <div class="footer-brand-title" data-i18n="brand_logo_text">Between The Lines</div>
-      
-      <!-- Footer Bottom -->
       <div class="footer-bottom">
-        <span data-i18n="copyright" id="footer-copyright-text">© 2026 The Next Chapter LLC. All rights reserved.</span>
-        <div style="display: flex; gap: 1.5rem;">
-          <a href="#" style="color: var(--text-muted); text-decoration: none; transition: var(--transition-fast);" data-i18n="links_privacy" id="privacy-link">Privacy Policy</a>
-          <a href="#" style="color: var(--text-muted); text-decoration: none; transition: var(--transition-fast);" data-i18n="links_terms" id="terms-link">Terms of Service</a>
-        </div>
+        <span>© <span id="yr"></span> The Next Chapter. All rights reserved.</span>
+        <span>Dubai, United Arab Emirates</span>
       </div>
     </div>
   </footer>
 
-  <!-- Booking Success / Redirect Modal Overlay -->
+  <!-- Success / redirect modal -->
   <div class="modal-overlay" id="book-modal-overlay">
-    <div class="success-modal" role="dialog" aria-modal="true" aria-labelledby="book-modal-title-header">
-      <div class="success-icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-      <h3 class="success-title" id="book-modal-title-header" data-i18n="book_modal_title">Details Received!</h3>
-      <p class="success-desc" data-i18n="book_modal_desc">Thank you! We are now taking you to Rania's calendar to pick the time that works best for you.</p>
-
-      <a class="btn-close-modal" id="book-calendly-btn" href="https://calendly.com/rania-thenextchapter/30min" style="display: inline-block; text-decoration: none; text-align: center;" data-i18n="book_modal_btn">Open the Calendar</a>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="book-modal-title">
+      <div class="modal-check"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+      <h3 id="book-modal-title">Details received</h3>
+      <p>Thank you! We're taking you to Rania's calendar to pick the time that works best for you.</p>
+      <a class="btn-primary" id="book-calendly-btn" href="https://calendly.com/rania-thenextchapter/30min">Open the calendar</a>
     </div>
   </div>
 
-  <!-- Scripts Connection -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/app.js?v=8"></script>
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Drawer
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('drawer-overlay');
+    const openBtn = document.getElementById('hamburger');
+    const closeBtn = document.getElementById('drawer-close');
+    function openDrawer(){ drawer.classList.add('open'); overlay.classList.add('open'); openBtn.setAttribute('aria-expanded','true'); }
+    function closeDrawer(){ drawer.classList.remove('open'); overlay.classList.remove('open'); openBtn.setAttribute('aria-expanded','false'); }
+    openBtn.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    drawer.querySelectorAll('nav a').forEach(a => a.addEventListener('click', closeDrawer));
+
+    // Theme
+    function applyTheme(t){
+      document.documentElement.setAttribute('data-theme', t);
+      try { localStorage.setItem('tnc-theme', t); } catch(e){}
+      const lbl = document.getElementById('theme-label');
+      if (lbl) lbl.textContent = t === 'dark' ? 'Light mode' : 'Dark mode';
+    }
+    applyTheme((function(){ try { return localStorage.getItem('tnc-theme') || 'light'; } catch(e) { return 'light'; } })());
+    function toggleTheme(){
+      const cur = document.documentElement.getAttribute('data-theme');
+      applyTheme(cur === 'dark' ? 'light' : 'dark');
+    }
+    document.getElementById('theme-toggle-desktop').addEventListener('click', toggleTheme);
+    document.getElementById('theme-toggle-mobile').addEventListener('click', toggleTheme);
+
+    // Country code → phone prefix
+    document.getElementById('country-select').addEventListener('change', (e) => {
+      const map = { ae: '+971', sa: '+966', qa: '+974', kw: '+965', uk: '+44', intl: '+1' };
+      document.getElementById('phone-prefix').value = map[e.target.value] || '+971';
+    });
+
+    // Form: save the request to Supabase first, then hand off to Calendly.
+    (function(){
+      const SUPABASE_URL = 'https://uaqdwpsammcqrlyzstlj.supabase.co';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhcWR3cHNhbW1jcXJseXpzdGxqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0OTM5NjYsImV4cCI6MjA5NjA2OTk2Nn0.eVqT47zk1J8LRtK_y0kveMW6eCOn5zZZSiQklWouC68';
+      const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+      const CALENDLY_URL = 'https://calendly.com/rania-thenextchapter/30min';
+
+      const form = document.getElementById('book-form');
+      const submitBtn = document.getElementById('book-submit-btn');
+      const submitText = document.getElementById('book-submit-btn-text');
+      const submitSpinner = document.getElementById('book-submit-spinner');
+      const modalOverlay = document.getElementById('book-modal-overlay');
+      const calendlyBtn = document.getElementById('book-calendly-btn');
+
+      // Per-field validity styling on top of native checks
+      const markValidity = () => {
+        form.querySelectorAll('.field').forEach(f => {
+          const ctrl = f.querySelector('input:not([readonly]), select, textarea');
+          if (ctrl) f.classList.toggle('invalid', !ctrl.checkValidity());
+        });
+      };
+
+      // Prefill name/email on the Calendly form so the visitor is not asked twice.
+      const buildCalendlyUrl = () => {
+        const params = new URLSearchParams();
+        const name = document.getElementById('book-fullname').value.trim();
+        const email = document.getElementById('book-email').value.trim();
+        if (name) params.set('name', name);
+        if (email) params.set('email', email);
+        const query = params.toString();
+        return query ? `${CALENDLY_URL}?${query}` : CALENDLY_URL;
+      };
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        if (!form.checkValidity()) {
+          markValidity();
+          form.reportValidity();
+          return;
+        }
+        markValidity();
+
+        submitBtn.disabled = true;
+        submitText.textContent = 'Saving your details...';
+        submitSpinner.style.display = 'inline-block';
+
+        const calendlyUrl = buildCalendlyUrl();
+        calendlyBtn.href = calendlyUrl;
+        modalOverlay.classList.add('open');
+
+        // Save the request first, so there is a record in the inbox even when the
+        // visitor drops off before actually picking a slot on Calendly.
+        const topicSelect = document.getElementById('book-topic');
+        const payload = {
+          type: 'call_request',
+          name: document.getElementById('book-fullname').value.trim(),
+          email: document.getElementById('book-email').value.trim(),
+          phone: `${document.getElementById('phone-prefix').value} ${document.getElementById('form-phone-number').value.trim()}`,
+          company: document.getElementById('book-company').value.trim() || null,
+          topics: topicSelect.options[topicSelect.selectedIndex].text,
+          message: document.getElementById('book-message').value.trim(),
+          // 'Pending' on purpose — it is the status the dashboard inbox badge
+          // counts, so a new call request shows up as needing attention.
+          status: 'Pending'
+        };
+
+        const startedAt = Date.now();
+        let redirected = false;
+        const goToCalendly = () => {
+          if (redirected) return;
+          redirected = true;
+          window.location.href = calendlyUrl;
+        };
+
+        const insertPromise = supabaseClient
+          ? supabaseClient.from('rania_submissions').insert([payload])
+          : Promise.resolve({});
+
+        // Redirect once saved, but hold the modal at least 2.2s so it is readable.
+        // The modal's own button and the 6s backstop cover a slow or failed save —
+        // a booking should never be lost because the database was unreachable.
+        Promise.resolve(insertPromise)
+          .catch((err) => ({ error: err }))
+          .then(({ error } = {}) => {
+            if (error) console.error('Call request save failed:', error);
+            setTimeout(goToCalendly, Math.max(0, 2200 - (Date.now() - startedAt)));
+          });
+
+        setTimeout(goToCalendly, 6000);
+      });
+    })();
+  </script>
 </body>
 </html>
