@@ -11,7 +11,34 @@ const translations = {
     nav_shows: "The Podcasts",
     nav_process: "Selection Process",
     nav_apply: "Apply Now",
-    
+    nav_book: "Book a Call",
+
+    /* --- Book a Call page (book-call.html) --- */
+    book_page_title: "Book a Call | The Next Chapter LLC",
+    book_badge: "Discovery Call",
+    book_title: "Book a Call with Rania",
+    book_desc: "Share a few details below so we can prepare for the conversation. Once submitted, you will be taken directly to the calendar to choose the time that suits you best.",
+    sec_book_details: "1. Your Details",
+    sec_book_call: "2. About the Call",
+    lbl_book_company_opt: "Company / Organisation (optional)",
+    lbl_book_topic: "What is the call about?",
+    book_topic_placeholder: "Select a topic...",
+    book_topic_coaching: "Executive Communication Coaching",
+    book_topic_media: "Media & Podcast Collaboration",
+    book_topic_partnership: "Partnership & Sponsorship",
+    book_topic_speaking: "Speaking Engagement",
+    book_topic_other: "Other",
+    err_book_topic: "Please select a topic for the call.",
+    lbl_book_message: "Tell us more about what you would like to discuss",
+    ph_book_message: "Briefly describe what you would like to cover during the call...",
+    err_book_message: "Please tell us a little about the purpose of the call (at least 20 characters).",
+    book_note: "Next step: you will choose your preferred date and time on our secure booking calendar.",
+    btn_book_submit: "Continue to Calendar",
+    btn_book_submitting: "One Moment...",
+    book_modal_title: "Details Received!",
+    book_modal_desc: "Thank you! We are now taking you to Rania's calendar to pick the time that works best for you.",
+    book_modal_btn: "Open the Calendar",
+
     brand_logo_text: "Between The Lines",
     testimonials_title: "TESTIMONIALS",
     hero_badge: "Podcast Guest Application Portal",
@@ -310,7 +337,34 @@ const translations = {
     nav_shows: "البودكاست",
     nav_process: "آلية التقديم",
     nav_apply: "قدّمي الآن",
-    
+    nav_book: "احجزي مكالمة",
+
+    /* --- Book a Call page (book-call.html) --- */
+    book_page_title: "احجزي مكالمة | The Next Chapter",
+    book_badge: "مكالمة تعارف",
+    book_title: "احجزي مكالمة مع رانيا",
+    book_desc: "شاركينا بعض التفاصيل أدناه حتى نستعد للمحادثة بشكل أفضل. بعد الإرسال، سيتم نقلك مباشرة إلى التقويم لاختيار الوقت الأنسب لك.",
+    sec_book_details: "١. بياناتك الشخصية",
+    sec_book_call: "٢. عن المكالمة",
+    lbl_book_company_opt: "الشركة / المؤسسة (اختياري)",
+    lbl_book_topic: "ما هو موضوع المكالمة؟",
+    book_topic_placeholder: "اختاري الموضوع...",
+    book_topic_coaching: "التدريب على مهارات التواصل التنفيذي",
+    book_topic_media: "تعاون إعلامي أو بودكاست",
+    book_topic_partnership: "شراكة أو رعاية",
+    book_topic_speaking: "مشاركة كمتحدثة",
+    book_topic_other: "موضوع آخر",
+    err_book_topic: "يرجى اختيار موضوع المكالمة.",
+    lbl_book_message: "أخبرينا المزيد عما تودين مناقشته",
+    ph_book_message: "صفي باختصار ما تودين تناوله خلال المكالمة...",
+    err_book_message: "يرجى كتابة نبذة قصيرة عن هدف المكالمة (٢٠ حرفاً على الأقل).",
+    book_note: "الخطوة التالية: ستختارين التاريخ والوقت المفضل عبر تقويم الحجز الآمن.",
+    btn_book_submit: "المتابعة إلى التقويم",
+    btn_book_submitting: "لحظة من فضلك...",
+    book_modal_title: "تم استلام بياناتك!",
+    book_modal_desc: "شكراً لك! سيتم نقلك الآن إلى تقويم رانيا لاختيار الوقت الأنسب لك.",
+    book_modal_btn: "فتح التقويم",
+
     brand_logo_text: "نقطة ع السطر",
     testimonials_title: "آراء وشهادات",
     hero_badge: "بوابة تقديم طلبات الاستضافة في البودكاست",
@@ -1104,6 +1158,85 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnCloseModal && modalOverlay) {
     btnCloseModal.addEventListener('click', () => {
       modalOverlay.classList.remove('open');
+    });
+  }
+
+  // --- Book a Call form (book-call.html) ---
+  const bookForm = document.querySelector('#book-form');
+  if (bookForm) {
+    const bookSubmitBtn = document.querySelector('#book-submit-btn');
+    const bookSubmitText = document.querySelector('#book-submit-btn-text');
+    const bookSubmitSpinner = document.querySelector('#book-submit-spinner');
+    const bookModalOverlay = document.querySelector('#book-modal-overlay');
+    const bookCalendlyBtn = document.querySelector('#book-calendly-btn');
+    const CALENDLY_URL = 'https://calendly.com/rania-thenextchapter/30min';
+
+    // Prefill name/email on the Calendly form so the visitor is not asked twice.
+    const buildCalendlyUrl = () => {
+      const params = new URLSearchParams();
+      const name = document.querySelector('#book-fullname').value.trim();
+      const email = document.querySelector('#book-email').value.trim();
+      if (name) params.set('name', name);
+      if (email) params.set('email', email);
+      const query = params.toString();
+      return query ? `${CALENDLY_URL}?${query}` : CALENDLY_URL;
+    };
+
+    bookForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      if (!bookForm.checkValidity()) {
+        bookForm.reportValidity();
+        return;
+      }
+
+      bookSubmitBtn.disabled = true;
+      bookSubmitText.textContent = translations[currentLang].btn_book_submitting;
+      bookSubmitSpinner.style.display = 'inline-block';
+
+      const calendlyUrl = buildCalendlyUrl();
+      if (bookCalendlyBtn) bookCalendlyBtn.href = calendlyUrl;
+      if (bookModalOverlay) bookModalOverlay.classList.add('open');
+
+      // Save the request first, so there is a record in the inbox even when the
+      // visitor drops off before actually picking a slot on Calendly.
+      const topicSelect = document.querySelector('#book-topic');
+      const payload = {
+        type: 'call_request',
+        name: document.querySelector('#book-fullname').value.trim(),
+        email: document.querySelector('#book-email').value.trim(),
+        phone: `${document.querySelector('#phone-prefix').value} ${document.querySelector('#form-phone-number').value.trim()}`,
+        company: document.querySelector('#book-company').value.trim() || null,
+        topics: topicSelect.options[topicSelect.selectedIndex].text,
+        message: document.querySelector('#book-message').value.trim(),
+        // 'Pending' on purpose — it is the status the inbox badge counts, so a
+        // new call request actually shows up as needing attention.
+        status: 'Pending'
+      };
+
+      const startedAt = Date.now();
+      let redirected = false;
+      const goToCalendly = () => {
+        if (redirected) return;
+        redirected = true;
+        window.location.href = calendlyUrl;
+      };
+
+      const insertPromise = supabaseClient
+        ? supabaseClient.from('rania_submissions').insert([payload])
+        : Promise.resolve({});
+
+      // Redirect once saved, but hold the modal at least 2.2s so it is readable.
+      // The modal's own button and the 6s backstop cover a slow or failed save —
+      // a booking should never be lost because the database was unreachable.
+      Promise.resolve(insertPromise)
+        .catch((err) => ({ error: err }))
+        .then(({ error } = {}) => {
+          if (error) console.error('Call request save failed:', error);
+          setTimeout(goToCalendly, Math.max(0, 2200 - (Date.now() - startedAt)));
+        });
+
+      setTimeout(goToCalendly, 6000);
     });
   }
 

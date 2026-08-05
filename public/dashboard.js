@@ -594,10 +594,14 @@ async function loadRecentShowActivity() {
           time: new Date(sub.created_at),
           type: 'submission',
           category: sub.type,
-          title: sub.type === 'guest' ? 'Guest Application' : 'Sponsor Inquiry',
-          desc: sub.type === 'guest' 
+          title: sub.type === 'guest'
+            ? 'Guest Application'
+            : sub.type === 'call_request' ? 'Call Request' : 'Sponsor Inquiry',
+          desc: sub.type === 'guest'
             ? `${sub.name || 'A guest'} applied to join the show`
-            : `${sub.company || 'A brand'} submitted a sponsorship inquiry`,
+            : sub.type === 'call_request'
+              ? `${sub.name || 'Someone'} requested a call — ${sub.topics || 'no topic given'}`
+              : `${sub.company || 'A brand'} submitted a sponsorship inquiry`,
           status: sub.status
         });
       });
@@ -768,15 +772,18 @@ function renderSubmissions() {
       dateStr = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
     }
     
-    // Type badge
-    const typeBadge = sub.type === 'guest' 
-      ? '<span class="type-badge badge-type-guest">Guest</span>' 
-      : '<span class="type-badge badge-type-sponsor">Sponsor</span>';
-      
+    // Type badge. Call requests come from book-call.html; without their own
+    // branch they would fall through and be labelled "Sponsor".
+    const typeBadge = sub.type === 'guest'
+      ? '<span class="type-badge badge-type-guest">Guest</span>'
+      : sub.type === 'call_request'
+        ? '<span class="type-badge badge-type-call">Call</span>'
+        : '<span class="type-badge badge-type-sponsor">Sponsor</span>';
+
     // Status badge
     const statusClass = sub.status ? sub.status.toLowerCase() : 'pending';
     const statusBadge = `<span class="status-badge badge-${statusClass}">${sub.status || 'Pending'}</span>`;
-    
+
     // Name / Company details
     const nameSection = sub.type === 'guest'
       ? `<div style="font-weight:600;">${sub.name || 'Anonymous'}</div><div style="font-size:0.75rem; color:var(--text-secondary);">${sub.profession || ''}</div>`
@@ -785,7 +792,9 @@ function renderSubmissions() {
     // Show or tier details
     const showOrTier = sub.type === 'guest'
       ? `<div style="font-size:0.8rem; font-weight:500;">${sub.show_choice || 'Any Show'}</div>`
-      : `<div style="font-size:0.8rem; font-weight:600; color:var(--accent-teal);">${sub.profession || 'Sponsorship'}</div><div style="font-size:0.7rem; color:var(--text-secondary);">${sub.show_choice || ''}</div>`;
+      : sub.type === 'call_request'
+        ? `<div style="font-size:0.8rem; font-weight:600; color:var(--accent-orange);">${sub.topics || 'Discovery Call'}</div><div style="font-size:0.7rem; color:var(--text-secondary);">Booking request</div>`
+        : `<div style="font-size:0.8rem; font-weight:600; color:var(--accent-teal);">${sub.profession || 'Sponsorship'}</div><div style="font-size:0.7rem; color:var(--text-secondary);">${sub.show_choice || ''}</div>`;
 
     tr.innerHTML = `
       <td>${typeBadge}</td>
@@ -842,8 +851,44 @@ function openSubmissionDetail(submission) {
   }
   
   let dynamicDetailsHTML = '';
-  
-  if (submission.type === 'guest') {
+
+  if (submission.type === 'call_request') {
+    // Call requests carry far fewer fields than a guest application — showing
+    // the guest layout would be a wall of "N/A".
+    dynamicDetailsHTML = `
+      <div class="detail-section-title">Contact</div>
+      <div class="detail-grid">
+        <div class="detail-field">
+          <span class="detail-label">Full Name</span>
+          <span class="detail-value">${submission.name || 'N/A'}</span>
+        </div>
+        <div class="detail-field">
+          <span class="detail-label">Email Address</span>
+          <span class="detail-value">${submission.email || 'N/A'}</span>
+        </div>
+        <div class="detail-field">
+          <span class="detail-label">Phone Number</span>
+          <span class="detail-value">${submission.phone || 'N/A'}</span>
+        </div>
+        <div class="detail-field">
+          <span class="detail-label">Company / Organisation</span>
+          <span class="detail-value">${submission.company || 'Not given'}</span>
+        </div>
+      </div>
+
+      <div class="detail-section-title">About the Call</div>
+      <div class="detail-grid">
+        <div class="detail-field full-width">
+          <span class="detail-label">Topic</span>
+          <span class="detail-value">${submission.topics || 'N/A'}</span>
+        </div>
+        <div class="detail-field full-width">
+          <span class="detail-label">What they want to discuss</span>
+          <span class="detail-value">${submission.message || 'N/A'}</span>
+        </div>
+      </div>
+    `;
+  } else if (submission.type === 'guest') {
     dynamicDetailsHTML = `
       <div class="detail-section-title">Personal & Contact Info</div>
       <div class="detail-grid">

@@ -1757,7 +1757,14 @@
       color: var(--accent-indigo);
       border: 1px solid rgba(99, 102, 241, 0.2);
     }
-    
+
+    /* Call requests come in from the Book a Call page. */
+    .type-badge.badge-type-call {
+      background: rgba(255, 107, 0, 0.12);
+      color: var(--accent-orange);
+      border: 1px solid rgba(255, 107, 0, 0.22);
+    }
+
     .tbl-action-btn {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border-glass);
@@ -2765,6 +2772,7 @@
               <button class="filter-btn active" data-filter-type="all">All Types</button>
               <button class="filter-btn" data-filter-type="guest">Guests</button>
               <button class="filter-btn" data-filter-type="sponsor">Sponsors</button>
+              <button class="filter-btn" data-filter-type="call_request">Call Requests</button>
             </div>
             
             <!-- Status Filters -->
