@@ -106,7 +106,7 @@
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
-    .header-row { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 0; gap: 1rem; }
+    .header-row { display: flex; align-items: center; justify-content: space-between; padding-top: 0.85rem; padding-bottom: 0.85rem; gap: 1rem; }
     .brand { display: inline-flex; align-items: baseline; gap: .5rem; font-family: 'Cormorant Garamond', serif; }
     .brand .brand-mark { font-size: 1.45rem; font-weight: 600; letter-spacing: .01em; color: var(--fg); }
     .nav-desktop { display: none; gap: 2rem; align-items: center; }
@@ -217,6 +217,11 @@
     .social-icon:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
     .social-icon svg { width: 14px; height: 14px; }
     .footer-bottom { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; padding-top: 1.6rem; font-size: .82rem; }
+
+    @media (max-width: 600px) {
+      .page-intro { padding: 3.5rem 0 2.2rem; }
+      .form-wrap { padding-bottom: 4.5rem; }
+    }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
