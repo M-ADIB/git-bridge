@@ -1,3 +1,3 @@
 [run]
 dev = "sh -c 'cd public && python3 -m http.server 8080'"
-build = "sh -c 'rm -rf dist && mkdir -p dist && cp -R public/. dist/ && cp public/btl/index.html dist/btl.html && cp public/no2ta/index.html dist/no2ta.html'"
+build = "sh -c 'rm -rf dist && mkdir -p dist && cp -R public/. dist/ && cp public/btl/index.html dist/btl.html && cp public/no2ta/index.html dist/no2ta.html && cp public/btl/index.html dist/btl && cp public/no2ta/index.html dist/no2ta'"
