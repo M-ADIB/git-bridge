@@ -223,8 +223,10 @@ header.scrolled {
 .logo-img {
   height: 44px;
   width: auto;
-  border-radius: 6px;
+  padding: 5px;
+  border-radius: 8px;
   border: 1px solid var(--border-glass);
+  box-sizing: border-box;
 }
 
 .brand-text {
@@ -1925,6 +1927,16 @@ body.rtl .success-summary {
 }
 
 @media (max-width: 768px) {
+  .logo-img {
+    height: 38px;
+    padding: 4px;
+  }
+
+  .logo-wrapper {
+    gap: 0.55rem;
+    padding: 0.25rem 0;
+  }
+
   .nav-menu {
     display: none;
   }
