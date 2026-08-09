@@ -1,40 +1,34 @@
-## What I found
+# Site status: it IS live
 
-The live deployment is serving the actual files at:
+I checked the live domain directly. Everything responds:
 
-- `https://thenextchapter.vip/btl/index.html` works
-- `https://thenextchapter.vip/no2ta/index.html` works
-- `https://thenextchapter.vip/btl` returns 404
-- `https://thenextchapter.vip/no2ta` returns 404
+| URL | Status |
+| --- | --- |
+| https://thenextchapter.vip/ | 200 |
+| https://www.thenextchapter.vip/ | 200 |
+| /btl | 200 |
+| /no2ta | 200 |
+| /apply | 200 |
+| /book-call | 200 |
+| /sitemap.xml | 200 |
+| thenextchaper.lovable.app (+ /btl, /no2ta) | 200 |
 
-So the content exists, but the host is not automatically mapping clean directory URLs like `/btl` to `/btl/index.html`.
+Publish state is `published` and visibility is `public` — no login wall. Real page HTML (not a placeholder) is being served, and CSS/JS load fine.
 
-## Plan
+## So why do people say they can't see it
 
-1. **Add clean-route entry files**
-   - Restore/create `public/btl.html` as a real page copy, not a redirect stub.
-   - Restore/create `public/no2ta.html` as a real page copy, not a redirect stub.
-   - This matches what the live host already proves works: `/btl.html` is served successfully.
+Most likely one of:
+1. They were given a **preview link** (`id-preview--...lovable.app`), which requires a Lovable login. Only share `https://thenextchapter.vip`.
+2. Cached DNS / old browser cache on their device.
+3. They typed the domain without https and their network blocked it.
 
-2. **Update homepage and internal links**
-   - Change homepage podcast links from `/btl?lang=en` and `/btl?lang=ar` to `/btl.html?lang=en` and `/btl.html?lang=ar`.
-   - Change internal podcast navigation that points at `/btl` or `/no2ta` to the corresponding `.html` URL where needed.
+## Holes worth closing
 
-3. **Keep the directory pages too**
-   - Leave `public/btl/index.html` and `public/no2ta/index.html` intact so `/btl/index.html` and `/no2ta/index.html` keep working.
-   - Build output will include both route styles.
+1. **Broken favicon on the Arabic page** — `/__l5e/.../no2ta_mark.png` returns 404, so `/no2ta` has no icon. Point the favicon at the working `no2ta_logo.png` asset (or re-upload the mark).
+2. **Canonical/OG URLs** on `/no2ta` still reference some paths that should be verified against the clean-URL set.
+3. **Cache headers** — the site sends `no-cache`, which is fine, but I will confirm the deployed build matches the current `public/` files so nobody sees a stale version.
+4. **Re-publish** after the fixes so the live deployment picks them up.
 
-4. **Adjust build config safely**
-   - Update the build commands so they no longer depend on deleted files in a way that can fail.
-   - Ensure production deploy includes both `btl.html` / `no2ta.html` and the existing folder pages.
+## Verification after the fix
 
-5. **Verify**
-   - Check the local file tree and build configuration references.
-   - After publishing, verify:
-     - `https://thenextchapter.vip/btl.html?lang=en`
-     - `https://thenextchapter.vip/btl.html?lang=ar`
-     - `https://thenextchapter.vip/no2ta.html`
-
-## Important note
-
-Because the live platform is not resolving `/btl` to `/btl/index.html`, the reliable fix is to use `.html` URLs for the published static site. The content is already deployed; the failure is the clean URL mapping.
+Re-request every route plus every image/CSS/JS asset on the live domain and confirm 200s across the board, and load `/` and `/no2ta` in a headless browser to confirm no console errors.
