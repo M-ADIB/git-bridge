@@ -1072,6 +1072,15 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const handleSuccess = () => {
+          // Ad-platform conversion. Fires on every success path (saved, network
+          // error, no client) so a Lead is counted exactly once per submission.
+          // No PII — only the form type and the chosen topics.
+          if (window.tncTrack) {
+            const guestParams = { form_type: 'guest_application', content_category: 'guest', topics: topicsList.join(', ') };
+            window.tncTrack('Lead', guestParams);
+            window.tncTrack('SubmitApplication', guestParams);
+          }
+
           submitSpinner.style.display = 'none';
           submitBtn.disabled = false;
           submitText.textContent = translations[currentLang].btn_submit;
@@ -1423,6 +1432,13 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const handleSponsorSuccess = () => {
+          // Same contract as the guest form: one Lead per submission, no PII.
+          if (window.tncTrack) {
+            const sponsorParams = { form_type: 'sponsor_inquiry', content_category: 'sponsor', tier: tier };
+            window.tncTrack('Lead', sponsorParams);
+            window.tncTrack('SubmitApplication', sponsorParams);
+          }
+
           sponsorSubmitSpinner.style.display = 'none';
           sponsorSubmitBtn.disabled = false;
           sponsorSubmitText.textContent = translations[currentLang].btn_submit_sponsor || "Submit Sponsor Inquiry";

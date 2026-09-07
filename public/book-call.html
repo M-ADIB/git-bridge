@@ -31,15 +31,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Meta Pixel -->
-  <script>
-    window.META_PIXEL_ID = '1477957434364263';
-    if (window.META_PIXEL_ID) {
-      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', window.META_PIXEL_ID);
-      fbq('track', 'PageView');
-    }
-  </script>
+  <!-- Meta Pixel — single source of truth in /pixel.js -->
+  <script src="/pixel.js" defer></script>
 
   <style>
     :root {
@@ -231,6 +224,8 @@
   </style>
 </head>
 <body>
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=1477957434364263&ev=PageView&noscript=1"></noscript>
   <a href="#book-form" class="skip-link">Skip to the form</a>
 
   <header>
@@ -511,19 +506,24 @@
         calendlyBtn.href = calendlyUrl;
         modalOverlay.classList.add('open');
 
-        // Ad-platform conversion: a completed booking form is a Lead.
-        if (window.fbq) fbq('track', 'Lead');
-
         // Save the request first, so there is a record in the inbox even when the
         // visitor drops off before actually picking a slot on Calendly.
         const topicSelect = document.getElementById('book-topic');
+        const bookTopic = topicSelect.options[topicSelect.selectedIndex].text;
+
+        // Ad-platform conversion: a completed booking form is a Lead.
+        // Topic only — never the name, email or phone.
+        const leadParams = { form_type: 'discovery_call', content_category: 'call_request', topic: bookTopic };
+        if (window.tncTrack) window.tncTrack('Lead', leadParams);
+        else if (window.fbq) fbq('track', 'Lead', leadParams);
+
         const payload = {
           type: 'call_request',
           name: document.getElementById('book-fullname').value.trim(),
           email: document.getElementById('book-email').value.trim(),
           phone: `${document.getElementById('phone-prefix').value} ${document.getElementById('form-phone-number').value.trim()}`,
           company: document.getElementById('book-company').value.trim() || null,
-          topics: topicSelect.options[topicSelect.selectedIndex].text,
+          topics: bookTopic,
           message: document.getElementById('book-message').value.trim(),
           // 'Pending' on purpose — it is the status the dashboard inbox badge
           // counts, so a new call request shows up as needing attention.
@@ -535,6 +535,8 @@
         const goToCalendly = () => {
           if (redirected) return;
           redirected = true;
+          // Hand-off to Calendly is the Schedule step of the funnel.
+          if (window.tncTrack) window.tncTrack('Schedule', { content_category: 'call_request', topic: bookTopic });
           window.location.href = calendlyUrl;
         };
 
