@@ -600,7 +600,7 @@ async function loadRecentShowActivity() {
           desc: sub.type === 'guest'
             ? `${sub.name || 'A guest'} applied to join the show`
             : sub.type === 'call_request'
-              ? `${sub.name || 'Someone'} requested a call — ${sub.topics || 'no topic given'}`
+              ? `${sub.name || 'Someone'} requested a call: ${sub.topics || 'no topic given'}`
               : `${sub.company || 'A brand'} submitted a sponsorship inquiry`,
           status: sub.status
         });
@@ -853,7 +853,7 @@ function openSubmissionDetail(submission) {
   let dynamicDetailsHTML = '';
 
   if (submission.type === 'call_request') {
-    // Call requests carry far fewer fields than a guest application — showing
+    // Call requests carry far fewer fields than a guest application: showing
     // the guest layout would be a wall of "N/A".
     dynamicDetailsHTML = `
       <div class="detail-section-title">Contact</div>
@@ -1080,7 +1080,7 @@ async function deleteSubmission(id) {
 // The panel writes to tables whose RLS (the database rule deciding which rows
 // each visitor may read or write) requires a signed-in admin. Without a
 // session every query silently comes back empty, so the gate is not only a
-// lock — it is what makes the dashboard work at all.
+// lock: it is what makes the dashboard work at all.
 
 /** Reveal the panel and stop showing the sign-in card. */
 function unlockPanel(session) {
@@ -1115,7 +1115,7 @@ async function initAuth() {
   const errorEl = document.getElementById('auth-error');
   const signoutBtn = document.getElementById('signout-btn');
 
-  // Without the SDK there is no way to sign in at all — say so plainly rather
+  // Without the SDK there is no way to sign in at all: say so plainly rather
   // than leaving the spinner turning forever.
   if (!supabaseClient) {
     showSignInForm('Could not reach the sign-in service. Check your connection and reload.');
@@ -1424,7 +1424,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
   
-  // Initial database load calls. Skipped when there is no session — every
+  // Initial database load calls. Skipped when there is no session: every
   // query would come back empty under RLS anyway, and firing them would paint
   // the panel with zeroes behind the sign-in card. The sign-in handler calls
   // bootDashboard() itself once the session exists.

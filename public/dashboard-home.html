@@ -6,7 +6,7 @@
   <title>Control Panel | The Next Chapter</title>
 
   <!-- Admin-only page: keep it out of search results. This is presentation
-       only — the real protection is the Supabase Auth gate plus RLS. -->
+       only: the real protection is the Supabase Auth gate plus RLS. -->
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" type="image/png" href="assets/logo.png">
 
@@ -2221,7 +2221,7 @@
     }
 
     /* Below 480px the header stacks, and the row of actions was running past
-       the right edge — which put Sign Out off-screen, with no way to reach it.
+       the right edge: which put Sign Out off-screen, with no way to reach it.
        Let the row wrap and drop the name/email text (the avatar still says who
        is signed in, and the panel is single-user anyway). */
     @media (max-width: 480px) {
@@ -2872,7 +2872,7 @@
     /* Failsafe for the sign-in gate. The form starts hidden and dashboard.js
        reveals it once it knows whether there is a session. If that script or
        the Supabase CDN never loads, the visitor would otherwise be stuck on a
-       spinner with no way in — so after 8s, show the form and say why. */
+       spinner with no way in: so after 8s, show the form and say why. */
     setTimeout(function () {
       var form = document.getElementById('auth-form');
       if (!form || !form.hidden || document.body.classList.contains('authed')) return;

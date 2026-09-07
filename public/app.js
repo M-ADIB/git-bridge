@@ -268,11 +268,11 @@ const translations = {
     modal_btn_close: "Close Portal",
     
     quote_1_text: "\"Rania creates an environment where you feel safe to speak your truth, share your vulnerability, and inspire others.\"",
-    quote_1_author: "— UAE Media Entrepreneur",
+    quote_1_author: "UAE Media Entrepreneur",
     quote_2_text: "\"Defining my leadership manifesto with Rania was a masterclass in self-reflection. More than an interview, it's a conversation that transforms.\"",
-    quote_2_author: "— Corporate CEO & Tech Founder",
+    quote_2_author: "Corporate CEO & Tech Founder",
     quote_3_text: "\"A masterclass in storytelling. Rania has a unique gift of bringing out the raw human side of every leader.\"",
-    quote_3_author: "— Middle East Startup Founder",
+    quote_3_author: "Middle East Startup Founder",
     testimonial_label_1: "Media Entrepreneur",
     testimonial_label_2: "Corporate CEO",
     testimonial_label_3: "Startup Founder",
@@ -594,11 +594,11 @@ const translations = {
     modal_btn_close: "إإغلاق البوابة",
     
     quote_1_text: "«تخلق رانيا بيئة تشعر فيها بالأمان للتعبير عن حقيقتك ومشاركة نقاط تحولك وإلهام الآخرين.»",
-    quote_1_author: "— رائدة أعمال إعلامية، الإمارات",
+    quote_1_author: "رائدة أعمال إعلامية، الإمارات",
     quote_2_text: "«كانت صياغة مبادئ القيادة الخاصة بي مع رانيا بمثابة درس ملهم في التفكير الذاتي. إنها أكثر من مجرد مقابلة، إنها محادثة تغير حياتك.»",
-    quote_2_author: "— رئيس تنفيذي ومؤسس شركات تكنولوجية",
+    quote_2_author: "رئيس تنفيذي ومؤسس شركات تكنولوجية",
     quote_3_text: "«درس متكامل في فن سرد القصص. تمتلك رانيا موهبة فريدة في إبراز الجانب الإنساني الصادق لكل قائد.»",
-    quote_3_author: "— مؤسس شركة ناشئة، الشرق الأوسط",
+    quote_3_author: "مؤسس شركة ناشئة، الشرق الأوسط",
     testimonial_label_1: "رائدة أعمال إعلامية",
     testimonial_label_2: "رئيس تنفيذي",
     testimonial_label_3: "مؤسس شركة ناشئة",
@@ -744,7 +744,7 @@ const pausePodcast = () => {
 
 // --- Initialize App Controls ---
 document.addEventListener('DOMContentLoaded', () => {
-  // (BTL hero now uses the self-animating "Living Waveform" canvas — the 14MB
+  // (BTL hero now uses the self-animating "Living Waveform" canvas: the 14MB
   //  background video was removed; no video injection needed.)
 
   // Detect language from URL search parameters or fallback to 'en'
@@ -1074,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const handleSuccess = () => {
           // Ad-platform conversion. Fires on every success path (saved, network
           // error, no client) so a Lead is counted exactly once per submission.
-          // No PII — only the form type and the chosen topics.
+          // No PII: only the form type and the chosen topics.
           if (window.tncTrack) {
             const guestParams = { form_type: 'guest_application', content_category: 'guest', topics: topicsList.join(', ') };
             window.tncTrack('Lead', guestParams);
@@ -1218,7 +1218,7 @@ document.addEventListener('DOMContentLoaded', () => {
         company: document.querySelector('#book-company').value.trim() || null,
         topics: topicSelect.options[topicSelect.selectedIndex].text,
         message: document.querySelector('#book-message').value.trim(),
-        // 'Pending' on purpose — it is the status the inbox badge counts, so a
+        // 'Pending' on purpose: it is the status the inbox badge counts, so a
         // new call request actually shows up as needing attention.
         status: 'Pending'
       };
@@ -1236,7 +1236,7 @@ document.addEventListener('DOMContentLoaded', () => {
         : Promise.resolve({});
 
       // Redirect once saved, but hold the modal at least 2.2s so it is readable.
-      // The modal's own button and the 6s backstop cover a slow or failed save —
+      // The modal's own button and the 6s backstop cover a slow or failed save 
       // a booking should never be lost because the database was unreachable.
       Promise.resolve(insertPromise)
         .catch((err) => ({ error: err }))
