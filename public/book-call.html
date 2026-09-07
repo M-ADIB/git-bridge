@@ -378,6 +378,16 @@
                 <h2>Fit</h2>
               </div>
 
+              <div class="qual-q" id="grp-qual-readiness">
+                <p class="q-text">How ready are you to invest in solving this?</p>
+                <div class="qual-opts" role="radiogroup" aria-labelledby="grp-qual-readiness">
+                  <label class="qual-opt"><input type="radio" name="readiness" value="top_priority"><span>It's a top priority, I'm ready to invest.</span></label>
+                  <label class="qual-opt"><input type="radio" name="readiness" value="need_to_plan"><span>It's important but I need to plan for it.</span></label>
+                  <label class="qual-opt"><input type="radio" name="readiness" value="exploring"><span>Just exploring for now.</span></label>
+                </div>
+                <span class="err">Please choose the option closest to your situation.</span>
+              </div>
+
               <div class="qual-q" id="grp-qual-budget">
                 <p class="q-text">Working with Rania typically ranges from AED 5,000 for a focused engagement to AED 30,000+ for a full program. Where does that land for you?</p>
                 <p class="q-help">Answering honestly saves us both a call. There is no wrong answer here.</p>
@@ -385,16 +395,6 @@
                   <label class="qual-opt"><input type="radio" name="investment" value="in_range"><span>Budget within range.</span></label>
                   <label class="qual-opt"><input type="radio" name="investment" value="in_range_more_info"><span>Budget within range, but I need more information.</span></label>
                   <label class="qual-opt"><input type="radio" name="investment" value="out_of_range"><span>Outside my budget right now.</span></label>
-                </div>
-                <span class="err">Please choose the option closest to your situation.</span>
-              </div>
-
-              <div class="qual-q" id="grp-qual-timing">
-                <p class="q-text">When are you looking to start?</p>
-                <div class="qual-opts" role="radiogroup" aria-labelledby="grp-qual-timing">
-                  <label class="qual-opt"><input type="radio" name="timing" value="now"><span>Right now, it is a priority.</span></label>
-                  <label class="qual-opt"><input type="radio" name="timing" value="1_month"><span>Within 1 month.</span></label>
-                  <label class="qual-opt"><input type="radio" name="timing" value="exploring"><span>Just exploring.</span></label>
                 </div>
                 <span class="err">Please choose the option closest to your situation.</span>
               </div>
@@ -576,7 +576,7 @@
       // Radio groups are not .field elements, so they need their own check.
       const qualifierAnswered = () => {
         let ok = true;
-        [['investment', 'grp-qual-budget'], ['timing', 'grp-qual-timing']].forEach(([name, groupId]) => {
+        [['readiness', 'grp-qual-readiness'], ['investment', 'grp-qual-budget']].forEach(([name, groupId]) => {
           const answered = !!answerOf(name);
           document.getElementById(groupId).classList.toggle('invalid', !answered);
           if (!answered) ok = false;
@@ -630,14 +630,16 @@
 
         const bookTopic = topicSelect.options[topicSelect.selectedIndex].text;
 
-        // The gate. Any single "not right now" answer routes to nurture: the
-        // whole point is that only people who can act reach the calendar, so a
-        // budget that fits does not rescue a timeline six months out, and vice
-        // versa. Enquiries outside QUALIFIED_TOPICS never reach this branch.
+        // The gate. Either question's last option routes to nurture: the whole
+        // point is that only people who can act reach the calendar, so a budget
+        // that fits does not rescue someone who is only exploring, and being
+        // ready does not rescue a budget that is out of reach. Wanting more
+        // detail is not a disqualifier on either question. Enquiries outside
+        // QUALIFIED_TOPICS never reach this branch.
+        const readiness = answerOf('readiness');
         const investment = answerOf('investment');
-        const timing = answerOf('timing');
         const qualified = !qualApplies() ||
-          (NURTURE_ANSWERS.indexOf(investment) === -1 && NURTURE_ANSWERS.indexOf(timing) === -1);
+          (NURTURE_ANSWERS.indexOf(investment) === -1 && NURTURE_ANSWERS.indexOf(readiness) === -1);
 
         const calendlyUrl = buildCalendlyUrl();
         calendlyBtn.href = calendlyUrl;
@@ -669,8 +671,8 @@
             form_type: 'discovery_call',
             content_category: 'call_request_nurture',
             topic: bookTopic,
-            investment: investment,
-            timing: timing
+            readiness: readiness,
+            investment: investment
           };
           if (window.tncTrack) window.tncTrack('SubmitApplication', nurtureParams);
           else if (window.fbq) fbq('track', 'SubmitApplication', nurtureParams);
@@ -688,15 +690,15 @@
           in_range_more_info: 'Budget within range, wants more information',
           out_of_range: 'Outside budget right now'
         };
-        const TIMING_TEXT = {
-          now: 'Right now, a priority',
-          '1_month': 'Within 1 month',
-          exploring: 'Just exploring'
+        const READINESS_TEXT = {
+          top_priority: 'Top priority, ready to invest',
+          need_to_plan: 'Important, needs to plan for it',
+          exploring: 'Just exploring for now'
         };
         const visitorMessage = document.getElementById('book-message').value.trim();
         const qualSummary = `[${qualified ? 'QUALIFIED, sent to calendar' : 'NURTURE, no slot offered'}]\n`
-          + `Budget: ${INVESTMENT_TEXT[investment] || investment}\n`
-          + `Timing: ${TIMING_TEXT[timing] || timing}\n\n`;
+          + `Readiness: ${READINESS_TEXT[readiness] || readiness}\n`
+          + `Budget: ${INVESTMENT_TEXT[investment] || investment}\n\n`;
 
         const payload = {
           type: 'call_request',
