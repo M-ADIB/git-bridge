@@ -139,6 +139,32 @@
     .intro-rule { width: min(280px, 55%); height: 2px; background: linear-gradient(90deg, transparent, var(--rule) 20%, var(--accent) 50%, var(--rule) 80%, transparent); margin: 0 auto 1.4rem; }
     .page-intro p { color: var(--fg-muted); max-width: 560px; margin: 0 auto; text-wrap: balance; }
 
+    /* .btn-primary sets display:inline-flex, which outranks the UA sheet's
+       [hidden] rule — without this the nurture modal would still show the
+       "Open the calendar" button and leak straight past the gate. */
+    [hidden] { display: none !important; }
+
+    /* Qualifier (section 3) — shown only for coaching enquiries */
+    .qual-block { display: none; }
+    .qual-block.show { display: block; }
+    .qual-q { margin-bottom: 1.6rem; }
+    .qual-q:last-of-type { margin-bottom: 0; }
+    .qual-q > p.q-text { font-size: .92rem; font-weight: 600; line-height: 1.55; margin-bottom: .9rem; }
+    .qual-q > p.q-help { font-size: .82rem; color: var(--fg-muted); font-weight: 400; margin: -.6rem 0 .9rem; }
+    .qual-opts { display: flex; flex-direction: column; gap: .55rem; }
+    .qual-opt {
+      display: flex; align-items: flex-start; gap: .75rem; padding: .85rem 1rem;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+      cursor: pointer; transition: border-color .2s, background .2s;
+    }
+    .qual-opt:hover { border-color: var(--accent); }
+    .qual-opt input { width: auto; margin: .2rem 0 0; flex-shrink: 0; accent-color: var(--accent); }
+    .qual-opt span { font-size: .92rem; line-height: 1.5; }
+    .qual-opt:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+    .qual-q.invalid .qual-opts { outline: 1px solid var(--error); outline-offset: 4px; border-radius: 8px; }
+    .qual-q .err { display: none; color: var(--error); font-size: .78rem; margin-top: .5rem; }
+    .qual-q.invalid .err { display: block; }
+
     /* Form */
     .form-wrap { padding: 0 0 6.5rem; }
     .form-card {
@@ -346,6 +372,38 @@
               </div>
             </div>
 
+            <!-- Section 3 — qualifier. Revealed by JS only when the topic is
+                 coaching, i.e. the paid engagement these figures describe.
+                 Partnership, speaking and media enquiries skip it entirely. -->
+            <div class="qual-block" id="qual-block" aria-hidden="true">
+              <div class="form-section-label">
+                <span class="num">3.</span>
+                <h2>Fit</h2>
+              </div>
+
+              <div class="qual-q" id="grp-qual-budget">
+                <p class="q-text">Working with Rania typically ranges from AED 5,000 for a focused engagement to AED 30,000+ for a full programme. Where does that land for you?</p>
+                <p class="q-help">Answering honestly saves us both a call &mdash; there is no wrong answer here.</p>
+                <div class="qual-opts" role="radiogroup" aria-labelledby="grp-qual-budget">
+                  <label class="qual-opt"><input type="radio" name="investment" value="in_range"><span>That works &mdash; it is in the range I had in mind.</span></label>
+                  <label class="qual-opt"><input type="radio" name="investment" value="above_range"><span>I would invest more than that for the right programme.</span></label>
+                  <label class="qual-opt"><input type="radio" name="investment" value="later_quarter"><span>Not yet &mdash; I am planning budget for a later quarter.</span></label>
+                  <label class="qual-opt"><input type="radio" name="investment" value="out_of_range"><span>That is beyond what I can invest right now.</span></label>
+                </div>
+                <span class="err">Please choose the option closest to your situation.</span>
+              </div>
+
+              <div class="qual-q" id="grp-qual-timing">
+                <p class="q-text">When are you looking to start?</p>
+                <div class="qual-opts" role="radiogroup" aria-labelledby="grp-qual-timing">
+                  <label class="qual-opt"><input type="radio" name="timing" value="now"><span>Straight away &mdash; this is a priority.</span></label>
+                  <label class="qual-opt"><input type="radio" name="timing" value="1_3_months"><span>Within the next one to three months.</span></label>
+                  <label class="qual-opt"><input type="radio" name="timing" value="exploring"><span>Six months out, or just exploring for now.</span></label>
+                </div>
+                <span class="err">Please choose the option closest to your situation.</span>
+              </div>
+            </div>
+
             <p class="form-note">Next step: choose your preferred date and time on the booking calendar.</p>
             <div class="form-actions">
               <button type="submit" class="btn-primary" id="book-submit-btn">
@@ -413,8 +471,16 @@
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="book-modal-title">
       <div class="modal-check"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
       <h3 id="book-modal-title">Details received</h3>
-      <p>Thank you! We're taking you to Rania's calendar to pick the time that works best for you.</p>
+      <p id="book-modal-text">Thank you! We're taking you to Rania's calendar to pick the time that works best for you.</p>
       <a class="btn-primary" id="book-calendly-btn" href="https://calendly.com/rania-thenextchapter/30min">Open the calendar</a>
+      <div id="book-modal-nurture" hidden>
+        <p style="margin-bottom:1.2rem;">In the meantime, both shows are free and cover a lot of the same ground:</p>
+        <div style="display:flex; gap:.7rem; justify-content:center; flex-wrap:wrap;">
+          <a class="btn-primary" href="/btl" style="flex:1 1 auto;">Between the Lines</a>
+          <a class="btn-primary" href="/no2ta" style="flex:1 1 auto;">No2ta 3al Sater</a>
+        </div>
+        <button type="button" id="book-modal-close" style="margin-top:1.4rem; background:none; border:none; color:var(--fg-muted); font:inherit; font-size:.85rem; text-decoration:underline; cursor:pointer;">Close</button>
+      </div>
     </div>
   </div>
 
@@ -468,6 +534,72 @@
       const submitSpinner = document.getElementById('book-submit-spinner');
       const modalOverlay = document.getElementById('book-modal-overlay');
       const calendlyBtn = document.getElementById('book-calendly-btn');
+      const modalTitle = document.getElementById('book-modal-title');
+      const modalText = document.getElementById('book-modal-text');
+      const modalNurture = document.getElementById('book-modal-nurture');
+      const qualBlock = document.getElementById('qual-block');
+      const topicSelect = document.getElementById('book-topic');
+      const modalCloseBtn = document.getElementById('book-modal-close');
+
+      // Only the nurture ending stays on the page, so it is the only one that
+      // needs a way out and a re-enabled button.
+      const resetSubmitState = () => {
+        submitBtn.disabled = false;
+        submitSpinner.style.display = 'none';
+        submitText.textContent = 'Continue to the calendar';
+      };
+      modalCloseBtn.addEventListener('click', () => {
+        modalOverlay.classList.remove('open');
+        resetSubmitState();
+      });
+
+      // The qualifier only applies to the paid coaching engagement — the one the
+      // AED 5,000-30,000+ range actually describes. Sponsors, speaking bookings
+      // and media collaborations are inbound revenue or press; gating those on a
+      // coaching price would turn away the wrong people, so they skip straight
+      // to the calendar exactly as before.
+      const QUALIFIED_TOPICS = ['coaching'];
+      const NURTURE_ANSWERS = ['later_quarter', 'out_of_range', 'exploring'];
+
+      const qualApplies = () => QUALIFIED_TOPICS.indexOf(topicSelect.value) !== -1;
+      const answerOf = (name) => {
+        const picked = form.querySelector(`input[name="${name}"]:checked`);
+        return picked ? picked.value : '';
+      };
+
+      // Show or hide section 3, and keep the radios required only while visible —
+      // a hidden required control would block checkValidity() with no way for the
+      // visitor to see what is wrong.
+      const syncQualifier = () => {
+        const on = qualApplies();
+        qualBlock.classList.toggle('show', on);
+        qualBlock.setAttribute('aria-hidden', on ? 'false' : 'true');
+        form.querySelectorAll('#qual-block input[type="radio"]').forEach(r => { r.required = on; });
+        if (!on) {
+          form.querySelectorAll('#qual-block input[type="radio"]:checked').forEach(r => { r.checked = false; });
+          form.querySelectorAll('.qual-q').forEach(q => q.classList.remove('invalid'));
+        }
+      };
+      topicSelect.addEventListener('change', syncQualifier);
+      syncQualifier();
+
+      // Radio groups are not .field elements, so they need their own check.
+      const qualifierAnswered = () => {
+        if (!qualApplies()) return true;
+        let ok = true;
+        [['investment', 'grp-qual-budget'], ['timing', 'grp-qual-timing']].forEach(([name, groupId]) => {
+          const answered = !!answerOf(name);
+          document.getElementById(groupId).classList.toggle('invalid', !answered);
+          if (!answered) ok = false;
+        });
+        return ok;
+      };
+      form.querySelectorAll('#qual-block input[type="radio"]').forEach(r => {
+        r.addEventListener('change', () => {
+          const group = r.closest('.qual-q');
+          if (group) group.classList.remove('invalid');
+        });
+      });
 
       // Per-field validity styling on top of native checks
       const markValidity = () => {
@@ -491,9 +623,14 @@
       form.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        if (!form.checkValidity()) {
+        const qualOk = qualifierAnswered();
+        if (!form.checkValidity() || !qualOk) {
           markValidity();
           form.reportValidity();
+          if (qualOk === false) {
+            const firstBad = form.querySelector('.qual-q.invalid');
+            if (firstBad) firstBad.scrollIntoView({ block: 'center' });
+          }
           return;
         }
         markValidity();
@@ -502,20 +639,78 @@
         submitText.textContent = 'Saving your details...';
         submitSpinner.style.display = 'inline-block';
 
-        const calendlyUrl = buildCalendlyUrl();
-        calendlyBtn.href = calendlyUrl;
-        modalOverlay.classList.add('open');
-
-        // Save the request first, so there is a record in the inbox even when the
-        // visitor drops off before actually picking a slot on Calendly.
-        const topicSelect = document.getElementById('book-topic');
         const bookTopic = topicSelect.options[topicSelect.selectedIndex].text;
 
-        // Ad-platform conversion: a completed booking form is a Lead.
-        // Topic only — never the name, email or phone.
-        const leadParams = { form_type: 'discovery_call', content_category: 'call_request', topic: bookTopic };
-        if (window.tncTrack) window.tncTrack('Lead', leadParams);
-        else if (window.fbq) fbq('track', 'Lead', leadParams);
+        // The gate. Any single "not right now" answer routes to nurture: the
+        // whole point is that only people who can act reach the calendar, so a
+        // budget that fits does not rescue a timeline six months out, and vice
+        // versa. Enquiries outside QUALIFIED_TOPICS never reach this branch.
+        const investment = answerOf('investment');
+        const timing = answerOf('timing');
+        const qualified = !qualApplies() ||
+          (NURTURE_ANSWERS.indexOf(investment) === -1 && NURTURE_ANSWERS.indexOf(timing) === -1);
+
+        const calendlyUrl = buildCalendlyUrl();
+        calendlyBtn.href = calendlyUrl;
+
+        // Two different endings. Only the qualified one offers a slot.
+        if (qualified) {
+          modalTitle.textContent = 'Details received';
+          modalText.textContent = "Thank you! We're taking you to Rania's calendar to pick the time that works best for you.";
+          calendlyBtn.hidden = false;
+          modalNurture.hidden = true;
+        } else {
+          modalTitle.textContent = 'Thank you for being straight with us';
+          modalText.textContent = 'A discovery call is not the right next step yet — but this is a "not now", not a "no". Rania\'s team has your details and will reach out when the timing works.';
+          calendlyBtn.hidden = true;
+          modalNurture.hidden = false;
+        }
+        modalOverlay.classList.add('open');
+
+        // Ad-platform conversion. Lead is reserved for people who actually reach
+        // the calendar, so the ad platform optimises towards booked calls rather
+        // than form fills. The nurture branch still reports volume, separately.
+        // Topic and answers only — never the name, email or phone.
+        if (qualified) {
+          const leadParams = { form_type: 'discovery_call', content_category: 'call_request', topic: bookTopic };
+          if (window.tncTrack) window.tncTrack('Lead', leadParams);
+          else if (window.fbq) fbq('track', 'Lead', leadParams);
+        } else {
+          const nurtureParams = {
+            form_type: 'discovery_call',
+            content_category: 'call_request_nurture',
+            topic: bookTopic,
+            investment: investment,
+            timing: timing
+          };
+          if (window.tncTrack) window.tncTrack('SubmitApplication', nurtureParams);
+          else if (window.fbq) fbq('track', 'SubmitApplication', nurtureParams);
+        }
+
+        // The qualifier answers ride along in `message`, prefixed, rather than in
+        // new columns: rania_submissions has none for them, and the dashboard
+        // renders `message` as-is, so Rania sees the answers next to the enquiry
+        // with no schema migration and no dashboard change. `type` stays
+        // 'call_request' for both branches on purpose — dashboard.js badges any
+        // unrecognised type as "Sponsor" and its Call Requests filter matches the
+        // string exactly, so a new type would mislabel and hide these rows.
+        const INVESTMENT_TEXT = {
+          in_range: 'In range (AED 5k-30k)',
+          above_range: 'Would invest above the range',
+          later_quarter: 'Budgeting for a later quarter',
+          out_of_range: 'Beyond reach right now'
+        };
+        const TIMING_TEXT = {
+          now: 'Wants to start straight away',
+          '1_3_months': 'Within 1-3 months',
+          exploring: '6+ months out or exploring'
+        };
+        const visitorMessage = document.getElementById('book-message').value.trim();
+        const qualSummary = qualApplies()
+          ? `[${qualified ? 'QUALIFIED — sent to calendar' : 'NURTURE — no slot offered'}]\n`
+            + `Budget: ${INVESTMENT_TEXT[investment] || investment}\n`
+            + `Timing: ${TIMING_TEXT[timing] || timing}\n\n`
+          : '';
 
         const payload = {
           type: 'call_request',
@@ -524,7 +719,7 @@
           phone: `${document.getElementById('phone-prefix').value} ${document.getElementById('form-phone-number').value.trim()}`,
           company: document.getElementById('book-company').value.trim() || null,
           topics: bookTopic,
-          message: document.getElementById('book-message').value.trim(),
+          message: qualSummary + visitorMessage,
           // 'Pending' on purpose — it is the status the dashboard inbox badge
           // counts, so a new call request shows up as needing attention.
           status: 'Pending'
@@ -533,7 +728,9 @@
         const startedAt = Date.now();
         let redirected = false;
         const goToCalendly = () => {
-          if (redirected) return;
+          // Nurture never reaches the calendar — that is the whole point of the
+          // gate, so this stays a no-op for them and the modal is the ending.
+          if (!qualified || redirected) return;
           redirected = true;
           // Hand-off to Calendly is the Schedule step of the funnel.
           if (window.tncTrack) window.tncTrack('Schedule', { content_category: 'call_request', topic: bookTopic });
