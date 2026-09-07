@@ -1,12 +1,12 @@
 /*
- * The Next Chapter — Meta Pixel (single source of truth).
+ * The Next Chapter: Meta Pixel (single source of truth).
  *
  * Loaded with <script src="/pixel.js" defer> on the public pages only:
  * index, btl, no2ta, apply, book-call. It is deliberately NOT loaded on
  * dashboard-home.html, 404.html or landing.html.
  *
  * Rules this file lives by:
- *   1. Analytics must never break a page — every call is wrapped in try/catch.
+ *   1. Analytics must never break a page: every call is wrapped in try/catch.
  *   2. Init + PageView fire exactly once per page load (double-include guard).
  *   3. No PII ever leaves the page. Only form type / topic / tier are sent.
  */

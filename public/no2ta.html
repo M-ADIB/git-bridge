@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>نقطة ع السطر — The Next Chapter</title>
-  <meta name="description" content="نقطة ع السطر — البودكاست العربي الجريء لرانيا برغوث، من إنتاج The Next Chapter.">
+  <title>نقطة ع السطر | The Next Chapter</title>
+  <meta name="description" content="نقطة ع السطر: البودكاست العربي الجريء لرانيا برغوث، من إنتاج The Next Chapter.">
   <link rel="canonical" href="https://thenextchapter.vip/no2ta">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="The Next Chapter">
-  <meta property="og:title" content="نقطة ع السطر — The Next Chapter">
+  <meta property="og:title" content="نقطة ع السطر | The Next Chapter">
   <meta property="og:description" content="البودكاست العربي الجريء لرانيا برغوث.">
   <meta property="og:url" content="https://thenextchapter.vip/no2ta">
   <meta property="og:image" content="https://thenextchapter.vip/__l5e/assets-v1/88342a43-1d2d-449c-8eca-8fa325bf846e/no2ta_logo.png">
@@ -87,13 +87,13 @@
     :root[data-theme="light"] .icon-moon{display:none}
     :root[data-theme="dark"] .icon-sun{display:none}
 
-    /* scroll progress rail (right edge — RTL-native) */
+    /* scroll progress rail (right edge: RTL-native) */
     .scroll-rail{position:fixed;top:0;right:14px;height:100vh;width:2px;background:var(--border);z-index:40;pointer-events:none}
     .scroll-rail .rail-fill{position:absolute;top:0;left:0;width:100%;height:calc(var(--scroll,0)*100%);background:linear-gradient(var(--accent),transparent)}
     .scroll-rail .rail-dot{position:absolute;left:50%;top:calc(var(--scroll,0) * (100vh - 22px) + 7px);width:8px;height:8px;border-radius:50%;background:var(--accent);transform:translateX(-50%);box-shadow:0 0 12px 2px var(--accent-glow)}
     @media (max-width:760px){.scroll-rail{display:none}}
 
-    /* HERO — The Line / السطر */
+    /* HERO: The Line / السطر */
     .hero{padding:7rem 0 5rem;position:relative;overflow:hidden}
     .hero::before{content:'';position:absolute;top:24%;right:-6%;width:62%;height:62%;background:radial-gradient(circle,var(--accent-soft),transparent 62%);pointer-events:none;filter:blur(22px)}
     .hero-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;color:var(--accent);letter-spacing:.03em;margin-bottom:1.4rem}
@@ -146,7 +146,7 @@
       *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
     }
   </style>
-  <!-- Meta Pixel — single source of truth in /pixel.js -->
+  <!-- Meta Pixel: single source of truth in /pixel.js -->
   <script src="/pixel.js" defer></script>
 </head>
 <body>
@@ -188,7 +188,7 @@
   <main id="main">
     <section class="hero">
       <div class="container">
-        <p class="hero-eyebrow reveal">No2ta 3al Sater — a podcast by Rania Barghout</p>
+        <p class="hero-eyebrow reveal">No2ta 3al Sater, a podcast by Rania Barghout</p>
         <div class="hero-stage">
           <h1 class="hero-wordmark"><span class="w-noqta">نقطة</span> ع السطر</h1>
           <div class="hero-baseline" aria-hidden="true">
@@ -206,7 +206,7 @@
       <div class="container reveal">
         <span class="section-eyebrow">عن البودكاست</span>
         <h2 class="section-title">حوارات تتجاوز السطر</h2>
-        <p class="lead">"نقطة ع السطر" هو الإصدار الأول من <strong>The Next Chapter</strong>، شركة الإعلام الجديدة التي أسستها رانيا برغوث. حوارات صريحة وعميقة مع شخصيات تُحدث فرقاً — من رواد الأعمال إلى الفنانين والمفكرين.</p>
+        <p class="lead">"نقطة ع السطر" هو الإصدار الأول من <strong>The Next Chapter</strong>، شركة الإعلام الجديدة التي أسستها رانيا برغوث. حوارات صريحة وعميقة مع شخصيات تُحدث فرقاً: من رواد الأعمال إلى الفنانين والمفكرين.</p>
       </div>
     </section>
 
@@ -240,7 +240,7 @@
     <div class="container">
       <a href="/" class="footer-mark">The Next Chapter</a>
       <div class="footer-line" aria-hidden="true"></div>
-      <p>© <span id="yr"></span> The Next Chapter — نقطة ع السطر</p>
+      <p>© <span id="yr"></span> The Next Chapter | نقطة ع السطر</p>
     </div>
   </footer>
 
@@ -257,7 +257,7 @@
     applyTheme(localStorage.getItem('tnc-theme')||'dark');
     document.getElementById('theme-toggle').onclick=()=>applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
 
-    // Resilient reveal — content visible by default; animate in, never strand hidden.
+    // Resilient reveal: content visible by default; animate in, never strand hidden.
     (function(){
       const els=document.querySelectorAll('.reveal');
       if(!els.length) return;

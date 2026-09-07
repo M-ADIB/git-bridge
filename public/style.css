@@ -29,7 +29,7 @@
   --text-muted: #7c8aa0;          /* raised from #64748b for AA contrast on dark */
   --text-error: #ff4d4d;
   --text-success: #10b981;
-  --focus-ring: #5b73ff;          /* keyboard focus outline — visible on dark + light */
+  --focus-ring: #5b73ff;          /* keyboard focus outline: visible on dark + light */
   
   /* Fonts */
   --font-en-head: 'Outfit', sans-serif;
@@ -41,7 +41,7 @@
   --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-fast: all 0.2s ease;
 
-  /* Motion system (Phase 1) — shared grammar */
+  /* Motion system (Phase 1): shared grammar */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
@@ -3268,7 +3268,7 @@ body.rtl #form-sponsor-phone-number {
 }
 
 /* ==========================================================================
-   ACCESSIBILITY — focus visibility, reduced motion, skip link (Phase 0e)
+   ACCESSIBILITY: focus visibility, reduced motion, skip link (Phase 0e)
    ========================================================================== */
 
 /* Keyboard focus ring. Placed last so it wins by source order over the
@@ -3340,7 +3340,7 @@ body.rtl #form-sponsor-phone-number {
 }
 
 /* ==========================================================================
-   MOTION PRIMITIVES (Phase 1) — shared interaction vocabulary
+   MOTION PRIMITIVES (Phase 1): shared interaction vocabulary
    ========================================================================== */
 .u-lift { transition: transform var(--dur-2) var(--ease-out-quart), box-shadow var(--dur-2) var(--ease-out-quart); }
 .u-lift:hover { transform: translateY(-3px); }
@@ -3354,7 +3354,7 @@ body.rtl #form-sponsor-phone-number {
 }
 .u-underline:hover::after, .u-underline:focus-visible::after { transform: scaleX(1); }
 
-/* Section eyebrow accent sweep — drawn once the section reveals */
+/* Section eyebrow accent sweep: drawn once the section reveals */
 .section-eyebrow { position: relative; display: inline-block; }
 .section-eyebrow::after {
   content: ""; position: absolute; inset-inline-start: 0; bottom: -0.45em;
