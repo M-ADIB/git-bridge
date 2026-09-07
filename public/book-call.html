@@ -382,10 +382,9 @@
                 <p class="q-text">Working with Rania typically ranges from AED 5,000 for a focused engagement to AED 30,000+ for a full program. Where does that land for you?</p>
                 <p class="q-help">Answering honestly saves us both a call. There is no wrong answer here.</p>
                 <div class="qual-opts" role="radiogroup" aria-labelledby="grp-qual-budget">
-                  <label class="qual-opt"><input type="radio" name="investment" value="in_range"><span>It's within my range, I need further information.</span></label>
-                  <label class="qual-opt"><input type="radio" name="investment" value="above_range"><span>I would invest more than that for the right program.</span></label>
-                  <label class="qual-opt"><input type="radio" name="investment" value="later_quarter"><span>Not yet, I am planning budget for a later quarter.</span></label>
-                  <label class="qual-opt"><input type="radio" name="investment" value="out_of_range"><span>That is beyond what I can invest right now.</span></label>
+                  <label class="qual-opt"><input type="radio" name="investment" value="in_range"><span>Budget within range.</span></label>
+                  <label class="qual-opt"><input type="radio" name="investment" value="in_range_more_info"><span>Budget within range, but I need more information.</span></label>
+                  <label class="qual-opt"><input type="radio" name="investment" value="out_of_range"><span>Outside my budget right now.</span></label>
                 </div>
                 <span class="err">Please choose the option closest to your situation.</span>
               </div>
@@ -557,7 +556,7 @@
       // turn away the wrong people, so their answers are recorded and they reach
       // the calendar exactly as before.
       const QUALIFIED_TOPICS = ['coaching'];
-      const NURTURE_ANSWERS = ['later_quarter', 'out_of_range', 'exploring'];
+      const NURTURE_ANSWERS = ['out_of_range', 'exploring'];
 
       const qualApplies = () => QUALIFIED_TOPICS.indexOf(topicSelect.value) !== -1;
       const answerOf = (name) => {
@@ -685,10 +684,9 @@
         // unrecognised type as "Sponsor" and its Call Requests filter matches the
         // string exactly, so a new type would mislabel and hide these rows.
         const INVESTMENT_TEXT = {
-          in_range: 'In range, wants more information',
-          above_range: 'Would invest above the range',
-          later_quarter: 'Budgeting for a later quarter',
-          out_of_range: 'Beyond reach right now'
+          in_range: 'Budget within range',
+          in_range_more_info: 'Budget within range, wants more information',
+          out_of_range: 'Outside budget right now'
         };
         const TIMING_TEXT = {
           now: 'Right now, a priority',
