@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Meta Pixel — single source of truth in /pixel.js -->
+  <!-- Meta Pixel: single source of truth in /pixel.js -->
   <script src="/pixel.js" defer></script>
 
   <style>
@@ -140,11 +140,11 @@
     .page-intro p { color: var(--fg-muted); max-width: 560px; margin: 0 auto; text-wrap: balance; }
 
     /* .btn-primary sets display:inline-flex, which outranks the UA sheet's
-       [hidden] rule — without this the nurture modal would still show the
+       [hidden] rule: without this the nurture modal would still show the
        "Open the calendar" button and leak straight past the gate. */
     [hidden] { display: none !important; }
 
-    /* Qualifier (section 3) — always visible so visitors can answer it before submitting. */
+    /* Qualifier (section 3): always visible so visitors can answer it before submitting. */
     .qual-block { display: block; }
     .qual-q { margin-bottom: 1.6rem; }
     .qual-q:last-of-type { margin-bottom: 0; }
@@ -283,8 +283,8 @@
       <a href="/#contact">Contact</a>
       <a href="/btl?lang=en">Between the Lines</a>
       <a href="/btl?lang=ar">No2ta A Al Satr</a>
-      <a href="/book-call" style="color: var(--accent); font-weight: 700;">Book a call — احجزي مكالمة</a>
-      <a href="/apply">Apply as a guest — قدموا هنا</a>
+      <a href="/book-call" style="color: var(--accent); font-weight: 700;">Book a call · احجزي مكالمة</a>
+      <a href="/apply">Apply as a guest · قدموا هنا</a>
     </nav>
     <div class="drawer-foot">
       <button class="theme-toggle" id="theme-toggle-mobile" aria-label="Toggle theme">
@@ -371,7 +371,7 @@
               </div>
             </div>
 
-            <!-- Section 3 — qualification questions. These stay visible for every visitor. -->
+            <!-- Section 3: qualification questions. These stay visible for every visitor. -->
             <div class="qual-block" id="qual-block" aria-hidden="false">
               <div class="form-section-label">
                 <span class="num">3.</span>
@@ -379,11 +379,11 @@
               </div>
 
               <div class="qual-q" id="grp-qual-budget">
-                <p class="q-text">Working with Rania typically ranges from AED 5,000 for a focused engagement to AED 30,000+ for a full programme. Where does that land for you?</p>
+                <p class="q-text">Working with Rania typically ranges from AED 5,000 for a focused engagement to AED 30,000+ for a full program. Where does that land for you?</p>
                 <p class="q-help">Answering honestly saves us both a call. There is no wrong answer here.</p>
                 <div class="qual-opts" role="radiogroup" aria-labelledby="grp-qual-budget">
-                  <label class="qual-opt"><input type="radio" name="investment" value="in_range"><span>That works, it is in the range I had in mind.</span></label>
-                  <label class="qual-opt"><input type="radio" name="investment" value="above_range"><span>I would invest more than that for the right programme.</span></label>
+                  <label class="qual-opt"><input type="radio" name="investment" value="in_range"><span>It's within my range, I need further information.</span></label>
+                  <label class="qual-opt"><input type="radio" name="investment" value="above_range"><span>I would invest more than that for the right program.</span></label>
                   <label class="qual-opt"><input type="radio" name="investment" value="later_quarter"><span>Not yet, I am planning budget for a later quarter.</span></label>
                   <label class="qual-opt"><input type="radio" name="investment" value="out_of_range"><span>That is beyond what I can invest right now.</span></label>
                 </div>
@@ -393,9 +393,9 @@
               <div class="qual-q" id="grp-qual-timing">
                 <p class="q-text">When are you looking to start?</p>
                 <div class="qual-opts" role="radiogroup" aria-labelledby="grp-qual-timing">
-                  <label class="qual-opt"><input type="radio" name="timing" value="now"><span>Straight away, this is a priority.</span></label>
-                  <label class="qual-opt"><input type="radio" name="timing" value="1_3_months"><span>Within the next one to three months.</span></label>
-                  <label class="qual-opt"><input type="radio" name="timing" value="exploring"><span>Six months out, or just exploring for now.</span></label>
+                  <label class="qual-opt"><input type="radio" name="timing" value="now"><span>Right now, it is a priority.</span></label>
+                  <label class="qual-opt"><input type="radio" name="timing" value="1_month"><span>Within 1 month.</span></label>
+                  <label class="qual-opt"><input type="radio" name="timing" value="exploring"><span>Just exploring.</span></label>
                 </div>
                 <span class="err">Please choose the option closest to your situation.</span>
               </div>
@@ -550,11 +550,12 @@
         resetSubmitState();
       });
 
-      // The qualifier only applies to the paid coaching engagement — the one the
-      // AED 5,000-30,000+ range actually describes. Sponsors, speaking bookings
-      // and media collaborations are inbound revenue or press; gating those on a
-      // coaching price would turn away the wrong people, so they skip straight
-      // to the calendar exactly as before.
+      // Everyone answers section 3, but the answers only GATE the calendar for
+      // the paid coaching engagement: the one the AED 5,000 to 30,000+ range
+      // actually describes. Sponsors, speaking bookings and media collaborations
+      // are inbound revenue or press; gating those on a coaching price would
+      // turn away the wrong people, so their answers are recorded and they reach
+      // the calendar exactly as before.
       const QUALIFIED_TOPICS = ['coaching'];
       const NURTURE_ANSWERS = ['later_quarter', 'out_of_range', 'exploring'];
 
@@ -650,7 +651,7 @@
           modalNurture.hidden = true;
         } else {
           modalTitle.textContent = 'Thank you for being straight with us';
-          modalText.textContent = 'A discovery call is not the right next step yet — but this is a "not now", not a "no". Rania\'s team has your details and will reach out when the timing works.';
+          modalText.textContent = 'A discovery call is not the right next step yet, but this is a "not now", not a "no". Rania\'s team has your details and will reach out when the timing works.';
           calendlyBtn.hidden = true;
           modalNurture.hidden = false;
         }
@@ -659,7 +660,7 @@
         // Ad-platform conversion. Lead is reserved for people who actually reach
         // the calendar, so the ad platform optimises towards booked calls rather
         // than form fills. The nurture branch still reports volume, separately.
-        // Topic and answers only — never the name, email or phone.
+        // Topic and answers only: never the name, email or phone.
         if (qualified) {
           const leadParams = { form_type: 'discovery_call', content_category: 'call_request', topic: bookTopic };
           if (window.tncTrack) window.tncTrack('Lead', leadParams);
@@ -680,22 +681,22 @@
         // new columns: rania_submissions has none for them, and the dashboard
         // renders `message` as-is, so Rania sees the answers next to the enquiry
         // with no schema migration and no dashboard change. `type` stays
-        // 'call_request' for both branches on purpose — dashboard.js badges any
+        // 'call_request' for both branches on purpose: dashboard.js badges any
         // unrecognised type as "Sponsor" and its Call Requests filter matches the
         // string exactly, so a new type would mislabel and hide these rows.
         const INVESTMENT_TEXT = {
-          in_range: 'In range (AED 5k-30k)',
+          in_range: 'In range, wants more information',
           above_range: 'Would invest above the range',
           later_quarter: 'Budgeting for a later quarter',
           out_of_range: 'Beyond reach right now'
         };
         const TIMING_TEXT = {
-          now: 'Wants to start straight away',
-          '1_3_months': 'Within 1-3 months',
-          exploring: '6+ months out or exploring'
+          now: 'Right now, a priority',
+          '1_month': 'Within 1 month',
+          exploring: 'Just exploring'
         };
         const visitorMessage = document.getElementById('book-message').value.trim();
-        const qualSummary = `[${qualified ? 'QUALIFIED — sent to calendar' : 'NURTURE — no slot offered'}]\n`
+        const qualSummary = `[${qualified ? 'QUALIFIED, sent to calendar' : 'NURTURE, no slot offered'}]\n`
           + `Budget: ${INVESTMENT_TEXT[investment] || investment}\n`
           + `Timing: ${TIMING_TEXT[timing] || timing}\n\n`;
 
@@ -707,7 +708,7 @@
           company: document.getElementById('book-company').value.trim() || null,
           topics: bookTopic,
           message: qualSummary + visitorMessage,
-          // 'Pending' on purpose — it is the status the dashboard inbox badge
+          // 'Pending' on purpose: it is the status the dashboard inbox badge
           // counts, so a new call request shows up as needing attention.
           status: 'Pending'
         };
@@ -715,7 +716,7 @@
         const startedAt = Date.now();
         let redirected = false;
         const goToCalendly = () => {
-          // Nurture never reaches the calendar — that is the whole point of the
+          // Nurture never reaches the calendar: that is the whole point of the
           // gate, so this stays a no-op for them and the modal is the ending.
           if (!qualified || redirected) return;
           redirected = true;
@@ -729,7 +730,7 @@
           : Promise.resolve({});
 
         // Redirect once saved, but hold the modal at least 2.2s so it is readable.
-        // The modal's own button and the 6s backstop cover a slow or failed save —
+        // The modal's own button and the 6s backstop cover a slow or failed save 
         // a booking should never be lost because the database was unreachable.
         Promise.resolve(insertPromise)
           .catch((err) => ({ error: err }))
