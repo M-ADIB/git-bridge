@@ -144,9 +144,8 @@
        "Open the calendar" button and leak straight past the gate. */
     [hidden] { display: none !important; }
 
-    /* Qualifier (section 3) — shown only for coaching enquiries */
-    .qual-block { display: none; }
-    .qual-block.show { display: block; }
+    /* Qualifier (section 3) — always visible so visitors can answer it before submitting. */
+    .qual-block { display: block; }
     .qual-q { margin-bottom: 1.6rem; }
     .qual-q:last-of-type { margin-bottom: 0; }
     .qual-q > p.q-text { font-size: .92rem; font-weight: 600; line-height: 1.55; margin-bottom: .9rem; }
@@ -372,10 +371,8 @@
               </div>
             </div>
 
-            <!-- Section 3 — qualifier. Revealed by JS only when the topic is
-                 coaching, i.e. the paid engagement these figures describe.
-                 Partnership, speaking and media enquiries skip it entirely. -->
-            <div class="qual-block" id="qual-block" aria-hidden="true">
+            <!-- Section 3 — qualification questions. These stay visible for every visitor. -->
+            <div class="qual-block" id="qual-block" aria-hidden="false">
               <div class="form-section-label">
                 <span class="num">3.</span>
                 <h2>Fit</h2>
@@ -567,25 +564,17 @@
         return picked ? picked.value : '';
       };
 
-      // Show or hide section 3, and keep the radios required only while visible —
-      // a hidden required control would block checkValidity() with no way for the
-      // visitor to see what is wrong.
+      // Keep section 3 visible and required for every enquiry. The answers only
+      // affect calendar access for coaching enquiries.
       const syncQualifier = () => {
-        const on = qualApplies();
-        qualBlock.classList.toggle('show', on);
-        qualBlock.setAttribute('aria-hidden', on ? 'false' : 'true');
-        form.querySelectorAll('#qual-block input[type="radio"]').forEach(r => { r.required = on; });
-        if (!on) {
-          form.querySelectorAll('#qual-block input[type="radio"]:checked').forEach(r => { r.checked = false; });
-          form.querySelectorAll('.qual-q').forEach(q => q.classList.remove('invalid'));
-        }
+        qualBlock.setAttribute('aria-hidden', 'false');
+        form.querySelectorAll('#qual-block input[type="radio"]').forEach(r => { r.required = true; });
       };
       topicSelect.addEventListener('change', syncQualifier);
       syncQualifier();
 
       // Radio groups are not .field elements, so they need their own check.
       const qualifierAnswered = () => {
-        if (!qualApplies()) return true;
         let ok = true;
         [['investment', 'grp-qual-budget'], ['timing', 'grp-qual-timing']].forEach(([name, groupId]) => {
           const answered = !!answerOf(name);
@@ -706,11 +695,9 @@
           exploring: '6+ months out or exploring'
         };
         const visitorMessage = document.getElementById('book-message').value.trim();
-        const qualSummary = qualApplies()
-          ? `[${qualified ? 'QUALIFIED — sent to calendar' : 'NURTURE — no slot offered'}]\n`
-            + `Budget: ${INVESTMENT_TEXT[investment] || investment}\n`
-            + `Timing: ${TIMING_TEXT[timing] || timing}\n\n`
-          : '';
+        const qualSummary = `[${qualified ? 'QUALIFIED — sent to calendar' : 'NURTURE — no slot offered'}]\n`
+          + `Budget: ${INVESTMENT_TEXT[investment] || investment}\n`
+          + `Timing: ${TIMING_TEXT[timing] || timing}\n\n`;
 
         const payload = {
           type: 'call_request',
