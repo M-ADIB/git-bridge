@@ -10,6 +10,12 @@ let currentSpotlightData = null;
 let existingAudioUrl = null;
 let allSubmissions = [];
 let activeTypeFilter = 'all';
+let activeLeadFilter = 'all';
+let lastFilteredSubmissions = [];
+
+// The five stages a lead moves through after it lands. Kept separate from the
+// Pending/Approved/Rejected status, which drives the guest workflow.
+const LEAD_STATUSES = ['New', 'Booked', 'Showed up', 'No show', 'Not interested'];
 let activeStatusFilter = 'all';
 let activeSearchQuery = '';
 let selectedSubmission = null;
@@ -694,7 +700,7 @@ async function loadSubmissionsList() {
   
   const tbody = document.getElementById('submissions-list-tbody');
   if (tbody) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Loading submissions...</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Loading submissions...</td></tr>';
   }
   
   try {
@@ -711,7 +717,7 @@ async function loadSubmissionsList() {
     console.error('Error loading submissions:', err);
     showToast('Failed to load submissions from database.', 'error');
     if (tbody) {
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:var(--accent-crimson);">Failed to load data.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:var(--accent-crimson);">Failed to load data.</td></tr>';
     }
   }
 }
@@ -730,6 +736,9 @@ function renderSubmissions() {
     
     // Status filter
     if (activeStatusFilter !== 'all' && sub.status !== activeStatusFilter) return false;
+    
+    // Lead status filter
+    if (activeLeadFilter !== 'all' && (sub.lead_status || 'New') !== activeLeadFilter) return false;
     
     // Search filter
     if (activeSearchQuery) {
@@ -753,6 +762,9 @@ function renderSubmissions() {
     
     return true;
   });
+  
+  renderLeadWeekCounts(filtered);
+  lastFilteredSubmissions = filtered;
   
   if (filtered.length === 0) {
     if (emptyPlaceholder) emptyPlaceholder.style.display = 'flex';
@@ -796,6 +808,13 @@ function renderSubmissions() {
         ? `<div style="font-size:0.8rem; font-weight:600; color:var(--accent-orange);">${sub.topics || 'Discovery Call'}</div><div style="font-size:0.7rem; color:var(--text-secondary);">Booking request</div>`
         : `<div style="font-size:0.8rem; font-weight:600; color:var(--accent-teal);">${sub.profession || 'Sponsorship'}</div><div style="font-size:0.7rem; color:var(--text-secondary);">${sub.show_choice || ''}</div>`;
 
+    // Lead status dropdown. Rania sets this herself; Booked is also what a
+    // Calendly booking would flip it to once that hook is wired up.
+    const leadValue = sub.lead_status || 'New';
+    const leadSelect = `<select class="lead-select" data-id="${sub.id}" data-lead="${leadValue}">`
+      + LEAD_STATUSES.map(st => `<option value="${st}"${st === leadValue ? ' selected' : ''}>${st}</option>`).join('')
+      + '</select>';
+
     tr.innerHTML = `
       <td>${typeBadge}</td>
       <td>${nameSection}</td>
@@ -806,6 +825,7 @@ function renderSubmissions() {
       <td>${showOrTier}</td>
       <td>${dateStr}</td>
       <td>${statusBadge}</td>
+      <td>${leadSelect}</td>
       <td>
         <button class="tbl-action-btn view" data-id="${sub.id}" title="View Details">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
@@ -816,6 +836,15 @@ function renderSubmissions() {
       </td>
     `;
     tbody.appendChild(tr);
+  });
+  
+  // Wire the lead status dropdowns
+  tbody.querySelectorAll('.lead-select').forEach(sel => {
+    sel.addEventListener('change', () => {
+      updateLeadStatus(parseInt(sel.getAttribute('data-id')), sel.value);
+    });
+    // Clicking the dropdown must not open the row detail modal underneath.
+    sel.addEventListener('click', ev => ev.stopPropagation());
   });
   
   // Wire list buttons
@@ -1048,6 +1077,83 @@ async function updateSubmissionStatus(id, newStatus) {
     console.error('Error updating status:', err);
     showToast('Failed to update submission status.', 'error');
   }
+}
+
+async function updateLeadStatus(id, newLeadStatus) {
+  if (!supabaseClient) return;
+  if (LEAD_STATUSES.indexOf(newLeadStatus) === -1) return;
+  
+  const sub = allSubmissions.find(s => s.id === id);
+  const previous = sub ? (sub.lead_status || 'New') : 'New';
+  
+  try {
+    const { error } = await supabaseClient
+      .from('rania_submissions')
+      .update({ lead_status: newLeadStatus })
+      .eq('id', id);
+      
+    if (error) throw error;
+    
+    if (sub) sub.lead_status = newLeadStatus;
+    showToast(`Lead marked as ${newLeadStatus}.`);
+    renderSubmissions();
+  } catch (err) {
+    console.error('Error updating lead status:', err);
+    showToast('Failed to update lead status.', 'error');
+    // Put the dropdown back where it was so it never shows a value the
+    // database does not have.
+    if (sub) sub.lead_status = previous;
+    renderSubmissions();
+  }
+}
+
+// Counts for the last 7 days over whatever is currently filtered, so she can
+// see lead quality at a glance without exporting.
+function renderLeadWeekCounts(rows) {
+  const host = document.getElementById('lead-week-counts');
+  if (!host) return;
+  
+  const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  const recent = rows.filter(sub => sub.created_at && new Date(sub.created_at).getTime() >= cutoff);
+  
+  const chips = LEAD_STATUSES.map(st => {
+    const n = recent.filter(sub => (sub.lead_status || 'New') === st).length;
+    return `<span class="lead-count-chip">${st} <strong>${n}</strong></span>`;
+  }).join('');
+  
+  host.innerHTML = `<span class="lead-count-chip">Last 7 days <strong>${recent.length}</strong></span>` + chips;
+}
+
+function csvCell(value) {
+  const str = value === null || value === undefined ? '' : String(value);
+  return '"' + str.replace(/"/g, '""') + '"';
+}
+
+function exportSubmissionsCsv() {
+  const rows = lastFilteredSubmissions;
+  if (!rows.length) {
+    showToast('Nothing to export with the current filters.', 'error');
+    return;
+  }
+  
+  const headers = ['id', 'created_at', 'type', 'lead_status', 'status', 'name', 'email', 'phone', 'company', 'profession', 'topics', 'message'];
+  const lines = [headers.join(',')];
+  
+  rows.forEach(sub => {
+    lines.push(headers.map(h => csvCell(h === 'lead_status' ? (sub.lead_status || 'New') : sub[h])).join(','));
+  });
+  
+  // \ufeff so Excel opens Arabic and accented names as UTF-8.
+  const blob = new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `leads-${new Date().toISOString().slice(0, 10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast(`Exported ${rows.length} row${rows.length === 1 ? '' : 's'}.`);
 }
 
 async function deleteSubmission(id) {
@@ -1373,6 +1479,19 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   
   // Filter Status Buttons
+  const leadFilterBtns = document.querySelectorAll('[data-filter-lead]');
+  leadFilterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      leadFilterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeLeadFilter = btn.getAttribute('data-filter-lead');
+      renderSubmissions();
+    });
+  });
+  
+  const exportBtn = document.getElementById('submissions-export-btn');
+  if (exportBtn) exportBtn.addEventListener('click', exportSubmissionsCsv);
+  
   const statusFilterBtns = document.querySelectorAll('[data-filter-status]');
   statusFilterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
