@@ -1765,6 +1765,77 @@
       border: 1px solid rgba(255, 107, 0, 0.22);
     }
 
+    /* Lead status: where a lead got to after it came in. Kept separate from
+       the Pending/Approved/Rejected status, which drives the guest workflow
+       and the pending badge count. */
+    .lead-select {
+      background: var(--bg-card-hover);
+      border: 1px solid var(--border-glass);
+      color: var(--text-primary);
+      border-radius: 6px;
+      padding: 5px 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      max-width: 150px;
+    }
+
+    .lead-select:focus {
+      outline: none;
+      border-color: var(--accent-orange);
+    }
+
+    .lead-select option { color: #111; }
+
+    .lead-select[data-lead="New"] { color: var(--text-secondary); }
+    .lead-select[data-lead="Booked"] { color: var(--accent-indigo); }
+    .lead-select[data-lead="Showed up"] { color: var(--accent-emerald); }
+    .lead-select[data-lead="No show"] { color: var(--accent-orange); }
+    .lead-select[data-lead="Not interested"] { color: var(--accent-crimson); }
+
+    .lead-week-counts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .lead-count-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: var(--bg-card-hover);
+      border: 1px solid var(--border-glass);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .lead-count-chip strong {
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    .export-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 107, 0, 0.12);
+      border: 1px solid rgba(255, 107, 0, 0.25);
+      color: var(--accent-orange);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .export-btn:hover { background: rgba(255, 107, 0, 0.2); }
+
     .tbl-action-btn {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border-glass);
@@ -2782,8 +2853,26 @@
               <button class="filter-btn" data-filter-status="Approved">Approved</button>
               <button class="filter-btn" data-filter-status="Rejected">Rejected</button>
             </div>
+
+            <!-- Lead Status Filters -->
+            <div class="btn-group">
+              <button class="filter-btn active" data-filter-lead="all">All Leads</button>
+              <button class="filter-btn" data-filter-lead="New">New</button>
+              <button class="filter-btn" data-filter-lead="Booked">Booked</button>
+              <button class="filter-btn" data-filter-lead="Showed up">Showed up</button>
+              <button class="filter-btn" data-filter-lead="No show">No show</button>
+              <button class="filter-btn" data-filter-lead="Not interested">Not interested</button>
+            </div>
+
+            <button class="export-btn" id="submissions-export-btn" title="Download the rows currently shown as CSV">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Export CSV
+            </button>
           </div>
         </div>
+
+        <!-- Lead status counts for the last 7 days, over the rows currently shown. -->
+        <div class="lead-week-counts" id="lead-week-counts"></div>
 
         <div class="submissions-table-container">
           <table class="submissions-table">
@@ -2795,6 +2884,7 @@
                 <th>Show / Tier</th>
                 <th>Date Submitted</th>
                 <th>Status</th>
+                <th>Lead Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
