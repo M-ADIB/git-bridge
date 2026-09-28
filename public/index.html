@@ -162,6 +162,11 @@
     .hero-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: clamp(1.4rem, 2.6vw, 2rem); color: var(--fg); margin: 1.6rem auto 0; max-width: 34ch; text-wrap: balance; opacity: 0; animation: fadeUp .9s var(--ease-out-expo) 1s forwards; }
     .hero-sub { font-size: clamp(1rem, 1.5vw, 1.12rem); color: var(--fg-muted); max-width: 580px; margin: 1.2rem auto 2.6rem; text-wrap: balance; opacity: 0; animation: fadeUp .9s var(--ease-out-expo) 1.15s forwards; }
     .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp .9s var(--ease-out-expo) 1.3s forwards; }
+    .vsl-section { padding: 0 0 6rem; }
+    .vsl-intro { text-align: center; margin: 0 auto 2rem; }
+    .vsl-intro .section-lead { margin: 0 auto; }
+    .vsl-player { display: block; width: 100%; max-width: 960px; aspect-ratio: 16 / 9; margin: 0 auto; background: #211b14; border-radius: 6px; box-shadow: var(--shadow); }
+    .vsl-action { text-align: center; margin-top: 2rem; }
     @keyframes hwRise { to { transform: translateY(0); } }
     @keyframes ruleDraw { to { width: min(420px, 70%); } }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
@@ -256,6 +261,7 @@
 
     @media (max-width: 600px) {
       .hero { padding: 4.5rem 0 4rem; }
+      .vsl-section { padding-bottom: 4.5rem; }
       .hero-kicker { font-size: .64rem; letter-spacing: .2em; }
       :root { --step-hero: clamp(3.3rem, 13vw, 8.2rem); }
       section.block { padding: 4.5rem 0; }
@@ -338,8 +344,23 @@
         <p class="hero-sub">Founded by renowned broadcaster and executive communication coach Rania Barghout, with three decades on air and hundreds of interviews behind her.</p>
         <div class="hero-actions">
           <a href="/book-call" class="btn-primary">Book a call</a>
-          <a href="#podcasts" class="btn-ghost">Explore the podcasts</a>
+          <a href="#podcast-development" class="btn-ghost">Watch the video</a>
         </div>
+      </div>
+    </section>
+
+    <section class="vsl-section" id="podcast-development" aria-labelledby="vsl-title">
+      <div class="container">
+        <div class="vsl-intro">
+          <span class="section-eyebrow">Podcast development</span>
+          <h2 class="section-title" id="vsl-title">Hear it from Rania</h2>
+          <p class="section-lead">Watch Rania talk about developing a podcast. Video in Arabic.</p>
+        </div>
+        <video class="vsl-player" controls preload="none" playsinline poster="/assets/podcast-development-poster.jpg" aria-label="Rania Barghout on podcast development, in Arabic">
+          <source src="/assets/podcast-development.mp4" type="video/mp4">
+          Your browser does not support video playback. <a href="/assets/podcast-development.mp4">Download the video</a>.
+        </video>
+        <div class="vsl-action"><a href="/book-call" class="btn-primary">Book a call</a></div>
       </div>
     </section>
 
