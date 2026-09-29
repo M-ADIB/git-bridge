@@ -282,7 +282,7 @@
       <a href="/#podcasts">Podcasts</a>
       <a href="/#contact">Contact</a>
       <a href="/btl?lang=en">Between the Lines</a>
-      <a href="/btl?lang=ar">No2ta A Al Satr</a>
+      <a href="/no2ta">No2ta A Al Satr</a>
       <a href="/book-call" style="color: var(--accent); font-weight: 700;">Book a call · احجزي مكالمة</a>
       <a href="/apply">Apply as a guest · قدموا هنا</a>
     </nav>
@@ -401,6 +401,7 @@
             </div>
 
             <p class="form-note">Next step: choose your preferred date and time on the booking calendar.</p>
+            <p id="book-save-error" role="alert" hidden style="color:#a22d2d;margin-top:1rem;">We could not save your details. Please try again.</p>
             <div class="form-actions">
               <button type="submit" class="btn-primary" id="book-submit-btn">
                 <span class="spinner" id="book-submit-spinner"></span>
@@ -434,7 +435,7 @@
           <h4>The shows</h4>
           <ul>
             <li class="footer-social-row">
-              <a class="show-name" href="/btl?lang=ar">No2ta A Al Satr</a>
+              <a class="show-name" href="/no2ta">No2ta A Al Satr</a>
               <a class="social-icon" href="https://www.youtube.com/@No2ta3alsater" target="_blank" rel="noopener" aria-label="No2ta A Al Satr on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
               <a class="social-icon" href="https://www.instagram.com/notaassater" target="_blank" rel="noopener" aria-label="No2ta A Al Satr on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
             </li>
@@ -609,8 +610,9 @@
         return query ? `${CALENDLY_URL}?${query}` : CALENDLY_URL;
       };
 
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
+        document.getElementById('book-save-error').hidden = true;
 
         const qualOk = qualifierAnswered();
         if (!form.checkValidity() || !qualOk) {
@@ -656,28 +658,6 @@
           calendlyBtn.hidden = true;
           modalNurture.hidden = false;
         }
-        modalOverlay.classList.add('open');
-
-        // Ad-platform conversion. Lead is reserved for people who actually reach
-        // the calendar, so the ad platform optimises towards booked calls rather
-        // than form fills. The nurture branch still reports volume, separately.
-        // Topic and answers only: never the name, email or phone.
-        if (qualified) {
-          const leadParams = { form_type: 'discovery_call', content_category: 'call_request', topic: bookTopic };
-          if (window.tncTrack) window.tncTrack('Lead', leadParams);
-          else if (window.fbq) fbq('track', 'Lead', leadParams);
-        } else {
-          const nurtureParams = {
-            form_type: 'discovery_call',
-            content_category: 'call_request_nurture',
-            topic: bookTopic,
-            readiness: readiness,
-            investment: investment
-          };
-          if (window.tncTrack) window.tncTrack('SubmitApplication', nurtureParams);
-          else if (window.fbq) fbq('track', 'SubmitApplication', nurtureParams);
-        }
-
         // The qualifier answers ride along in `message`, prefixed, rather than in
         // new columns: rania_submissions has none for them, and the dashboard
         // renders `message` as-is, so Rania sees the answers next to the enquiry
@@ -713,33 +693,39 @@
           status: 'Pending'
         };
 
-        const startedAt = Date.now();
-        let redirected = false;
         const goToCalendly = () => {
-          // Nurture never reaches the calendar: that is the whole point of the
-          // gate, so this stays a no-op for them and the modal is the ending.
-          if (!qualified || redirected) return;
-          redirected = true;
-          // Hand-off to Calendly is the Schedule step of the funnel.
+          if (!qualified) return;
           if (window.tncTrack) window.tncTrack('Schedule', { content_category: 'call_request', topic: bookTopic });
           window.location.href = calendlyUrl;
         };
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 12000);
+        try {
+          if (!supabaseClient) throw new Error('Submission service unavailable');
+          const { error } = await supabaseClient.from('rania_submissions')
+            .insert([payload]).abortSignal(controller.signal);
+          if (error) throw error;
+        } catch (error) {
+          console.error('Call request save failed:', error);
+          document.getElementById('book-save-error').hidden = false;
+          resetSubmitState();
+          return;
+        } finally {
+          clearTimeout(timeout);
+        }
 
-        const insertPromise = supabaseClient
-          ? supabaseClient.from('rania_submissions').insert([payload])
-          : Promise.resolve({});
-
-        // Redirect once saved, but hold the modal at least 2.2s so it is readable.
-        // The modal's own button and the 6s backstop cover a slow or failed save 
-        // a booking should never be lost because the database was unreachable.
-        Promise.resolve(insertPromise)
-          .catch((err) => ({ error: err }))
-          .then(({ error } = {}) => {
-            if (error) console.error('Call request save failed:', error);
-            setTimeout(goToCalendly, Math.max(0, 2200 - (Date.now() - startedAt)));
-          });
-
-        setTimeout(goToCalendly, 6000);
+        modalOverlay.classList.add('open');
+        if (qualified) {
+          const leadParams = { form_type: 'discovery_call', content_category: 'call_request', topic: bookTopic };
+          if (window.tncTrack) window.tncTrack('Lead', leadParams);
+          else if (window.fbq) fbq('track', 'Lead', leadParams);
+          setTimeout(goToCalendly, 2200);
+        } else {
+          const nurtureParams = { form_type: 'discovery_call', content_category: 'call_request_nurture', topic: bookTopic, readiness, investment };
+          if (window.tncTrack) window.tncTrack('SubmitApplication', nurtureParams);
+          else if (window.fbq) fbq('track', 'SubmitApplication', nurtureParams);
+          resetSubmitState();
+        }
       });
     })();
   </script>

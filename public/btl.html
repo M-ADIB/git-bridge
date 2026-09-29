@@ -102,7 +102,7 @@
     <!-- Parent brand link -->
     <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border-glass);">
       <a href="/" style="display:flex;align-items:center;gap:0.6rem;color:var(--text-muted);font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;">
-        <img src="/__l5e/assets-v1/cdf34ebd-b5c4-424a-a6a2-67d703618b7e/tnc_logo.png" alt="" style="height:20px;filter:invert(1) brightness(1.05);">
+        <img src="/assets/tnc_logo.png" alt="" style="height:20px;filter:invert(1) brightness(1.05);">
         <span>← The Next Chapter</span>
       </a>
     </div>
@@ -318,7 +318,7 @@
           <div class="about-photo-card" id="about-rania-card">
             <picture>
               <source type="image/webp" srcset="/assets/rania_bio-480.webp 480w, /assets/rania_bio-960.webp 960w, /assets/rania_bio-1440.webp 1440w" sizes="(max-width: 768px) 90vw, 460px">
-              <img src="/assets/rania_bio.png" alt="Rania Barghout" class="about-photo-img" id="about-rania-img" width="1920" height="1070" loading="lazy" decoding="async">
+              <img src="/assets/rania_bio-960.webp" srcset="/assets/rania_bio-480.webp 480w, /assets/rania_bio-960.webp 960w, /assets/rania_bio-1440.webp 1440w" sizes="(max-width: 700px) 100vw, 50vw" alt="Rania Barghout" class="about-photo-img" id="about-rania-img" width="1920" height="1070" loading="lazy" decoding="async">
             </picture>
           </div>
         </div>
@@ -502,15 +502,15 @@
       <div class="footer-bottom">
         <span data-i18n="copyright" id="footer-copyright-text">© 2026 The Next Chapter LLC. All rights reserved.</span>
         <div style="display: flex; gap: 1.5rem;">
-          <a href="#" style="color: var(--text-muted); text-decoration: none; transition: var(--transition-fast);" data-i18n="links_privacy" id="privacy-link">Privacy Policy</a>
-          <a href="#" style="color: var(--text-muted); text-decoration: none; transition: var(--transition-fast);" data-i18n="links_terms" id="terms-link">Terms of Service</a>
+          <a href="mailto:hello@thenextchapter.vip?subject=Privacy%20Policy%20Request" style="color: var(--text-muted); text-decoration: none; transition: var(--transition-fast);" data-i18n="links_privacy" id="privacy-link">Request Privacy Policy</a>
+          <a href="mailto:hello@thenextchapter.vip?subject=Terms%20of%20Service%20Request" style="color: var(--text-muted); text-decoration: none; transition: var(--transition-fast);" data-i18n="links_terms" id="terms-link">Request Terms of Service</a>
         </div>
       </div>
     </div>
   </footer>
 
   <!-- Sticky Bottom Audio Player -->
-  <div id="sonaar-player" class="sticky-player-bar">
+  <div id="sonaar-player" class="sticky-player-bar" style="display: none;">
     <div class="player-container">
       <div class="player-left">
         <div class="player-track-info">
@@ -532,7 +532,7 @@
             <svg class="pause-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
           </span>
         </button>
-        <span class="player-time" id="player-time-display">00:00 / 01:30</span>
+        <span class="player-time" id="player-time-display">00:00 / 00:00</span>
         <div class="player-progress-container" id="player-progress-container">
           <div class="player-progress-bar" id="player-progress-bar"></div>
         </div>

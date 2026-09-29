@@ -716,6 +716,9 @@
       text-decoration: none;
       font-weight: 600;
       transition: var(--transition-fast);
+      border: 0;
+      background: none;
+      cursor: pointer;
     }
     
     .card-link:hover {
@@ -2560,7 +2563,7 @@
           <div class="panel-card">
             <div class="card-title-bar">
               <h3>Recent Show Activity</h3>
-              <a href="#" class="card-link" onclick="event.preventDefault();">View all activity</a>
+              <button type="button" class="card-link" id="view-submissions-btn">View submissions</button>
             </div>
             
             <div class="activity-list" id="dashboard-recent-activity-list">

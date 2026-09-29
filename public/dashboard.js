@@ -69,10 +69,33 @@ const tickerEmptyPlaceholder = document.getElementById('ticker-empty-placeholder
 // Extractor for YouTube ID
 function getYouTubeId(url) {
   if (!url) return '';
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : '';
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.toLowerCase();
+    let id = '';
+    if (host === 'youtu.be' || host === 'www.youtu.be') id = parsed.pathname.slice(1);
+    else if (host === 'youtube.com' || host === 'www.youtube.com' || host === 'm.youtube.com') {
+      id = parsed.pathname.startsWith('/embed/') ? parsed.pathname.split('/')[2] : parsed.searchParams.get('v');
+    }
+    return /^[A-Za-z0-9_-]{11}$/.test(id || '') ? id : '';
+  } catch (_) {
+    return '';
+  }
 }
+
+const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+})[char]);
+const safeRecord = record => Object.fromEntries(Object.entries(record).map(([key, value]) =>
+  [key, typeof value === 'string' ? escapeHtml(value) : value]));
+const safeExternalUrl = value => {
+  try {
+    const url = new URL(/^https?:\/\//i.test(value) ? value : `https://${value}`);
+    return ['http:', 'https:'].includes(url.protocol) && url.hostname ? url.href : '';
+  } catch (_) {
+    return '';
+  }
+};
 
 // Beautiful Notification Toast
 function showToast(message, type = 'success') {
@@ -86,7 +109,7 @@ function showToast(message, type = 'success') {
     
   toast.innerHTML = `
     ${icon}
-    <span class="toast-message">${message}</span>
+    <span class="toast-message">${escapeHtml(message)}</span>
   `;
   
   container.appendChild(toast);
@@ -372,8 +395,9 @@ async function loadTickerList() {
       return;
     }
     
-    data.forEach(episode => {
-      const videoId = getYouTubeId(episode.youtube_url);
+    data.forEach(rawEpisode => {
+      const episode = safeRecord(rawEpisode);
+      const videoId = getYouTubeId(rawEpisode.youtube_url);
       const row = document.createElement('div');
       row.className = 'db-episode-row';
       row.id = `db-row-${episode.id}`;
@@ -656,8 +680,8 @@ async function loadRecentShowActivity() {
           ${iconSvg}
         </div>
         <div class="activity-details">
-          <span class="activity-title">${act.title}</span>
-          <span class="activity-desc">${act.desc}</span>
+          <span class="activity-title">${escapeHtml(act.title)}</span>
+          <span class="activity-desc">${escapeHtml(act.desc)}</span>
         </div>
         <span class="activity-time">${formatTimeAgo(act.time)}</span>
       `;
@@ -773,7 +797,8 @@ function renderSubmissions() {
   
   if (emptyPlaceholder) emptyPlaceholder.style.display = 'none';
   
-  filtered.forEach(sub => {
+  filtered.forEach(rawSub => {
+    const sub = safeRecord(rawSub);
     const tr = document.createElement('tr');
     tr.id = `sub-row-${sub.id}`;
     
@@ -868,6 +893,8 @@ function renderSubmissions() {
 
 function openSubmissionDetail(submission) {
   selectedSubmission = submission;
+  const sponsorSiteUrl = safeExternalUrl(submission.media_links || '');
+  submission = safeRecord(submission);
   const overlay = document.getElementById('submission-modal-overlay');
   const detailsContent = document.getElementById('modal-details-content');
   if (!overlay || !detailsContent) return;
@@ -1017,7 +1044,7 @@ function openSubmissionDetail(submission) {
         ${submission.media_links ? `
         <div class="detail-field">
           <span class="detail-label">Company Website</span>
-          <span class="detail-value"><a href="${submission.media_links.startsWith('http') ? submission.media_links : 'https://' + submission.media_links}" target="_blank" style="color: var(--accent-teal); text-decoration: underline; word-break: break-all;">${submission.media_links}</a></span>
+          <span class="detail-value">${sponsorSiteUrl ? `<a href="${escapeHtml(sponsorSiteUrl)}" target="_blank" rel="noopener noreferrer" style="color: var(--accent-teal); text-decoration: underline; word-break: break-all;">${submission.media_links}</a>` : submission.media_links}</span>
         </div>` : ''}
       </div>
       
@@ -1445,6 +1472,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         activeBreadcrumbTab.textContent = friendlyName;
       }
     });
+  });
+  document.getElementById('view-submissions-btn')?.addEventListener('click', () => {
+    document.querySelector('.nav-option-btn[data-tab="members"]')?.click();
   });
   
   // --- Notifications Interactivity ---

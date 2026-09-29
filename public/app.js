@@ -255,8 +255,8 @@ const translations = {
     payment_link_val: "Pending Editorial Approval",
     
     copyright: "© 2026 The Next Chapter LLC. All rights reserved.",
-    links_privacy: "Privacy Policy",
-    links_terms: "Terms of Service",
+    links_privacy: "Request Privacy Policy",
+    links_terms: "Request Terms of Service",
     
     modal_title: "Application Submitted Successfully!",
     modal_desc: "Thank you for your interest in appearing on one of our podcasts. Our editorial team will review your application details. If selected, we will contact you directly via phone or email to schedule your pre-interview call.",
@@ -581,8 +581,8 @@ const translations = {
     payment_link_val: "بانتظار المراجعة والقبول التحريري للطلب",
     
     copyright: "© ٢٠٢٦ جميع الحقوق محفوظة لشركة The Next Chapter LLC.",
-    links_privacy: "سياسة الخصوصية",
-    links_terms: "شروط الاستخدام",
+    links_privacy: "اطلب سياسة الخصوصية",
+    links_terms: "اطلب شروط الاستخدام",
     
     modal_title: "تم إرسال طلبك بنجاح!",
     modal_desc: "شكراً لاهتمامك بالظهور في أحد برامجنا الحوارية وصناعة محتوى ملهم لجمهورنا. يراجع الفريق التحريري حالياً طلبك بعناية، وسيتواصل معك أحد أعضاء فريق الإعداد لتنسيق خطوة ما قبل المقابلة الحوارية في حال القبول والاعتماد.",
@@ -664,15 +664,22 @@ let currentLang = 'en';
 const SUPABASE_URL = 'https://uaqdwpsammcqrlyzstlj.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhcWR3cHNhbW1jcXJseXpzdGxqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0OTM5NjYsImV4cCI6MjA5NjA2OTk2Nn0.eVqT47zk1J8LRtK_y0kveMW6eCOn5zZZSiQklWouC68';
 const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const saveSubmission = (payload) => {
+  if (!supabaseClient) return Promise.reject(new Error('Submission service unavailable'));
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 12000);
+  return Promise.resolve(supabaseClient.from('rania_submissions')
+    .insert([payload]).abortSignal(controller.signal))
+    .finally(() => clearTimeout(timeout));
+};
 
 // --- Global Audio/Video State ---
 let realAudioInstance = null;
 let latestEpisodeData = null;
 let isPlaying = false;
 let isMuted = false;
-let duration = 90; // mock duration in seconds (1:30)
+let duration = 0;
 let currentTime = 0;
-let playbackInterval = null;
 
 // Format seconds into MM:SS
 const formatTime = (secs) => {
@@ -686,9 +693,16 @@ const updateTimeAndProgress = () => {
   const progressBar = document.querySelector('#player-progress-bar');
   if (timeDisplay && progressBar) {
     timeDisplay.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
-    const percentage = (currentTime / duration) * 100;
+    const percentage = duration > 0 ? (currentTime / duration) * 100 : 0;
     progressBar.style.width = `${percentage}%`;
   }
+};
+
+const setAudioPlayerAvailable = (available) => {
+  const player = document.getElementById('sonaar-player');
+  const expandBtn = document.getElementById('player-expand-btn');
+  if (player) player.style.display = available ? '' : 'none';
+  if (!available && expandBtn) expandBtn.style.display = 'none';
 };
 
 const updateSpotlightPlayState = (playing) => {
@@ -705,6 +719,7 @@ const updateSpotlightPlayState = (playing) => {
 };
 
 const playPodcast = () => {
+  if (!realAudioInstance) return;
   isPlaying = true;
   const playBtn = document.querySelector('#player-play-btn');
   const sonaarPlayer = document.querySelector('#sonaar-player');
@@ -712,19 +727,10 @@ const playPodcast = () => {
   if (sonaarPlayer) sonaarPlayer.classList.add('playing');
   updateSpotlightPlayState(true);
   
-  if (realAudioInstance) {
-    realAudioInstance.play();
-  } else {
-    if (playbackInterval) clearInterval(playbackInterval);
-    playbackInterval = setInterval(() => {
-      currentTime += 1;
-      if (currentTime >= duration) {
-        pausePodcast();
-        currentTime = 0;
-      }
-      updateTimeAndProgress();
-    }, 1000);
-  }
+  realAudioInstance.play().catch((error) => {
+    console.error('Audio playback failed:', error);
+    pausePodcast();
+  });
 };
 
 const pausePodcast = () => {
@@ -735,11 +741,7 @@ const pausePodcast = () => {
   if (sonaarPlayer) sonaarPlayer.classList.remove('playing');
   updateSpotlightPlayState(false);
   
-  if (realAudioInstance) {
-    realAudioInstance.pause();
-  } else {
-    clearInterval(playbackInterval);
-  }
+  if (realAudioInstance) realAudioInstance.pause();
 };
 
 // --- Initialize App Controls ---
@@ -1072,8 +1074,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const handleSuccess = () => {
-          // Ad-platform conversion. Fires on every success path (saved, network
-          // error, no client) so a Lead is counted exactly once per submission.
+          // Count a conversion only after the application is saved.
           // No PII: only the form type and the chosen topics.
           if (window.tncTrack) {
             const guestParams = { form_type: 'guest_application', content_category: 'guest', topics: topicsList.join(', ') };
@@ -1103,28 +1104,18 @@ document.addEventListener('DOMContentLoaded', () => {
           agreementCheckLabel.style.cursor = 'not-allowed';
         };
 
-        if (supabaseClient) {
-          supabaseClient
-            .from('rania_submissions')
-            .insert([payload])
-            .then(({ error }) => {
-              if (error) {
-                console.error('Supabase insert error:', error);
-                alert('An error occurred while saving your application. Please try again.');
-                submitSpinner.style.display = 'none';
-                submitBtn.disabled = false;
-                submitText.textContent = translations[currentLang].btn_submit;
-              } else {
-                handleSuccess();
-              }
-            })
-            .catch(err => {
-              console.error('Supabase network error:', err);
-              handleSuccess();
-            });
-        } else {
-          setTimeout(handleSuccess, 1000);
-        }
+        const handleFailure = (error) => {
+          console.error('Guest application save failed:', error);
+          alert(currentLang === 'ar'
+            ? 'تعذّر إرسال الطلب. يرجى المحاولة مرة أخرى.'
+            : 'Your application was not saved. Please try again.');
+          submitSpinner.style.display = 'none';
+          submitBtn.disabled = false;
+          submitText.textContent = translations[currentLang].btn_submit;
+        };
+        saveSubmission(payload)
+          .then(({ error }) => error ? handleFailure(error) : handleSuccess())
+          .catch(handleFailure);
       } else {
         applyForm.reportValidity();
       }
@@ -1455,28 +1446,18 @@ document.addEventListener('DOMContentLoaded', () => {
           sponsorCountrySelect.value = 'ae';
         };
 
-        if (supabaseClient) {
-          supabaseClient
-            .from('rania_submissions')
-            .insert([payload])
-            .then(({ error }) => {
-              if (error) {
-                console.error('Supabase sponsor insert error:', error);
-                alert('An error occurred while saving your inquiry. Please try again.');
-                sponsorSubmitSpinner.style.display = 'none';
-                sponsorSubmitBtn.disabled = false;
-                sponsorSubmitText.textContent = translations[currentLang].btn_submit_sponsor || "Submit Sponsor Inquiry";
-              } else {
-                handleSponsorSuccess();
-              }
-            })
-            .catch(err => {
-              console.error('Supabase network error:', err);
-              handleSponsorSuccess();
-            });
-        } else {
-          setTimeout(handleSponsorSuccess, 1000);
-        }
+        const handleSponsorFailure = (error) => {
+          console.error('Sponsor inquiry save failed:', error);
+          alert(currentLang === 'ar'
+            ? 'تعذّر إرسال طلب الرعاية. يرجى المحاولة مرة أخرى.'
+            : 'Your inquiry was not saved. Please try again.');
+          sponsorSubmitSpinner.style.display = 'none';
+          sponsorSubmitBtn.disabled = false;
+          sponsorSubmitText.textContent = translations[currentLang].btn_submit_sponsor || "Submit Sponsor Inquiry";
+        };
+        saveSubmission(payload)
+          .then(({ error }) => error ? handleSponsorFailure(error) : handleSponsorSuccess())
+          .catch(handleSponsorFailure);
       } else {
         sponsorFormEl.reportValidity();
       }
@@ -1509,15 +1490,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle clicking on progress bar to seek
   if (progressContainer) {
     progressContainer.addEventListener('click', (e) => {
+      if (!realAudioInstance || !duration) return;
       const rect = progressContainer.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
       const width = rect.width;
       const clickPercentage = clickX / width;
       currentTime = Math.floor(clickPercentage * duration);
       
-      if (realAudioInstance) {
-        realAudioInstance.currentTime = currentTime;
-      }
+      realAudioInstance.currentTime = currentTime;
       updateTimeAndProgress();
     });
   }
@@ -1746,9 +1726,13 @@ function setLanguage(lang) {
   const aboutImg = document.getElementById('about-rania-img');
   if (aboutImg) {
     if (lang === 'ar') {
-      aboutImg.src = 'assets/rania_no2ta_promo.png';
+      aboutImg.src = '/assets/rania_no2ta_promo.webp';
+      aboutImg.srcset = '/assets/rania_no2ta_promo-600.webp 600w, /assets/rania_no2ta_promo.webp 1024w';
+      aboutImg.sizes = '(max-width: 700px) 100vw, 50vw';
     } else {
-      aboutImg.src = 'assets/rania_btl_promo.jpg';
+      aboutImg.src = '/assets/rania_btl_promo.jpg';
+      aboutImg.removeAttribute('srcset');
+      aboutImg.removeAttribute('sizes');
     }
   }
   
@@ -1828,9 +1812,18 @@ function initScrollReveal() {
 // Helper to extract YouTube video ID from URL
 function getYouTubeId(url) {
   if (!url) return '';
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : '';
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.toLowerCase();
+    let id = '';
+    if (host === 'youtu.be' || host === 'www.youtu.be') id = parsed.pathname.slice(1);
+    else if (host === 'youtube.com' || host === 'www.youtube.com' || host === 'm.youtube.com') {
+      id = parsed.pathname.startsWith('/embed/') ? parsed.pathname.split('/')[2] : parsed.searchParams.get('v');
+    }
+    return /^[A-Za-z0-9_-]{11}$/.test(id || '') ? id : '';
+  } catch (_) {
+    return '';
+  }
 }
 
 // Dynamic Fetch Latest Episode
@@ -1871,6 +1864,9 @@ function renderLatestEpisode(data) {
   const trackTitle = currentLang === 'ar' ? (data.title_ar || data.title_en) : (data.title_en || data.title_ar);
   const trackDesc = currentLang === 'ar' ? (data.description_ar || data.description_en) : (data.description_en || data.description_ar);
 
+  const audioAvailable = data.type === 'audio' && /^https?:\/\//i.test(data.audio_url || '');
+  setAudioPlayerAvailable(audioAvailable);
+
   // Set titles and description if spotlight elements exist
   if (epName) epName.textContent = trackTitle || 'Latest Episode';
   if (epDesc) epDesc.textContent = trackDesc || '';
@@ -1908,10 +1904,10 @@ function renderLatestEpisode(data) {
         `;
       }
       epMeta.style.display = 'none';
-    } else if (data.type === 'audio') {
+    } else if (data.type === 'audio' && audioAvailable) {
       // Show Audio player card in visualContainer
       visualContainer.innerHTML = `
-        <div class="latest-ep-card-loading" style="background:url('assets/rania_hero.png') no-repeat center center; background-size:cover; border-radius:20px;">
+        <div class="latest-ep-card-loading" style="background:url('/assets/rania_hero.png') no-repeat center center; background-size:cover; border-radius:20px;">
           <div class="latest-ep-overlay" style="background:rgba(4,6,15,0.75); width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
             <div class="latest-ep-audio-player-card" style="max-width:85%; background:rgba(13,20,43,0.85); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(10px); padding: 1.5rem; border-radius:16px;">
               <div class="latest-ep-audio-row" style="display:flex; align-items:center; gap:1.25rem;">
@@ -1920,7 +1916,7 @@ function renderLatestEpisode(data) {
                   <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:24px; height:24px; display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
                 </button>
                 <div class="latest-ep-audio-info" style="display:flex; flex-direction:column; gap:0.25rem; text-align:left;">
-                  <span class="latest-ep-audio-track" style="font-weight:700; color:#fff; font-size:0.95rem; display:block;">${trackTitle}</span>
+                  <span class="latest-ep-audio-track" style="font-weight:700; color:#fff; font-size:0.95rem; display:block;"></span>
                   <span class="latest-ep-audio-artist" style="color:var(--text-muted); font-size:0.8rem;">Hosted by Rania Barghout</span>
                 </div>
               </div>
@@ -1931,6 +1927,8 @@ function renderLatestEpisode(data) {
 
       // Wire Spotlight play button click to control bottom player
       const spotlightAudioPlayBtn = document.getElementById('spotlight-audio-play-btn');
+      const audioTrackTitle = visualContainer.querySelector('.latest-ep-audio-track');
+      if (audioTrackTitle) audioTrackTitle.textContent = trackTitle || 'Latest Episode';
       if (spotlightAudioPlayBtn) {
         // Sync initial state
         spotlightAudioPlayBtn.classList.toggle('playing', window.isPlaying || false);
@@ -1950,7 +1948,7 @@ function renderLatestEpisode(data) {
   }
 
   // Prepare HTML5 Audio Instance (Always run for audio type, decoupled from spotlight elements)
-  if (data.type === 'audio' && data.audio_url) {
+  if (audioAvailable) {
     if (!realAudioInstance || realAudioInstance.src !== data.audio_url) {
       realAudioInstance = new Audio(data.audio_url);
       realAudioInstance.preload = "metadata";
@@ -1962,8 +1960,14 @@ function renderLatestEpisode(data) {
       });
       
       realAudioInstance.addEventListener('loadedmetadata', () => {
-        duration = realAudioInstance.duration || 90;
+        duration = Number.isFinite(realAudioInstance.duration) ? realAudioInstance.duration : 0;
         updateTimeAndProgress();
+      });
+
+      realAudioInstance.addEventListener('error', () => {
+        console.error('Audio episode failed to load.');
+        pausePodcast();
+        setAudioPlayerAvailable(false);
       });
       
       realAudioInstance.addEventListener('ended', () => {
@@ -1982,15 +1986,7 @@ function renderLatestEpisode(data) {
 }
 
 function renderLatestEpisodeFallback() {
-  const data = {
-    type: 'youtube',
-    youtube_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-    title_en: 'Welcome to Between The Lines',
-    title_ar: 'مرحباً بكم في نقطة ع السطر',
-    description_en: 'This is the official guest registration and podcast showcase portal for Between The Lines and No2ta 3al Sater, hosted by Rania Barghout.',
-    description_ar: 'هذه هي البوابة الرسمية لتسجيل الضيوف وعرض حلقات بودكاست نقطة ع السطر وبين السطور، تقديم الإعلامية رانيا برغوت.'
-  };
-  renderLatestEpisode(data);
+  setAudioPlayerAvailable(false);
 }
 
 // Dynamic Fetch Ticker Episodes
@@ -2027,9 +2023,10 @@ async function loadTickerEpisodes() {
         card.id = `ep-card-${episode.id}`;
         card.href = episode.youtube_url;
         card.target = '_blank';
+        card.rel = 'noopener noreferrer';
         card.innerHTML = `
           <div class="episode-image-container">
-            <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="${episode.title_en || 'Episode'}" class="episode-img" loading="lazy" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${videoId}/mqdefault.jpg';">
+            <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="" class="episode-img" loading="lazy" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${videoId}/mqdefault.jpg';">
             <div class="episode-overlay">
               <span class="play-indicator-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.4)" stroke="currentColor" stroke-width="2"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#ffffff"></polygon></svg>
@@ -2037,6 +2034,7 @@ async function loadTickerEpisodes() {
             </div>
           </div>
         `;
+        card.querySelector('img').alt = episode.title_en || 'Episode';
         marqueeGrid.appendChild(card);
       }
     });
