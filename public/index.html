@@ -38,6 +38,8 @@
 
   <!-- Meta Pixel: single source of truth in /pixel.js -->
   <script src="/pixel.js" defer></script>
+  <script src="/assets/hls.min.js" defer></script>
+  <script src="/assets/podcast-player.js" defer></script>
 
   <style>
     :root {
@@ -357,9 +359,9 @@
           <p class="section-lead">Watch Rania talk about developing a podcast. Video in Arabic.</p>
         </div>
         <video class="vsl-player" controls preload="none" playsinline poster="/assets/podcast-development-poster.jpg" aria-label="Rania Barghout on podcast development, in Arabic">
-          <source src="/assets/podcast-development.mp4" type="video/mp4">
-          Your browser does not support video playback. <a href="/assets/podcast-development.mp4">Download the video</a>.
+          Your browser does not support video playback.
         </video>
+        <p class="vsl-error" hidden>Video could not load. Please try again later.</p>
         <div class="vsl-action"><a href="/book-call" class="btn-primary">Book a call</a></div>
       </div>
     </section>
