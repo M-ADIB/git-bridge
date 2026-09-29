@@ -42,10 +42,15 @@ const translations = {
     brand_logo_text: "Between The Lines",
     testimonials_title: "TESTIMONIALS",
     hero_badge: "Podcast Guest Application Portal",
-    hero_title: "Where Stories Become Conversations",
-    hero_title_2: "They deserve a conversation",
-    hero_desc: "If you believe your story, expertise, or experience can add value to our audience, we would love to hear from you. Complete the guest application form below, and our editorial team will review your submission.",
-    hero_cta: "Apply to Be a Guest",
+    hero_eyebrow: "A guest invitation from Rania Barghout",
+    hero_title: "Tell us what the headline missed.",
+    hero_title_2: "Ready to join the conversation?",
+    hero_desc: "Rania's interviews go beyond the introduction. If you have a perspective or experience worth discussing, tell us what you would bring to the conversation.",
+    hero_cta: "Pitch your story",
+    hero_image_caption: "Between The Lines by Rania Barghout",
+    footer_explore: "Explore",
+    footer_parent: "The Next Chapter",
+    footer_desc: "Long-form conversations in Arabic and English, hosted by Rania Barghout.",
     
     stat_media_num: "10M+",
     stat_media_label: "Video Views",
@@ -55,11 +60,11 @@ const translations = {
     stat_seats_label: "Audience Reach",
     
     shows_subtitle: "The Podcasts",
-    shows_title: "Where Stories Become Conversations That Matter",
-    shows_desc: "Our podcasts are carefully curated to ensure that every conversation delivers value, insight, inspiration, and meaningful discussion for our audience across the Middle East and beyond.",
+    shows_title: "Two shows. Two languages.",
+    shows_desc: "No2ta 3al Sater is in Arabic. Between The Lines is in English. Explore the shows and see where your story fits.",
     
     show_nos_title: "No2ta 3al Sater (نقطة ع السطر)",
-    show_nos_desc: "Hosted by veteran television presenter Rania Barghout, No2ta 3al Sater is one of the region's fastest-growing Arabic visual podcasts. More than an interview, each episode is an opportunity to uncover the experiences, lessons, challenges, and insights that shape who we become.",
+    show_nos_desc: "Rania's Arabic visual podcast explores personal change, leadership, health and relationships through long-form interviews.",
     show_nos_topics_lbl: "Key Topics Explored:",
     show_nos_topic_1: "Personal Transformation & Reinvention After 40",
     show_nos_topic_2: "Women's Empowerment & Leadership",
@@ -67,7 +72,7 @@ const translations = {
     show_nos_topic_4: "Relationships, Media & Social Impact",
     
     show_btl_title: "Between The Lines",
-    show_btl_desc: "Our English-language leadership visual podcast. Exploring leadership as a raw human experience, Rania sits down with prominent corporate founders, executives, and emerging female changemakers to co-author a 'Leadership Manifesto'.",
+    show_btl_desc: "An English-language interview series on leadership, culture and the choices that shape a career.",
     show_btl_topics_lbl: "Key Topics Explored:",
     show_btl_topic_1: "Leadership & Entrepreneurship",
     show_btl_topic_2: "Personal Branding & Public Speaking",
@@ -121,12 +126,12 @@ const translations = {
     
     about_subtitle: "About The Host",
     about_title: "Rania Barghout",
-    about_bio_1: "Rania Barghout is a renowned media personality, television presenter, producer, executive communication coach, and founder of The Next Chapter LLC. With over three decades of experience in television, media production, public speaking, interviewing, and executive coaching, she has interviewed hundreds of public figures, celebrities, experts, and leaders throughout her career.",
-    about_bio_2: "Her interviewing style combines warmth, curiosity, depth, and authenticity, creating a space where guests feel comfortable sharing both their achievements and the stories that shape who they are behind the public success.",
+    about_bio_1: "Rania Barghout has spent more than three decades presenting, producing and interviewing people on television. She now brings that experience to The Next Chapter and its Arabic and English interview shows.",
+    about_bio_2: "She asks about the decisions behind the public story: what changed, what was difficult and what the guest learned along the way.",
     about_btn: "Connect With Rania",
     eps_subtitle: "Episodes Gallery",
     eps_title: "Latest Podcast Episodes",
-    eps_desc: "Browse through some of our most impactful and powerful conversations on No2ta 3al Sater.",
+    eps_desc: "Watch recent conversations from No2ta 3al Sater.",
     
     form_badge: "Application Form",
     form_title: "Guest Application Form",
@@ -368,10 +373,15 @@ const translations = {
     brand_logo_text: "نقطة ع السطر",
     testimonials_title: "آراء وشهادات",
     hero_badge: "بوابة تقديم طلبات الاستضافة في البودكاست",
-    hero_title: "حيث تتحول القصص إلى حوارات",
-    hero_title_2: "إنهم يستحقون حواراً",
-    hero_desc: "إذا كنتِ ترين أن قصتك أو خبرتك أو تجربتك يمكن أن تضيف قيمة لجمهورنا، يسعدنا تواصلك معنا. يرجى تعبئة استمارة الطلب أدناه وسيقوم فريقنا بمراجعة طلبك.",
-    hero_cta: "قدّمي طلب استضافة",
+    hero_eyebrow: "دعوة من رانيا برغوت للمشاركة في الحوار",
+    hero_title: "احكي لنا ما لم يقله العنوان.",
+    hero_title_2: "هل أنتِ مستعدة للحوار؟",
+    hero_desc: "تذهب حوارات رانيا إلى ما وراء التعريفات المعتادة. إذا كانت لديكِ تجربة أو وجهة نظر تستحق النقاش، أخبرينا بما تودين طرحه في الحلقة.",
+    hero_cta: "قدّمي قصتك",
+    hero_image_caption: "نقطة ع السطر مع رانيا برغوت",
+    footer_explore: "تصفحي",
+    footer_parent: "The Next Chapter",
+    footer_desc: "حوارات مطوّلة بالعربية والإنجليزية تقدّمها رانيا برغوت.",
     
     stat_media_num: "١٠ ملايين+",
     stat_media_label: "مشاهدات الفيديو",
@@ -381,11 +391,11 @@ const translations = {
     stat_seats_label: "وصول الجمهور",
     
     shows_subtitle: "البودكاست",
-    shows_title: "حيث تتحول القصص إلى حوارات تترك أثراً",
-    shows_desc: "نحرص على استضافة شخصيات تمتلك قصصاً وتجارب وأفكاراً تضيف قيمة حقيقية للمشاهد وتخلق نقاشاً هادفاً في منطقة الشرق الأوسط وخارجها.",
+    shows_title: "برنامجان بلغتين",
+    shows_desc: "«نقطة ع السطر» بالعربية و«Between The Lines» بالإنجليزية. تعرّفي إلى البرنامجين واختاري أين تناسب قصتك.",
     
     show_nos_title: "نقطة ع السطر (No2ta 3al Sater)",
-    show_nos_desc: "تقدّم الإعلامية رانيا برغوت بودكاست \"نقطة ع السطر\"، أحد أسرع البودكاستات العربية المرئية نمواً في المنطقة. ليست الحلقة مجرد مقابلة، بل مساحة حقيقية للحديث عن التجارب والدروس التي شكّلت الإنسان خلف النجاح.",
+    show_nos_desc: "في «نقطة ع السطر»، تحاور رانيا ضيوفها بالعربية حول التحولات الشخصية والقيادة والصحة والعلاقات.",
     show_nos_topics_lbl: "المواضيع الأساسية التي يناقشها:",
     show_nos_topic_1: "التحولات الشخصية وإعادة اكتشاف الذات بعد الأربعين",
     show_nos_topic_2: "تمكين المرأة والقيادة وريادة الأعمال",
@@ -393,7 +403,7 @@ const translations = {
     show_nos_topic_4: "العلاقات الأسرية والإعلام والأثر المجتمعي والانساني",
     
     show_btl_title: "Between The Lines",
-    show_btl_desc: "بودكاست مرئي باللغة الإنجليزية يركز على القيادة كـ \"تجربة إنسانية\". تستضيف رانيا رواد أعمال، مدراء تنفيذيين، وصناع تغيير، وتتوج كل حلقة بصياغة مشتركة لـ \"وثيقة مبادئ القيادة\".",
+    show_btl_desc: "سلسلة حوارات بالإنجليزية عن القيادة والثقافة والقرارات التي ترسم المسار المهني.",
     show_btl_topics_lbl: "المواضيع الأساسية التي يناقشها:",
     show_btl_topic_1: "القيادة وريادة الأعمال وتأسيس الشركات",
     show_btl_topic_2: "بناء العلامة الشخصية ومهارات التحدث أمام الجمهور",
@@ -447,12 +457,12 @@ const translations = {
     
     about_subtitle: "نبذة عن مقدمة البرامج",
     about_title: "رانيا برغوت",
-    about_bio_1: "رانيا برغوت إعلامية قديرة ومقدمة برامج ومنتجة ومدربة متخصصة في مهارات التواصل، ومؤسسة شركة The Next Chapter LLC. تمتد خبرتها لأكثر من ثلاثين عاماً في مجال الإعلام والتلفزيون والإنتاج، أجرت خلالها مئات المقابلات مع شخصيات عامة وقادة وفنانين، وعُرفت بصفتها مقدمة البرنامج الشهير 'كلام نواعم' على شاشة MBC.",
-    about_bio_2: "تعتمد رانيا أسلوباً حوارياً يجمع بين الدفء الإنساني والفضول المهني والعمق، ما يمنح الضيف مساحة آمنة ومريحة للتعبير عن نفسه ومشاركة تفاصيل رحلته والقصص الملهمة التي تقف وراء نجاحه.",
+    about_bio_1: "أمضت رانيا برغوت أكثر من ثلاثين عاماً في تقديم البرامج التلفزيونية وإنتاجها وإجراء المقابلات. واليوم تنقل هذه الخبرة إلى The Next Chapter وبرامجها الحوارية بالعربية والإنجليزية.",
+    about_bio_2: "تسأل رانيا عمّا وراء القصة المعروفة: القرارات الصعبة، والتحولات، وما تعلّمه الضيف في الطريق.",
     about_btn: "تواصل مع رانيا",
     eps_subtitle: "معرض الحلقات",
     eps_title: "آخر حلقات البودكاست",
-    eps_desc: "تصفحي بعضاً من أكثر حواراتنا تأثيراً وقوة في بودكاست نقطة ع السطر.",
+    eps_desc: "شاهدي حوارات حديثة من نقطة ع السطر.",
     
     form_badge: "استمارة التقديم",
     form_title: "استمارة طلب المشاركة في البودكاست",
@@ -1734,6 +1744,14 @@ function setLanguage(lang) {
       aboutImg.removeAttribute('srcset');
       aboutImg.removeAttribute('sizes');
     }
+  }
+
+  const heroShowImg = document.getElementById('hero-show-image');
+  if (heroShowImg) {
+    heroShowImg.src = lang === 'ar' ? '/assets/rania_no2ta_promo.webp' : '/assets/rania_btl_promo.jpg';
+    heroShowImg.alt = lang === 'ar'
+      ? 'رانيا برغوت مع صورة برنامج نقطة ع السطر'
+      : 'Rania Barghout with the Between The Lines show artwork';
   }
   
   // Title is translated dynamically via data-i18n query loop

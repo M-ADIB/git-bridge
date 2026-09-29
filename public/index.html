@@ -146,31 +146,25 @@
     :root[data-theme="dark"]  .icon-sun  { display: none; }
 
     /* Hero */
-    .hero { padding: 6.5rem 0 6rem; text-align: center; position: relative; overflow: hidden; }
-    .hero::before {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 62% 52% at center 26%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 70%),
-        radial-gradient(ellipse 40% 30% at 18% 80%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 70%),
-        radial-gradient(ellipse 40% 30% at 84% 70%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 70%);
-    }
-    .hero-kicker { font-size: .72rem; letter-spacing: .34em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 1.6rem; opacity: 0; animation: fadeUp .8s var(--ease-out-expo) .1s forwards; }
-    .hero-wordmark { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: var(--step-hero); line-height: .98; letter-spacing: .005em; text-transform: uppercase; margin: 0 auto; color: var(--fg); }
-    .hw-line { display: block; overflow: hidden; padding: 0 .04em; }
-    .hw-inner { display: block; transform: translateY(112%); animation: hwRise 1.05s var(--ease-out-expo) forwards; }
-    .hw-line:nth-child(1) .hw-inner { animation-delay: .18s; }
-    .hw-line:nth-child(2) .hw-inner { animation-delay: .32s; color: var(--accent); }
-    .hero-rule { width: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--rule) 20%, var(--accent) 50%, var(--rule) 80%, transparent); margin: 1.8rem auto 0; animation: ruleDraw 1.1s var(--ease-out-expo) .9s forwards; }
-    .hero-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: clamp(1.4rem, 2.6vw, 2rem); color: var(--fg); margin: 1.6rem auto 0; max-width: 34ch; text-wrap: balance; opacity: 0; animation: fadeUp .9s var(--ease-out-expo) 1s forwards; }
-    .hero-sub { font-size: clamp(1rem, 1.5vw, 1.12rem); color: var(--fg-muted); max-width: 580px; margin: 1.2rem auto 2.6rem; text-wrap: balance; opacity: 0; animation: fadeUp .9s var(--ease-out-expo) 1.15s forwards; }
-    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp .9s var(--ease-out-expo) 1.3s forwards; }
+    .hero { background: #211a14; color: #f8f2e8; padding: clamp(3rem, 4.5vw, 4.5rem) 0; }
+    .hero-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+    .hero-kicker { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: #e3b96d; font-weight: 600; margin-bottom: 2.2rem; }
+    .hero-title { font-size: clamp(3.8rem, 5.7vw, 6rem); font-weight: 500; line-height: .98; letter-spacing: -.04em; text-wrap: balance; }
+    .hero-rule { width: 4.5rem; height: 2px; background: #d2a75e; margin: 1.8rem 0; }
+    .hero-sub { font-size: clamp(1rem, 1.35vw, 1.15rem); line-height: 1.8; color: #d0c4b5; max-width: 48ch; margin-bottom: 2.25rem; }
+    .hero-actions { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; }
+    .hero .btn-primary { background: #d0a45b; color: #211a14 !important; box-shadow: none; }
+    .hero .btn-ghost { color: #f8f2e8; border-color: rgba(248,242,232,.38); }
+    .hero .btn-ghost:hover { border-color: #d0a45b; }
+    .hero-visual { min-width: 0; }
+    .hero-photo { aspect-ratio: 1 / 1; overflow: hidden; background: #403025; }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 54% center; }
+    .hero-caption { display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid rgba(248,242,232,.32); margin-top: 1rem; padding-top: .85rem; color: #cbbca9; font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; }
     .vsl-section { padding: 0 0 6rem; }
     .vsl-intro { text-align: center; margin: 0 auto 2rem; }
     .vsl-intro .section-lead { margin: 0 auto; }
     .vsl-player { display: block; width: 100%; max-width: 960px; aspect-ratio: 16 / 9; margin: 0 auto; background: #211b14; border-radius: 6px; box-shadow: var(--shadow); }
     .vsl-action { text-align: center; margin-top: 2rem; }
-    @keyframes hwRise { to { transform: translateY(0); } }
-    @keyframes ruleDraw { to { width: min(420px, 70%); } }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 
     .btn-primary {
@@ -244,32 +238,36 @@
     .contact-email:hover::after { transform: scaleX(1); }
 
     /* Footer */
-    footer { padding: 4.5rem 0 2rem; color: var(--fg-muted); font-size: 0.9rem; }
-    .footer-grid { display: grid; gap: 2.8rem; grid-template-columns: 1fr; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+    footer { padding: 4.5rem 0 2rem; background: #211a14; color: #cbbca9; font-size: 0.9rem; }
+    .footer-grid { display: grid; gap: 2.8rem; grid-template-columns: 1fr; padding-bottom: 3rem; border-bottom: 1px solid rgba(248,242,232,.18); }
     @media (min-width: 760px) { .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2rem; } }
-    .footer-mark { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--fg); display: inline-block; margin-bottom: .7rem; }
+    .footer-mark { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; color: #f8f2e8; display: inline-block; margin-bottom: .7rem; }
     .footer-blurb { max-width: 32ch; font-size: .9rem; line-height: 1.7; }
-    .footer-col h4 { font-family: 'Inter', sans-serif; font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--fg); font-weight: 600; margin-bottom: 1.1rem; }
+    .footer-col h4 { font-family: 'Inter', sans-serif; font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: #f8f2e8; font-weight: 600; margin-bottom: 1.1rem; }
     .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .65rem; }
-    .footer-col a { color: var(--fg-muted); transition: color .2s; }
-    .footer-col a:hover { color: var(--accent); }
-    .footer-social-row { display: flex; align-items: center; gap: .6rem; margin-top: .2rem; }
-    .footer-social-row .show-name { flex: 1; }
-    .social-icon { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid var(--border); border-radius: 50%; color: var(--fg-muted); transition: color .2s, border-color .2s, transform .2s; flex: none; }
-    .social-icon:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
-    .social-icon svg { width: 14px; height: 14px; }
+    .footer-col a { color: #cbbca9; transition: color .2s; }
+    .footer-col a:hover { color: #e3b96d; }
+    .footer-show { display: flex; flex-direction: column; gap: .1rem; }
+    .footer-show small { font-size: .72rem; color: #968979; }
+    .footer-show small a { color: #968979; }
     .footer-bottom { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; padding-top: 1.6rem; font-size: .82rem; }
     .footer-bottom .made-in { letter-spacing: .04em; }
 
+    @media (max-width: 900px) {
+      .hero-layout { grid-template-columns: 1fr; }
+      .hero-photo { aspect-ratio: 1.35 / 1; }
+    }
+
     @media (max-width: 600px) {
-      .hero { padding: 4.5rem 0 4rem; }
+      .hero { padding: 3.5rem 0 4rem; }
+      .hero-layout { gap: 2.5rem; }
+      .hero-title { font-size: clamp(3.3rem, 11vw, 5.5rem); }
       .vsl-section { padding-bottom: 4.5rem; }
-      .hero-kicker { font-size: .64rem; letter-spacing: .2em; }
-      :root { --step-hero: clamp(3.3rem, 13vw, 8.2rem); }
+      .hero-kicker { font-size: .64rem; margin-bottom: 1.35rem; }
       section.block { padding: 4.5rem 0; }
       .contact-band { padding: 5rem 0; }
-      .hero-actions, .contact-actions { flex-direction: column; align-items: center; }
-      .hero-actions a, .contact-actions a { width: min(320px, 100%); }
+      .hero-actions, .contact-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions a, .contact-actions a { width: 100%; }
       .about-grid { gap: 2.5rem; }
       .pull-quote { font-size: 1.3rem; }
       .svc-body h3 { font-size: 1.45rem; }
@@ -280,8 +278,7 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
-      .hw-inner { transform: none; } .hero-rule { width: min(420px,70%); }
-      .hero-kicker, .hero-tagline, .hero-sub, .hero-actions { opacity: 1; }
+      .hero-rule { width: 4.5rem; }
     }
   </style>
 </head>
@@ -335,19 +332,23 @@
   <main id="main">
     <!-- HERO -->
     <section class="hero">
-      <div class="container">
-        <p class="hero-kicker">Podcasts <span aria-hidden="true">·</span> Production <span aria-hidden="true">·</span> Coaching</p>
-        <h1 class="hero-wordmark" aria-label="The Next Chapter">
-          <span class="hw-line"><span class="hw-inner">The Next</span></span>
-          <span class="hw-line"><span class="hw-inner">Chapter</span></span>
-        </h1>
-        <div class="hero-rule" aria-hidden="true"></div>
-        <p class="hero-tagline">Stories told with clarity, confidence, and impact.</p>
-        <p class="hero-sub">Founded by renowned broadcaster and executive communication coach Rania Barghout, with three decades on air and hundreds of interviews behind her.</p>
-        <div class="hero-actions">
-          <a href="/book-call" class="btn-primary">Book a call</a>
-          <a href="#podcast-development" class="btn-ghost">Watch the video</a>
+      <div class="container hero-layout">
+        <div class="hero-copy">
+          <p class="hero-kicker">Rania Barghout <span aria-hidden="true">/</span> The Next Chapter</p>
+          <h1 class="hero-title">From the first question to the final cut.</h1>
+          <div class="hero-rule" aria-hidden="true"></div>
+          <p class="hero-sub">Rania creates Arabic and English shows, produces content, and prepares people for interviews, cameras and stages.</p>
+          <div class="hero-actions">
+            <a href="/book-call" class="btn-primary">Work with Rania</a>
+            <a href="#podcast-development" class="btn-ghost">Watch Rania's video</a>
+          </div>
         </div>
+        <figure class="hero-visual">
+          <div class="hero-photo">
+            <img src="/assets/rania_bio-960.webp" srcset="/assets/rania_bio-480.webp 480w, /assets/rania_bio-960.webp 960w, /assets/rania_bio-1440.webp 1440w" sizes="(max-width: 900px) 92vw, 42vw" alt="Rania Barghout seated on a podcast set" width="1920" height="1070" fetchpriority="high" decoding="async">
+          </div>
+          <figcaption class="hero-caption"><span>Rania Barghout</span><span>Host · Producer · Coach</span></figcaption>
+        </figure>
       </div>
     </section>
 
@@ -355,14 +356,14 @@
       <div class="container">
         <div class="vsl-intro">
           <span class="section-eyebrow">Podcast development</span>
-          <h2 class="section-title" id="vsl-title">Hear it from Rania</h2>
-          <p class="section-lead">Watch Rania talk about developing a podcast. Video in Arabic.</p>
+          <h2 class="section-title" id="vsl-title">Rania on podcast development</h2>
+          <p class="section-lead">Hear her speak about building a podcast. The video is in Arabic.</p>
         </div>
         <video class="vsl-player" controls preload="none" playsinline poster="/assets/podcast-development-poster.jpg" aria-label="Rania Barghout on podcast development, in Arabic">
           Your browser does not support video playback.
         </video>
         <p class="vsl-error" hidden>Video could not load. Please try again later.</p>
-        <div class="vsl-action"><a href="/book-call" class="btn-primary">Book a call</a></div>
+        <div class="vsl-action"><a href="/book-call" class="btn-primary">Discuss your podcast</a></div>
       </div>
     </section>
 
@@ -377,10 +378,10 @@
         </div>
         <div class="about-text">
           <span class="section-eyebrow">About</span>
-          <h2 class="section-title">A new chapter in Arab media</h2>
-          <p>Rania Barghout is a renowned media personality, television presenter, producer, and executive communication coach. <strong>The Next Chapter</strong> is her own media company: podcasts, production, media training, and public speaking development under one roof.</p>
-          <p class="pull-quote">Its first release, <em>No2ta A Al Satr</em>, marks her return to the spotlight.</p>
-          <p>With more than three decades in television and hundreds of interviews with public figures, experts, and leaders, Rania now helps individuals and brands share their stories with clarity, confidence, and impact.</p>
+          <h2 class="section-title">Meet Rania Barghout</h2>
+          <p>Rania has spent more than three decades on television interviewing public figures, experts and leaders. She brings that experience to <strong>The Next Chapter</strong>, her media company for original shows, production, media training and public speaking.</p>
+          <p class="pull-quote">Three decades on air. Hundreds of interviews.</p>
+          <p>Her first release under the company is <em>No2ta A Al Satr</em>, an Arabic podcast that brings her back to the microphone.</p>
         </div>
       </div>
     </section>
@@ -389,24 +390,24 @@
     <section class="block" id="services" style="background: var(--bg-elev); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
       <div class="container reveal">
         <span class="section-eyebrow">Services</span>
-        <h2 class="section-title">What we do</h2>
-        <p class="section-lead">Production and coaching under one roof, for people and brands with something to say.</p>
+        <h2 class="section-title">Shows, production and the people behind them</h2>
+        <p class="section-lead">Original podcasts, studio production, and coaching before the camera or the stage.</p>
         <ol class="services-index">
           <li class="svc-row">
             <span class="svc-num">01</span>
-            <div class="svc-body"><h3>Podcasts</h3><p>Original Arabic and English shows, produced end-to-end.</p></div>
+            <div class="svc-body"><h3>Podcasts</h3><p>Original Arabic and English shows, from concept through production.</p></div>
           </li>
           <li class="svc-row">
             <span class="svc-num">02</span>
-            <div class="svc-body"><h3>Production</h3><p>Studio and field production for brands, broadcasters, and creators.</p></div>
+            <div class="svc-body"><h3>Production</h3><p>Studio and field shoots for brands, broadcasters and creators.</p></div>
           </li>
           <li class="svc-row">
             <span class="svc-num">03</span>
-            <div class="svc-body"><h3>Media Training</h3><p>On-camera coaching, interview readiness, and on-air presence.</p></div>
+            <div class="svc-body"><h3>Media Training</h3><p>Interview preparation and coaching for the camera.</p></div>
           </li>
           <li class="svc-row">
             <span class="svc-num">04</span>
-            <div class="svc-body"><h3>Public Speaking</h3><p>Keynote development, stagecraft, and message architecture.</p></div>
+            <div class="svc-body"><h3>Public Speaking</h3><p>Talk development and preparation for a live audience.</p></div>
           </li>
         </ol>
       </div>
@@ -429,7 +430,7 @@
             <div class="pc-body">
               <div class="pc-lang">Arabic</div>
               <h3>No2ta A Al Satr</h3>
-              <p class="pc-desc">A bold Arabic podcast marking Rania's return to the spotlight, and The Next Chapter's first release.</p>
+              <p class="pc-desc">Rania's first show under The Next Chapter. Conversations in Arabic.</p>
               <span class="podcast-link">Visit the show <span class="pl-arrow" aria-hidden="true">→</span></span>
             </div>
           </a>
@@ -440,7 +441,7 @@
             <div class="pc-body">
               <div class="pc-lang">English</div>
               <h3>Between the Lines</h3>
-              <p class="pc-desc">Long-form conversations with global voices on leadership, culture, and the moments that matter.</p>
+              <p class="pc-desc">Long-form interviews in English with guests across leadership and culture.</p>
               <span class="podcast-link">Visit the show <span class="pl-arrow" aria-hidden="true">→</span></span>
             </div>
           </a>
@@ -452,10 +453,10 @@
     <section class="contact-band" id="contact">
       <div class="container reveal">
         <span class="section-eyebrow">Work with us</span>
-        <h2>Let's build your next chapter.</h2>
-        <p>Whether you want to become a speaker, launch a show, or sharpen your presence on camera, it starts with a conversation.</p>
+        <h2>Planning a show, shoot or speaking engagement?</h2>
+        <p>Tell us what you are working on. We can talk about production, media training or your next speaking engagement.</p>
         <div class="contact-actions">
-          <a href="/book-call" class="btn-primary">Book a call with Rania</a>
+          <a href="/book-call" class="btn-primary">Discuss a project</a>
           <a href="/apply" class="btn-ghost">Apply as a podcast guest</a>
         </div>
         <a href="mailto:hello@thenextchapter.vip" class="contact-email">hello@thenextchapter.vip</a>
@@ -468,7 +469,7 @@
       <div class="footer-grid">
         <div class="footer-col">
           <a href="/" class="footer-mark">The Next Chapter</a>
-          <p class="footer-blurb">A media company by Rania Barghout. Podcasts, production, media training, and public speaking development.</p>
+          <p class="footer-blurb">Original shows, production and media coaching led by Rania Barghout.</p>
         </div>
         <div class="footer-col">
           <h4>Explore</h4>
@@ -482,15 +483,13 @@
         <div class="footer-col">
           <h4>The shows</h4>
           <ul>
-            <li class="footer-social-row">
-              <a class="show-name" href="/no2ta">No2ta A Al Satr</a>
-              <a class="social-icon" href="https://www.youtube.com/@No2ta3alsater" target="_blank" rel="noopener" aria-label="No2ta A Al Satr on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-              <a class="social-icon" href="https://www.instagram.com/notaassater" target="_blank" rel="noopener" aria-label="No2ta A Al Satr on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+            <li class="footer-show">
+              <a href="/no2ta">No2ta A Al Satr</a>
+              <small><a href="https://www.youtube.com/@No2ta3alsater" target="_blank" rel="noopener noreferrer">YouTube</a> <span aria-hidden="true">·</span> <a href="https://www.instagram.com/notaassater" target="_blank" rel="noopener noreferrer">Instagram</a></small>
             </li>
-            <li class="footer-social-row">
-              <a class="show-name" href="/btl?lang=en">Between the Lines</a>
-              <a class="social-icon" href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank" rel="noopener" aria-label="Between the Lines on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-              <a class="social-icon" href="https://instagram.com/betweenthelinesbyrania" target="_blank" rel="noopener" aria-label="Between the Lines on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+            <li class="footer-show">
+              <a href="/btl?lang=en">Between the Lines</a>
+              <small><a href="https://www.youtube.com/@betweenthelinesbyrania" target="_blank" rel="noopener noreferrer">YouTube</a> <span aria-hidden="true">·</span> <a href="https://instagram.com/betweenthelinesbyrania" target="_blank" rel="noopener noreferrer">Instagram</a></small>
             </li>
           </ul>
         </div>
