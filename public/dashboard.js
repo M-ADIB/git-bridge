@@ -343,12 +343,16 @@ async function saveSpotlightConfig() {
     };
     
     // Write update query
-    const { error: updateError } = await supabaseClient
+    const { data: updatedRows, error: updateError } = await supabaseClient
       .from('rania_latest_episode')
       .update(payload)
-      .eq('id', 1);
+      .eq('id', 1)
+      .select('id');
       
     if (updateError) throw updateError;
+    if (!updatedRows?.length) {
+      throw new Error('Nothing was saved. Your session may have expired. Please sign in again.');
+    }
     
     showToast('Spotlight episode updated successfully!');
     
@@ -501,12 +505,16 @@ async function deleteTickerEpisode(id) {
   if (!supabaseClient) return;
   
   try {
-    const { error } = await supabaseClient
+    const { data: deletedRows, error } = await supabaseClient
       .from('rania_episodes')
       .delete()
-      .eq('id', id);
+      .eq('id', id)
+      .select('id');
       
     if (error) throw error;
+    if (!deletedRows?.length) {
+      throw new Error('Nothing was deleted. Your session may have expired. Please sign in again.');
+    }
     
     showToast('Episode removed from ticker.');
     await loadTickerList();
@@ -514,7 +522,7 @@ async function deleteTickerEpisode(id) {
     await loadRecentShowActivity();
   } catch (err) {
     console.error('Error deleting ticker episode:', err);
-    showToast('Failed to delete ticker episode.', 'error');
+    showToast(err.message || 'Failed to delete ticker episode.', 'error');
   }
 }
 
@@ -1300,6 +1308,10 @@ async function initAuth() {
       window.location.reload();
     });
   }
+
+  supabaseClient.auth.onAuthStateChange((event) => {
+    if (event === 'SIGNED_OUT') window.location.reload();
+  });
 
   if (session) {
     unlockPanel(session);
