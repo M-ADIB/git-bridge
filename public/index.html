@@ -40,6 +40,7 @@
   <script src="/pixel.js" defer></script>
   <script src="/assets/hls.min.js" defer></script>
   <script src="/assets/podcast-player.js" defer></script>
+  <script src="/assets/company-ticker.js" defer></script>
 
   <style>
     :root {
@@ -160,6 +161,33 @@
     .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 58% center; }
     .hero-caption { display: flex; justify-content: space-between; gap: 1rem; padding-top: .8rem; color: var(--fg-muted); font-size: .7rem; }
     .hero-footnote { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: .8rem; color: var(--fg-muted); }
+    .career-strip { margin-top: 3.5rem; padding: 1.8rem 0 2rem; border-block: 1px solid var(--border); }
+    .career-heading { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+    .career-heading h2 { font-family: 'Inter', sans-serif; font-size: .72rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
+    .career-heading p { font-size: .75rem; color: var(--fg-muted); margin-top: .35rem; }
+    .ticker-toggle { background: transparent; border: 1px solid var(--border); border-radius: 3px; padding: .45rem .75rem; color: var(--fg-muted); font: inherit; font-size: .7rem; cursor: pointer; white-space: nowrap; }
+    .career-window { overflow: hidden; background: #faf8f3; }
+    .career-track { display: flex; width: max-content; }
+    .career-track.is-animated { animation: career-scroll 36s linear infinite; }
+    .career-group { display: flex; align-items: center; justify-content: space-around; list-style: none; width: max(100vw, 950px); flex-shrink: 0; padding: .5rem 0; }
+    .career-group li { width: 150px; height: 110px; display: flex; align-items: center; justify-content: center; }
+    .career-group img { width: auto; height: auto; max-width: 140px; max-height: 66px; object-fit: contain; }
+    .career-group img.logo-mbc { width: 100px; filter: invert(1); }
+    .career-group img.logo-loreal { filter: invert(1); }
+    .career-group img.logo-abu-dhabi { max-height: 130px; }
+    .career-group img.logo-makeda { max-height: 110px; }
+    .career-strip:hover .career-track, .career-strip:focus-within .career-track, .career-track.is-paused { animation-play-state: paused; }
+    .career-group[aria-hidden="true"] { display: none; }
+    .career-track.is-animated .career-group[aria-hidden="true"] { display: flex; }
+    .career-track:not(.is-animated) { width: 100%; }
+    .career-track:not(.is-animated) .career-group { width: 100%; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+    @keyframes career-scroll { to { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) {
+      .career-track.is-animated { animation: none; width: 100%; }
+      .career-group { width: 100%; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+      .career-track.is-animated .career-group[aria-hidden="true"] { display: none; }
+      .ticker-toggle { display: none; }
+    }
     .vsl-section { padding: 6rem 0; }
     .vsl-intro { text-align: center; margin: 0 auto 2rem; }
     .vsl-intro .section-lead { margin: 0 auto; }
@@ -354,6 +382,35 @@
           </div>
           <figcaption class="hero-caption"><span>Rania Barghout, on set</span><span>The Next Chapter</span></figcaption>
         </figure>
+      </div>
+    </section>
+
+    <section class="career-strip" aria-labelledby="career-title">
+      <div class="container career-heading">
+        <div>
+          <h2 id="career-title">Across her career</h2>
+          <p>Broadcasting, brand campaigns &amp; creative partnerships.</p>
+        </div>
+        <button class="ticker-toggle" type="button" aria-controls="career-track" aria-pressed="false" hidden>Pause logos</button>
+      </div>
+      <div class="career-window">
+        <div class="career-track" id="career-track">
+          <!-- Historical work and collaborations verified in company-logos/sources.json. -->
+          <ul class="career-group" aria-label="Companies Rania has worked with">
+            <li><img class="logo-mbc" src="/assets/company-logos/mbc.svg" alt="MBC Group" width="100" height="66"></li>
+            <li><img class="logo-abu-dhabi" src="/assets/company-logos/abu-dhabi-tv.png" alt="Abu Dhabi TV" width="130" height="130"></li>
+            <li><img src="/assets/company-logos/qatar-tv.png" alt="Qatar TV" width="66" height="66"></li>
+            <li><img class="logo-loreal" src="/assets/company-logos/loreal-paris.svg" alt="L’Oréal Paris" width="140" height="38"></li>
+            <li><img class="logo-makeda" src="/assets/company-logos/makeda-solutions.png" alt="Makeda Solutions" width="110" height="110"></li>
+          </ul>
+          <ul class="career-group" aria-hidden="true">
+            <li><img class="logo-mbc" src="/assets/company-logos/mbc.svg" alt="" width="100" height="66"></li>
+            <li><img class="logo-abu-dhabi" src="/assets/company-logos/abu-dhabi-tv.png" alt="" width="130" height="130"></li>
+            <li><img src="/assets/company-logos/qatar-tv.png" alt="" width="66" height="66"></li>
+            <li><img class="logo-loreal" src="/assets/company-logos/loreal-paris.svg" alt="" width="140" height="38"></li>
+            <li><img class="logo-makeda" src="/assets/company-logos/makeda-solutions.png" alt="" width="110" height="110"></li>
+          </ul>
+        </div>
       </div>
     </section>
 

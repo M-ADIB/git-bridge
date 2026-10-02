@@ -1,0 +1,36 @@
+{
+  "description": "Historical career affiliations, brand campaign and podcast partnership. These are not claims of current client relationships.",
+  "companies": [
+    {
+      "name": "MBC Group",
+      "relationship": "Broadcasting and Kalam Nawaem presenter",
+      "evidence": "https://gulfnews.com/entertainment/rania-barghout-bold-and-beautiful-1.850715",
+      "logo": "https://www.mbc.net/_next/static/media/Logo.9759c558.svg"
+    },
+    {
+      "name": "Abu Dhabi TV",
+      "relationship": "Broadcast television work",
+      "evidence": "https://gulfnews.com/entertainment/rania-barghout-bold-and-beautiful-1.850715",
+      "logo": "https://cdn-m.admedia.ae/store/archive/image/2023/9/19/18b6cb7e-aa3e-47bf-ab5c-db66eabc1857.png"
+    },
+    {
+      "name": "Qatar TV",
+      "relationship": "Broadcast television work",
+      "evidence": "https://gulfnews.com/entertainment/rania-barghout-bold-and-beautiful-1.850715",
+      "logo": "https://www.qtv.qa/Assets2022/images/logo.png"
+    },
+    {
+      "name": "L’Oréal Paris",
+      "relationship": "Regional spokesperson and Revitalift advertising campaign",
+      "evidence": "https://gulfnews.com/entertainment/rania-barghout-bold-and-beautiful-1.850715",
+      "logo": "https://www.lorealparisusa.com/",
+      "logoNote": "Official inline SVG symbol loreal-paris-logo"
+    },
+    {
+      "name": "Makeda Solutions",
+      "relationship": "Between the Lines podcast partnership announced January 2026",
+      "evidence": "https://www.broadcastprome.com/news/makeda-solutions-partners-with-rania-barghout-on-new-podcast/",
+      "logo": "https://298416f86336c32a5d061af7f6e817b4.cdn.bubble.io/cdn-cgi/image/w=,h=,f=auto,dpr=1,fit=contain/f1769508964021x795555329499425900/logo%20makeda%20s.png"
+    }
+  ]
+}
