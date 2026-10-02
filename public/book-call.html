@@ -478,6 +478,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/booking.js"></script>
   <script>
     document.getElementById('yr').textContent = new Date().getFullYear();
 
@@ -519,7 +520,7 @@
       const SUPABASE_URL = 'https://uaqdwpsammcqrlyzstlj.supabase.co';
       const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhcWR3cHNhbW1jcXJseXpzdGxqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0OTM5NjYsImV4cCI6MjA5NjA2OTk2Nn0.eVqT47zk1J8LRtK_y0kveMW6eCOn5zZZSiQklWouC68';
       const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
-      const CALENDLY_URL = 'https://calendly.com/rania-thenextchapter/30min';
+      const CALENDLY_URL = '/schedule.html';
 
       const form = document.getElementById('book-form');
       const submitBtn = document.getElementById('book-submit-btn');
@@ -595,17 +596,6 @@
         });
       };
 
-      // Prefill name/email on the Calendly form so the visitor is not asked twice.
-      const buildCalendlyUrl = () => {
-        const params = new URLSearchParams();
-        const name = document.getElementById('book-fullname').value.trim();
-        const email = document.getElementById('book-email').value.trim();
-        if (name) params.set('name', name);
-        if (email) params.set('email', email);
-        const query = params.toString();
-        return query ? `${CALENDLY_URL}?${query}` : CALENDLY_URL;
-      };
-
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         document.getElementById('book-save-error').hidden = true;
@@ -639,7 +629,7 @@
         const qualified = !qualApplies() ||
           (NURTURE_ANSWERS.indexOf(investment) === -1 && NURTURE_ANSWERS.indexOf(readiness) === -1);
 
-        const calendlyUrl = buildCalendlyUrl();
+        const calendlyUrl = CALENDLY_URL;
         calendlyBtn.href = calendlyUrl;
 
         // Two different endings. Only the qualified one offers a slot.
@@ -692,7 +682,10 @@
         const goToCalendly = () => {
           if (!qualified) return;
           if (window.tncTrack) window.tncTrack('Schedule', { content_category: 'call_request', topic: bookTopic });
-          window.location.href = calendlyUrl;
+          window.tncBooking.continueToCalendar({
+            name: payload.name,
+            email: payload.email
+          });
         };
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 12000);
@@ -710,13 +703,13 @@
           clearTimeout(timeout);
         }
 
-        modalOverlay.classList.add('open');
         if (qualified) {
           const leadParams = { form_type: 'discovery_call', content_category: 'call_request', topic: bookTopic };
           if (window.tncTrack) window.tncTrack('Lead', leadParams);
           else if (window.fbq) fbq('track', 'Lead', leadParams);
-          setTimeout(goToCalendly, 2200);
+          goToCalendly();
         } else {
+          modalOverlay.classList.add('open');
           const nurtureParams = { form_type: 'discovery_call', content_category: 'call_request_nurture', topic: bookTopic, readiness, investment };
           if (window.tncTrack) window.tncTrack('SubmitApplication', nurtureParams);
           else if (window.fbq) fbq('track', 'SubmitApplication', nurtureParams);

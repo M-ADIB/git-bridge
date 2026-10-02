@@ -146,21 +146,21 @@
     :root[data-theme="dark"]  .icon-sun  { display: none; }
 
     /* Hero */
-    .hero { background: #211a14; color: #f8f2e8; padding: clamp(3rem, 4.5vw, 4.5rem) 0; }
-    .hero-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; }
-    .hero-kicker { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: #e3b96d; font-weight: 600; margin-bottom: 2.2rem; }
-    .hero-title { font-size: clamp(3.8rem, 5.7vw, 6rem); font-weight: 500; line-height: .98; letter-spacing: -.04em; text-wrap: balance; }
-    .hero-rule { width: 4.5rem; height: 2px; background: #d2a75e; margin: 1.8rem 0; }
-    .hero-sub { font-size: clamp(1rem, 1.35vw, 1.15rem); line-height: 1.8; color: #d0c4b5; max-width: 48ch; margin-bottom: 2.25rem; }
+    .hero { background: var(--bg); color: var(--fg); padding: clamp(2rem, 4vw, 4rem) 0 0; }
+    .hero-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+    .hero-kicker { font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; color: var(--fg-muted); font-weight: 600; margin-bottom: 2rem; }
+    .hero-title { font-size: clamp(3.8rem, 6.4vw, 6rem); font-weight: 500; line-height: 1; letter-spacing: -.035em; }
+    .hero-title em { display: block; color: var(--accent); font-weight: 400; }
+    .hero-sub { font-size: 1.05rem; line-height: 1.8; color: var(--fg-muted); max-width: 42ch; margin: 1.7rem 0 2rem; }
     .hero-actions { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; }
-    .hero .btn-primary { background: #d0a45b; color: #211a14 !important; box-shadow: none; }
-    .hero .btn-ghost { color: #f8f2e8; border-color: rgba(248,242,232,.38); }
-    .hero .btn-ghost:hover { border-color: #d0a45b; }
+    .hero .btn-primary { background: var(--fg); color: var(--bg) !important; box-shadow: none; }
+    .hero .btn-ghost { border: none; padding-inline: .5rem; text-decoration: underline; text-underline-offset: .3rem; }
     .hero-visual { min-width: 0; }
-    .hero-photo { aspect-ratio: 1 / 1; overflow: hidden; background: #403025; }
-    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 54% center; }
-    .hero-caption { display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid rgba(248,242,232,.32); margin-top: 1rem; padding-top: .85rem; color: #cbbca9; font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; }
-    .vsl-section { padding: 0 0 6rem; }
+    .hero-photo { aspect-ratio: 1 / 1.1; overflow: hidden; background: #403025; border-radius: 3px; }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 58% center; }
+    .hero-caption { display: flex; justify-content: space-between; gap: 1rem; padding-top: .8rem; color: var(--fg-muted); font-size: .7rem; }
+    .hero-footnote { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: .8rem; color: var(--fg-muted); }
+    .vsl-section { padding: 6rem 0; }
     .vsl-intro { text-align: center; margin: 0 auto 2rem; }
     .vsl-intro .section-lead { margin: 0 auto; }
     .vsl-player { display: block; width: 100%; max-width: 960px; aspect-ratio: 16 / 9; margin: 0 auto; background: #211b14; border-radius: 6px; box-shadow: var(--shadow); }
@@ -188,7 +188,8 @@
 
     /* About */
     .about-grid { display: grid; gap: 3.5rem; align-items: center; }
-    @media (min-width: 920px) { .about-grid { grid-template-columns: 0.85fr 1.15fr; } }
+    @media (min-width: 920px) { .about-grid { grid-template-columns: 0.8fr 1.2fr; } }
+    .about-intro .section-title { max-width: 12ch; }
     .about-figure { position: relative; }
     .about-portrait { width: 100%; height: auto; aspect-ratio: 5/4; object-fit: cover; object-position: 40% 30%; border-radius: 4px; box-shadow: var(--shadow); position: relative; z-index: 1; }
     .about-figure::before { content: ''; position: absolute; top: -14px; left: -14px; width: 64px; height: 64px; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); z-index: 2; }
@@ -255,14 +256,18 @@
 
     @media (max-width: 900px) {
       .hero-layout { grid-template-columns: 1fr; }
-      .hero-photo { aspect-ratio: 1.35 / 1; }
+      .hero-photo { aspect-ratio: 1.4 / 1; }
     }
 
     @media (max-width: 600px) {
-      .hero { padding: 3.5rem 0 4rem; }
+      .hero { padding: 2.5rem 0 0; }
       .hero-layout { gap: 2.5rem; }
+      .hero-sub { margin: 1.25rem 0 1.5rem; }
+      .hero-footnote { margin-top: 1rem; }
+      .hero-actions { gap: .3rem; }
+      .hero .btn-ghost { padding-block: .7rem; }
       .hero-title { font-size: clamp(3.3rem, 11vw, 5.5rem); }
-      .vsl-section { padding-bottom: 4.5rem; }
+      .vsl-section { padding: 4.5rem 0; }
       .hero-kicker { font-size: .64rem; margin-bottom: 1.35rem; }
       section.block { padding: 4.5rem 0; }
       .contact-band { padding: 5rem 0; }
@@ -334,20 +339,20 @@
     <section class="hero">
       <div class="container hero-layout">
         <div class="hero-copy">
-          <p class="hero-kicker">Rania Barghout <span aria-hidden="true">/</span> The Next Chapter</p>
-          <h1 class="hero-title">From the first question to the final cut.</h1>
-          <div class="hero-rule" aria-hidden="true"></div>
-          <p class="hero-sub">Rania creates Arabic and English shows, produces content, and prepares people for interviews, cameras and stages.</p>
+          <p class="hero-kicker">The Next Chapter by Rania Barghout</p>
+          <h1 class="hero-title">Podcasts, made<br><em>with Rania.</em></h1>
+          <p class="hero-sub">Have an idea for a show? Work with Rania Barghout to shape the conversations, get behind the microphone, and bring it to the screen.</p>
           <div class="hero-actions">
-            <a href="/book-call" class="btn-primary">Work with Rania</a>
-            <a href="#podcast-development" class="btn-ghost">Watch Rania's video</a>
+            <a href="/book-call" class="btn-primary">Let's talk about your podcast</a>
+            <a href="#podcast-development" class="btn-ghost">Hear from Rania <span aria-hidden="true">↗</span></a>
           </div>
+          <p class="hero-footnote">Arabic &amp; English podcasts · Production · Media coaching</p>
         </div>
         <figure class="hero-visual">
           <div class="hero-photo">
             <img src="/assets/rania_bio-960.webp" srcset="/assets/rania_bio-480.webp 480w, /assets/rania_bio-960.webp 960w, /assets/rania_bio-1440.webp 1440w" sizes="(max-width: 900px) 92vw, 42vw" alt="Rania Barghout seated on a podcast set" width="1920" height="1070" fetchpriority="high" decoding="async">
           </div>
-          <figcaption class="hero-caption"><span>Rania Barghout</span><span>Host · Producer · Coach</span></figcaption>
+          <figcaption class="hero-caption"><span>Rania Barghout, on set</span><span>The Next Chapter</span></figcaption>
         </figure>
       </div>
     </section>
@@ -370,15 +375,11 @@
     <!-- ABOUT -->
     <section class="block" id="about">
       <div class="container about-grid reveal">
-        <div class="about-figure">
-          <picture>
-            <source type="image/webp" srcset="/assets/rania_bio-480.webp 480w, /assets/rania_bio-960.webp 960w, /assets/rania_bio-1440.webp 1440w" sizes="(max-width: 919px) 92vw, 480px">
-            <img class="about-portrait" src="/assets/rania_bio-960.webp" srcset="/assets/rania_bio-480.webp 480w, /assets/rania_bio-960.webp 960w, /assets/rania_bio-1440.webp 1440w" sizes="(max-width: 700px) 100vw, 50vw" alt="Rania Barghout" width="1920" height="1070" loading="lazy" decoding="async">
-          </picture>
+        <div class="about-intro">
+          <span class="section-eyebrow">Meet your host</span>
+          <h2 class="section-title">Rania Barghout</h2>
         </div>
         <div class="about-text">
-          <span class="section-eyebrow">About</span>
-          <h2 class="section-title">Meet Rania Barghout</h2>
           <p>Rania has spent more than three decades on television interviewing public figures, experts and leaders. She brings that experience to <strong>The Next Chapter</strong>, her media company for original shows, production, media training and public speaking.</p>
           <p class="pull-quote">Three decades on air. Hundreds of interviews.</p>
           <p>Her first release under the company is <em>No2ta A Al Satr</em>, an Arabic podcast that brings her back to the microphone.</p>

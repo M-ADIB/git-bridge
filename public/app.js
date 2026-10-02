@@ -1096,12 +1096,7 @@ document.addEventListener('DOMContentLoaded', () => {
           submitBtn.disabled = false;
           submitText.textContent = translations[currentLang].btn_submit;
           
-          showSuccessModal({
-            name: fullName,
-            email: email,
-            phone: `${phonePrefix} ${phoneNum}`,
-            profession: title
-          });
+          window.tncBooking.continueToCalendar({ name: fullName, email, lang: currentLang });
           
           applyForm.reset();
           if (typeof wordCounterSpan !== 'undefined' && wordCounterSpan) wordCounterSpan.textContent = '0';
@@ -1168,85 +1163,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnCloseModal && modalOverlay) {
     btnCloseModal.addEventListener('click', () => {
       modalOverlay.classList.remove('open');
-    });
-  }
-
-  // --- Book a Call form (book-call.html) ---
-  const bookForm = document.querySelector('#book-form');
-  if (bookForm) {
-    const bookSubmitBtn = document.querySelector('#book-submit-btn');
-    const bookSubmitText = document.querySelector('#book-submit-btn-text');
-    const bookSubmitSpinner = document.querySelector('#book-submit-spinner');
-    const bookModalOverlay = document.querySelector('#book-modal-overlay');
-    const bookCalendlyBtn = document.querySelector('#book-calendly-btn');
-    const CALENDLY_URL = 'https://calendly.com/rania-thenextchapter/30min';
-
-    // Prefill name/email on the Calendly form so the visitor is not asked twice.
-    const buildCalendlyUrl = () => {
-      const params = new URLSearchParams();
-      const name = document.querySelector('#book-fullname').value.trim();
-      const email = document.querySelector('#book-email').value.trim();
-      if (name) params.set('name', name);
-      if (email) params.set('email', email);
-      const query = params.toString();
-      return query ? `${CALENDLY_URL}?${query}` : CALENDLY_URL;
-    };
-
-    bookForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      if (!bookForm.checkValidity()) {
-        bookForm.reportValidity();
-        return;
-      }
-
-      bookSubmitBtn.disabled = true;
-      bookSubmitText.textContent = translations[currentLang].btn_book_submitting;
-      bookSubmitSpinner.style.display = 'inline-block';
-
-      const calendlyUrl = buildCalendlyUrl();
-      if (bookCalendlyBtn) bookCalendlyBtn.href = calendlyUrl;
-      if (bookModalOverlay) bookModalOverlay.classList.add('open');
-
-      // Save the request first, so there is a record in the inbox even when the
-      // visitor drops off before actually picking a slot on Calendly.
-      const topicSelect = document.querySelector('#book-topic');
-      const payload = {
-        type: 'call_request',
-        name: document.querySelector('#book-fullname').value.trim(),
-        email: document.querySelector('#book-email').value.trim(),
-        phone: `${document.querySelector('#phone-prefix').value} ${document.querySelector('#form-phone-number').value.trim()}`,
-        company: document.querySelector('#book-company').value.trim() || null,
-        topics: topicSelect.options[topicSelect.selectedIndex].text,
-        message: document.querySelector('#book-message').value.trim(),
-        // 'Pending' on purpose: it is the status the inbox badge counts, so a
-        // new call request actually shows up as needing attention.
-        status: 'Pending'
-      };
-
-      const startedAt = Date.now();
-      let redirected = false;
-      const goToCalendly = () => {
-        if (redirected) return;
-        redirected = true;
-        window.location.href = calendlyUrl;
-      };
-
-      const insertPromise = supabaseClient
-        ? supabaseClient.from('rania_submissions').insert([payload])
-        : Promise.resolve({});
-
-      // Redirect once saved, but hold the modal at least 2.2s so it is readable.
-      // The modal's own button and the 6s backstop cover a slow or failed save 
-      // a booking should never be lost because the database was unreachable.
-      Promise.resolve(insertPromise)
-        .catch((err) => ({ error: err }))
-        .then(({ error } = {}) => {
-          if (error) console.error('Call request save failed:', error);
-          setTimeout(goToCalendly, Math.max(0, 2200 - (Date.now() - startedAt)));
-        });
-
-      setTimeout(goToCalendly, 6000);
     });
   }
 
@@ -1444,12 +1360,7 @@ document.addEventListener('DOMContentLoaded', () => {
           sponsorSubmitBtn.disabled = false;
           sponsorSubmitText.textContent = translations[currentLang].btn_submit_sponsor || "Submit Sponsor Inquiry";
           
-          showSuccessModal({
-            name: contactName,
-            email: email,
-            phone: `${phonePrefix} ${phoneNum}`,
-            profession: `${tier} Sponsor (${companyName})`
-          });
+          window.tncBooking.continueToCalendar({ name: contactName, email, lang: currentLang });
           
           sponsorFormEl.reset();
           sponsorPhonePrefixInput.value = '+971';

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, follow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Choose a Time with Rania | The Next Chapter</title>
+  <link rel="icon" href="/assets/tnc_logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Inter:wght@400;500;600&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="/assets/booking.js" defer></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #faf8f3; color: #211b14; font-family: Inter, sans-serif; }
+    header { max-width: 1120px; margin: auto; padding: 24px; display: flex; justify-content: space-between; gap: 20px; align-items: center; border-bottom: 1px solid #ded8ce; }
+    a { color: inherit; text-underline-offset: 4px; }
+    .brand { text-decoration: none; font-family: 'Cormorant Garamond', serif; font-size: 25px; }
+    #schedule-home { font-size: 13px; }
+    main { max-width: 1120px; margin: auto; padding: 42px 24px 30px; }
+    .intro { text-align: center; margin-bottom: 24px; }
+    .kicker { font-size: 11px; text-transform: uppercase; letter-spacing: .16em; color: #876527; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(36px, 5vw, 54px); line-height: 1.15; margin: 14px 0; }
+    .intro p:last-child { color: #6b6258; font-size: 15px; line-height: 1.7; }
+    .calendar { position: relative; background: #fff; border: 1px solid #ded8ce; border-radius: 8px; overflow: hidden; }
+    #calendly-embed { min-width: 0; min-height: 760px; height: 760px; direction: ltr; }
+    #calendar-loading { position: absolute; top: 18px; left: 20px; right: 20px; text-align: center; font-size: 14px; color: #6b6258; pointer-events: none; }
+    .fallback { text-align: center; color: #6b6258; font-size: 13px; line-height: 1.7; margin-top: 20px; }
+    .fallback a { color: #211b14; }
+    :focus-visible { outline: 2px solid #b8862e; outline-offset: 4px; }
+    [hidden] { display: none !important; }
+    html[lang="ar"] body, html[lang="ar"] h1 { font-family: Tajawal, sans-serif; }
+    @media (max-width: 600px) { header { padding: 18px 16px; } main { padding: 28px 8px; } .intro { padding: 0 16px; } #calendly-embed { height: 900px; } .brand { font-size: 22px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="/">The Next Chapter</a>
+    <a id="schedule-home" href="/">Back to the website</a>
+  </header>
+  <main>
+    <div class="intro">
+      <p class="kicker" id="schedule-kicker">Next step</p>
+      <h1 id="schedule-title">Choose a time to talk with Rania</h1>
+      <p id="schedule-description">Pick a day and time that works for you in the calendar below.</p>
+    </div>
+    <div class="calendar">
+      <p id="calendar-loading" role="status">Loading the calendar…</p>
+      <div id="calendly-embed" aria-label="Book a call with Rania"></div>
+    </div>
+    <p class="fallback"><span id="calendar-fallback-text">Calendar not showing?</span> <a id="calendar-fallback" href="https://calendly.com/rania-thenextchapter/30min" target="_blank" rel="noopener noreferrer">Open the calendar in a new window</a></p>
+    <noscript><p class="fallback">Use the calendar link above to choose a time.</p></noscript>
+  </main>
+</body>
+</html>
